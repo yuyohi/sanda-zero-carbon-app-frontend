@@ -1,34 +1,29 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
 import './App.css';
+import GenreButton from './components/lookback/GenreButton';
+import MissionList from './components/lookback/MissionList';
+import DailyGraph from './components/lookback/DailyGraph';
 
+// var today は書き換える
 const App = () => {
-  const [count, setCount] = useState(0);
+  const today = new Date();
 
   return (
     <div className="App">
       <div>
-        <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <GenreButton />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button type="button" onClick={() => setCount((c) => c + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit
-          <code>src/App.tsx</code>
-          and save to test HMR
-        </p>
+      <br />
+      <div>
+        <DailyGraph />
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <br />
+      <div>
+        <MissionList date={today} />
+      </div>
+      <br />
+      <div>
+        <MissionList date={today} />
+      </div>
     </div>
   );
 };
