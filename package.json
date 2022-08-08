@@ -16,10 +16,16 @@
     "prepare": "simple-git-hooks > /dev/null"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.0",
+    "@emotion/styled": "^11.10.0",
+    "@mui/material": "^5.9.3",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.3.0",
+    "recoil": "^0.7.4"
   },
   "devDependencies": {
+    "@emotion/babel-plugin": "^11.10.0",
     "@types/eslint": "^8.4.5",
     "@types/prettier": "^2.6.4",
     "@types/react": "^18.0.15",
