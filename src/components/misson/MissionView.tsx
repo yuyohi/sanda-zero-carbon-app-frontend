@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid';
 import { Container, Typography } from '@mui/material';
 import CircularLevelView from './CircularLevelView';
 import DailyLimitPoint from './DailyLimitPoint';
-import DailyMisson from './DailyMission';
+import DailyMisson from './DailyMissionList';
 
 const MissionView = () => (
   <Container
