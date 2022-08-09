@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
 import TotalCondition from './totalCondition';
 import LevelView from './levelView';
 import ArticleView from './articleView';
@@ -21,7 +22,7 @@ const MainMenu: FC = () => {
   return (
     <Box sx={{ width: '100vw' }}>
       <Box sx={{ position: 'fixed', top: 0, left: 0, right: 0 }}>
-        <span style={{ height: 10, display: 'block' }} />
+        <span style={{ height: 20, display: 'block' }} />
         <Grid container spacing={4}>
           <Grid item xs={0.5}>
             <span />
@@ -39,10 +40,18 @@ const MainMenu: FC = () => {
           </Grid>
         </Grid>
       </Box>
-      <Box>
+      <Container sx={{ textAlign: 'center' }}>
         <Map />
-      </Box>
-      <Box sx={{ display: 'flex' }}>
+      </Container>
+      <Box
+        sx={{
+          display: 'flex',
+          position: 'fixed',
+          left: 0,
+          right: 0,
+          bottom: '10vh',
+        }}
+      >
         <div style={{ width: 10 }} />
         <TotalCondition co2Reduction={30} />
         <div style={{ flexGrow: 1 }} />

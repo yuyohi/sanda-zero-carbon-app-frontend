@@ -32,16 +32,18 @@ const ArticleView: FC<Articles> = ({ articles }) => {
   });
 
   return (
-    <Card>
-      <Typography variant="h5" component="h5" sx={{ padding: 2 }}>
-        {articles ? articles[currentPage].title : false}
-      </Typography>
-      <Box sx={{ display: 'inline' }}>
-        <Typography>
-          {formatDistanceToNow(articles[currentPage].date, { locale: ja })}前
+    <Box sx={{ textAlign: 'center' }}>
+      <Card>
+        <Typography variant="h5" component="h5" sx={{ padding: 2 }}>
+          {articles ? articles[currentPage].title : false}
         </Typography>
-      </Box>
-    </Card>
+        <Box sx={{ display: 'inline', textAlign: 'end' }}>
+          <Typography sx={{ mr: 3 }}>
+            {formatDistanceToNow(articles[currentPage].date, { locale: ja })}前
+          </Typography>
+        </Box>
+      </Card>
+    </Box>
   );
 };
 
