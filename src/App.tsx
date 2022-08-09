@@ -2,9 +2,9 @@ import { FC } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { Box, ThemeProvider } from '@mui/material';
-import MainMenu from './components/main-menu/mainMenu';
 import FixedBottomNavigation from './components/navigationBar';
 import theme from './theme/theme';
+import LookbackView from './components/lookback/LookbackView';
 
 const App: FC = () => (
   <RecoilRoot>
@@ -14,7 +14,7 @@ const App: FC = () => (
           <FixedBottomNavigation />
         </Box>
         <Routes>
-          <Route path="/" element={<MainMenu />} />
+          <Route path="/" element={<LookbackView />} />
         </Routes>
       </ThemeProvider>
     </BrowserRouter>
