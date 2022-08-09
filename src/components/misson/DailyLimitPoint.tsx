@@ -1,12 +1,12 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/destructuring-assignment */
-import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import LinearProgress, {
   LinearProgressProps,
 } from '@mui/material/LinearProgress';
 import Typography from '@mui/material/Typography';
 import { Grid } from '@mui/material';
+import runningKippy from '../../assets/running_kippy.png';
 
 const DailyLimitPoint = (props: LinearProgressProps & { value: number }) => (
   <Card
@@ -36,14 +36,6 @@ const DailyLimitPoint = (props: LinearProgressProps & { value: number }) => (
           <Grid item xs={12}>
             <Typography>本日の獲得ポイント</Typography>
           </Grid>
-        </Grid>
-        <Grid
-          container
-          direction="row"
-          alignItems="stretch"
-          justifyContent="center"
-          spacing={1}
-        >
           <Grid item xs={12}>
             <LinearProgress
               variant="determinate"
@@ -51,28 +43,15 @@ const DailyLimitPoint = (props: LinearProgressProps & { value: number }) => (
               sx={{ width: 'auto' }}
             />
           </Grid>
-        </Grid>
-        <Grid
-          container
-          direction="row"
-          alignItems="stretch"
-          justifyContent="center"
-          spacing={1}
-        >
           <Grid item xs={12}>
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <Typography
-                variant="caption"
-                component="div"
-                color="text.secondary"
-              >{`${Math.round(props.value)} / 100 Pt`}</Typography>
-            </Box>
+            <Typography
+              variant="caption"
+              component="div"
+              color="text.secondary"
+            >{`${Math.round(props.value)} / 100 Pt`}</Typography>
+          </Grid>
+          <Grid item xs={12}>
+            <img src={runningKippy} alt="runningkippy" width="200" />
           </Grid>
         </Grid>
       </Grid>
