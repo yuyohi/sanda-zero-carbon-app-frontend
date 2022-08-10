@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   Button,
   ButtonGroup,
@@ -15,7 +16,10 @@ import {
   useTheme,
 } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
-import React from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
+import { useRecoilValue } from 'recoil';
+import ky from 'ky';
+import userState from '../../atoms/userAtom';
 
 type Mission = {
   missionId: number;
@@ -30,12 +34,18 @@ type Mission = {
   keyword: string;
 };
 
-const MissionList = (props: { missionList: Array<Mission> }) => {
-  const { missionList } = props;
+const MissionList = (props: {
+  missionList: Array<Mission>;
+  setReloadCount: Dispatch<SetStateAction<number>>;
+  reloadCount: number;
+}) => {
+  const { missionList, setReloadCount, reloadCount } = props;
 
   const [selectedMission, setSelectedMission] = React.useState<Mission | null>(
     null,
   );
+
+  const [missionTime, setMissionTime] = useState<number>(1);
 
   const [informedMisson, setInformedMisson] = React.useState<Mission | null>(
     null,
@@ -45,15 +55,37 @@ const MissionList = (props: { missionList: Array<Mission> }) => {
     setSelectedMission(null);
   };
 
-  const handleClickAchive = (misson: Mission) => {
+  const handleClickAchive = (misson: Mission, time: number) => {
     setSelectedMission(misson);
+    setMissionTime(time);
   };
+
+  const uid = useRecoilValue(userState);
 
   const handleCloseInfo = () => {
     setInformedMisson(null);
   };
   const handleClickInfo = (misson: Mission) => {
     setInformedMisson(misson);
+  };
+
+  const handleAchiveMission = () => {
+    const postMission = async () => {
+      const response = await ky.post(
+        'http://localhost:18080/api/mission/achieve',
+        {
+          json: {
+            missionId: selectedMission?.missionId,
+            userId: uid,
+            hour: missionTime,
+            isDailyMission: false,
+          },
+        },
+      );
+    };
+    void postMission();
+    setSelectedMission(null);
+    setReloadCount(reloadCount + 1);
   };
 
   const theme = useTheme();
@@ -128,7 +160,7 @@ const MissionList = (props: { missionList: Array<Mission> }) => {
                   <Button
                     variant="outlined"
                     size="medium"
-                    onClick={() => handleClickAchive(mission)}
+                    onClick={() => handleClickAchive(mission, 1)}
                   >
                     {`達成 [${mission.point}Pt]`}
                   </Button>
@@ -138,21 +170,21 @@ const MissionList = (props: { missionList: Array<Mission> }) => {
                     <Button
                       variant="outlined"
                       size="small"
-                      onClick={() => handleClickAchive(mission)}
+                      onClick={() => handleClickAchive(mission, 1)}
                     >
                       {`達成 (1時間) [${mission.point}Pt]`}
                     </Button>
                     <Button
                       variant="outlined"
                       size="small"
-                      onClick={() => handleClickAchive(mission)}
+                      onClick={() => handleClickAchive(mission, 2)}
                     >
                       {`達成 (2時間)[${mission.point * 2}Pt]`}
                     </Button>
                     <Button
                       variant="outlined"
                       size="small"
-                      onClick={() => handleClickAchive(mission)}
+                      onClick={() => handleClickAchive(mission, 3)}
                     >
                       {`達成 (3時間)[${mission.point * 3}Pt]`}
                     </Button>
@@ -171,7 +203,7 @@ const MissionList = (props: { missionList: Array<Mission> }) => {
                       キャンセル
                     </Button>
                     <Button
-                      onClick={handleCloseAchive}
+                      onClick={handleAchiveMission}
                       color="primary"
                       autoFocus
                     >

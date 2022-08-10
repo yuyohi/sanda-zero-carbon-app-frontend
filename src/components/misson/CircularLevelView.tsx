@@ -1,17 +1,13 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/jsx-props-no-spreading */
-import CircularProgress, {
-  CircularProgressProps,
-} from '@mui/material/CircularProgress';
+import CircularProgress from '@mui/material/CircularProgress';
 import Typography from '@mui/material/Typography';
 import { Box, Card, Stack } from '@mui/material';
+import { UserLevelStatus } from './TypeDefinition';
 
-const level = 37;
-const levelupLate = 150;
-const CircularLevelView = (
-  props: CircularProgressProps & { value: number },
-) => {
-  const pointRatio = Math.round((props.value / levelupLate) * 100);
+const CircularLevelView = (props: { userLevelStatus: UserLevelStatus }) => {
+  const { totalPoint, level, levelRate, nextLevelPercentage } =
+    props.userLevelStatus;
 
   return (
     <Card
@@ -32,7 +28,11 @@ const CircularLevelView = (
           m: '0.5rem',
         }}
       >
-        <CircularProgress variant="determinate" {...props} value={pointRatio} />
+        <CircularProgress
+          variant="determinate"
+          value={nextLevelPercentage * 100}
+          size="15rem"
+        />
       </Box>
 
       <Box
@@ -47,20 +47,27 @@ const CircularLevelView = (
           justifyContent: 'center',
         }}
       >
-        <Stack spacing={2}>
+        <Stack spacing={1}>
           <Typography>{`Level :${level}`}</Typography>
 
           <Typography
             variant="caption"
             component="div"
             color="text.secondary"
-          >{`${props.value} / ${levelupLate} Pt`}</Typography>
+          >{`${Math.round(
+            nextLevelPercentage * 100,
+          )} / ${levelRate} Pt`}</Typography>
 
           <Typography
             variant="caption"
             component="div"
             color="text.secondary"
-          >{`${pointRatio}%`}</Typography>
+          >{`${Math.round(nextLevelPercentage * 100)}%`}</Typography>
+          <Typography
+            variant="caption"
+            component="div"
+            color="text.secondary"
+          >{`累計ポイント: ${totalPoint}Pt`}</Typography>
         </Stack>
       </Box>
     </Card>
