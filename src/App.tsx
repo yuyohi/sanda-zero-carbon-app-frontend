@@ -1,9 +1,11 @@
 import { FC } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { Box, ThemeProvider } from '@mui/material';
 import MainMenu from './components/main-menu/mainMenu';
 import FixedBottomNavigation from './components/navigationBar';
+import LoginPage from './containers/login/loginPage';
+import SignUpPage from './containers/login/signUpPage';
 import theme from './theme/theme';
 
 const App: FC = () => (
@@ -14,7 +16,10 @@ const App: FC = () => (
           <FixedBottomNavigation />
         </Box>
         <Routes>
-          <Route path="/" element={<MainMenu />} />
+          <Route path="/" element={<Navigate to="login" replace />} />
+          <Route path="login" element={<LoginPage />} />
+          <Route path="signup" element={<SignUpPage />} />
+          <Route path="menu" element={<MainMenu />} />
         </Routes>
       </ThemeProvider>
     </BrowserRouter>
