@@ -21,6 +21,7 @@
     "@mui/icons-material": "^5.8.4",
     "@mui/material": "^5.9.3",
     "date-fns": "^2.29.1",
+    "ky": "^0.31.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.3.0",
