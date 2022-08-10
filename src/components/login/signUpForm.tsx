@@ -15,7 +15,8 @@ import {
 import Form from './form';
 
 export type SignUpFormInput = {
-  text: string;
+  id: string;
+  age: number;
   password: string;
   confirmPassword: string;
 };
@@ -39,8 +40,17 @@ const SignUpForm: FC<SignUpFormProps> = ({
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
           <Form
             label="ユーザーID"
-            formName="text"
+            formName="id"
             type="text"
+            register={register}
+            errors={errors}
+          />
+        </Box>
+        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+          <Form
+            label="年齢"
+            formName="age"
+            type="number"
             register={register}
             errors={errors}
           />
