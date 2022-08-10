@@ -1,6 +1,6 @@
 import { Card } from '@mui/material';
-import React, { FC } from 'react';
-import { Bar, BarChart, ResponsiveContainer } from 'recharts';
+import { FC } from 'react';
+import { Bar, BarChart, ResponsiveContainer, XAxis } from 'recharts';
 
 const Data = [
   { name: '月', point: 30 },
@@ -16,7 +16,8 @@ const DailyGraph: FC = () => (
   <Card sx={{ width: '100vw' }}>
     <ResponsiveContainer width="100%" aspect={2}>
       <BarChart data={Data}>
-        <Bar dataKey="point" fill="#8884d8" />
+        <Bar dataKey="point" fill="#8884d8" label={{ position: 'top' }} />
+        <XAxis dataKey="name" />
       </BarChart>
     </ResponsiveContainer>
   </Card>
