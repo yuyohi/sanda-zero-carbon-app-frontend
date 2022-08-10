@@ -41,7 +41,9 @@ const DailyLimitPoint = (props: { userDailyStatus: UserDailyStatus }) => {
             <Grid item xs={12}>
               <LinearProgress
                 variant="determinate"
-                value={dailyTotalPoint}
+                value={Math.round(
+                  (dailyTotalPoint / dailyMaxMissionPoint) * 100,
+                )}
                 sx={{ width: 'auto' }}
               />
             </Grid>

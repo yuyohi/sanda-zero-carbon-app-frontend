@@ -1,6 +1,9 @@
+/* eslint-disable no-unsafe-optional-chaining */
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react/no-unused-prop-types */
 import {
+  Box,
   Button,
   Card,
   CardContent,
@@ -65,16 +68,20 @@ const DailyMissionList = (props: {
 
   const handleAchiveMission = () => {
     const postMission = async () => {
-      const response = await ky.post('localhost:18080/api/mission/achieve', {
-        json: {
-          missionId: selectedMission?.missionId,
-          userId: uid,
-          hour: 1,
-          isDailyMission: true,
+      const response = await ky.post(
+        'http://localhost:18080/api/mission/achieve',
+        {
+          json: {
+            missionId: selectedMission?.missionId,
+            userId: uid,
+            hour: 1,
+            isDailyMission: true,
+          },
         },
-      });
+      );
     };
     void postMission();
+    setSelectedMission(null);
     setReloadCount(reloadCount + 1);
   };
 
@@ -93,7 +100,7 @@ const DailyMissionList = (props: {
             justifyContent: 'center',
           }}
         >
-          {dailyMissionList.map((mission) => (
+          {dailyMissionList.map((mission, index) => (
             <>
               <Grid item xs={8}>
                 <Card
@@ -120,7 +127,7 @@ const DailyMissionList = (props: {
                     </Typography>
                     <Typography>
                       {informedMisson &&
-                        `獲得ポイント： ${informedMisson?.point} Pt`}
+                        `獲得ポイント： ${informedMisson?.point * 2} Pt`}
                     </Typography>
                     <Typography>
                       {informedMisson &&

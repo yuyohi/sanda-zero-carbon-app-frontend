@@ -71,14 +71,17 @@ const MissionList = (props: {
 
   const handleAchiveMission = () => {
     const postMission = async () => {
-      const response = await ky.post('localhost:18080/api/mission/achieve', {
-        json: {
-          missionId: selectedMission?.missionId,
-          userId: uid,
-          hour: missionTime,
-          isDailyMission: false,
+      const response = await ky.post(
+        'http://localhost:18080/api/mission/achieve',
+        {
+          json: {
+            missionId: selectedMission?.missionId,
+            userId: uid,
+            hour: missionTime,
+            isDailyMission: false,
+          },
         },
-      });
+      );
     };
     void postMission();
     setSelectedMission(null);

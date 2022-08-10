@@ -28,7 +28,11 @@ const CircularLevelView = (props: { userLevelStatus: UserLevelStatus }) => {
           m: '0.5rem',
         }}
       >
-        <CircularProgress variant="determinate" value={nextLevelPercentage} />
+        <CircularProgress
+          variant="determinate"
+          value={nextLevelPercentage * 100}
+          size="15rem"
+        />
       </Box>
 
       <Box
@@ -43,22 +47,22 @@ const CircularLevelView = (props: { userLevelStatus: UserLevelStatus }) => {
           justifyContent: 'center',
         }}
       >
-        <Stack spacing={2}>
+        <Stack spacing={1}>
           <Typography>{`Level :${level}`}</Typography>
 
           <Typography
             variant="caption"
             component="div"
             color="text.secondary"
-          >{`${
-            levelRate * (nextLevelPercentage * 0.01)
-          } / ${levelRate} Pt`}</Typography>
+          >{`${Math.round(
+            nextLevelPercentage * 100,
+          )} / ${levelRate} Pt`}</Typography>
 
           <Typography
             variant="caption"
             component="div"
             color="text.secondary"
-          >{`${nextLevelPercentage}%`}</Typography>
+          >{`${Math.round(nextLevelPercentage * 100)}%`}</Typography>
           <Typography
             variant="caption"
             component="div"
