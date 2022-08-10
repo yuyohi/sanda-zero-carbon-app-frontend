@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable react/no-unused-prop-types */
 import {
   Button,
   Card,
@@ -14,7 +16,8 @@ import {
   useTheme,
 } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
+import ky from 'ky';
 
 type DailyMission = {
   title: string;
@@ -28,7 +31,10 @@ type DailyMission = {
   keyword: string;
 };
 
-const DailyMissionList = (props: { dailyMissionList: Array<DailyMission> }) => {
+const DailyMissionList = (props: {
+  dailyMissionList: Array<DailyMission>;
+  setReloadCount: Dispatch<SetStateAction<number>>;
+}) => {
   const { dailyMissionList } = props;
 
   const [selectedMission, setSelectedMission] =
@@ -51,6 +57,17 @@ const DailyMissionList = (props: { dailyMissionList: Array<DailyMission> }) => {
   const handleClickInfo = (misson: DailyMission) => {
     setInformedMisson(misson);
   };
+
+  /*
+  const handleAchiveMission = async (uid: string) => {
+    const response = await ky.post('localhost:18080/api//mission/achieve', {
+      json: {
+        missionId: selectedMission?.missionId
+        userId: 
+      }
+    })
+  };
+  */
 
   const theme = useTheme();
 
