@@ -18,6 +18,8 @@ import {
 import InfoIcon from '@mui/icons-material/Info';
 import React, { Dispatch, SetStateAction } from 'react';
 import ky from 'ky';
+import { useRecoilValue } from 'recoil';
+import userState from '../../atoms/userAtom';
 
 type DailyMission = {
   title: string;
@@ -34,14 +36,17 @@ type DailyMission = {
 const DailyMissionList = (props: {
   dailyMissionList: Array<DailyMission>;
   setReloadCount: Dispatch<SetStateAction<number>>;
+  reloadCount: number;
 }) => {
-  const { dailyMissionList } = props;
+  const { dailyMissionList, setReloadCount, reloadCount } = props;
 
   const [selectedMission, setSelectedMission] =
     React.useState<DailyMission | null>(null);
 
   const [informedMisson, setInformedMisson] =
     React.useState<DailyMission | null>(null);
+
+  const uid = useRecoilValue(userState);
 
   const handleCloseAchive = () => {
     setSelectedMission(null);
@@ -58,16 +63,20 @@ const DailyMissionList = (props: {
     setInformedMisson(misson);
   };
 
-  /*
-  const handleAchiveMission = async (uid: string) => {
-    const response = await ky.post('localhost:18080/api//mission/achieve', {
-      json: {
-        missionId: selectedMission?.missionId
-        userId: 
-      }
-    })
+  const handleAchiveMission = () => {
+    const postMission = async () => {
+      const response = await ky.post('localhost:18080/api/mission/achieve', {
+        json: {
+          missionId: selectedMission?.missionId,
+          userId: uid,
+          hour: 1,
+          isDailyMission: true,
+        },
+      });
+    };
+    void postMission();
+    setReloadCount(reloadCount + 1);
   };
-  */
 
   const theme = useTheme();
 
@@ -154,7 +163,7 @@ const DailyMissionList = (props: {
                       キャンセル
                     </Button>
                     <Button
-                      onClick={handleCloseAchive}
+                      onClick={handleAchiveMission}
                       color="primary"
                       autoFocus
                     >

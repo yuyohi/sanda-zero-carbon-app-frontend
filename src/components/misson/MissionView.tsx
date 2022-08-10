@@ -3,32 +3,20 @@ import Grid from '@mui/material/Grid';
 import { Box, Container, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import ky from 'ky';
+import { useRecoilValue } from 'recoil';
 import CircularLevelView from './CircularLevelView';
 import DailyLimitPoint from './DailyLimitPoint';
 import DailyMissionList from './DailyMissionList';
 import MissionList from './MissonList';
-import Response from '../../utils/Response';
+import Response from '../../utils/response';
 import {
   DailyMission,
+  Mission,
   UserDailyStatus,
   UserDto,
   UserLevelStatus,
 } from './TypeDefinition';
-
-const uid = 'test';
-
-type Mission = {
-  missionId: number;
-  title: string;
-  point: number;
-  description: string;
-  CO2Reduction: number;
-  costReduction: number;
-  difficulty: string;
-  missionType: string;
-  tagId: number;
-  keyword: string;
-};
+import userState from '../../atoms/userAtom';
 
 /*
 const missions: Array<Mission> = [
@@ -125,24 +113,26 @@ const MissionView = () => {
   >();
   const [reloadCount, setReloadCount] = useState<number>(0);
 
+  const uid = useRecoilValue(userState);
+
   useEffect(() => {
     const fetchMission = async () => {
       const response: Response<Array<Mission>> = await ky(
-        'localhost:18080/api/mission',
+        'http://localhost:18080/api/mission',
       ).json();
       const missions = response.result;
       setMissionList(missions);
     };
     const fetchDailyMission = async () => {
       const response: Response<Array<DailyMission>> = await ky(
-        `localhost:18080/api/daily-mission/${uid}`,
+        `http://localhost:18080/api/daily-mission/${uid}`,
       ).json();
       const dailyMissions = response.result ? response.result : undefined;
       setDailyMissionList(dailyMissions);
     };
     const fetchUserLevelStatus = async () => {
       const response: Response<UserDto> = await ky(
-        `localhost:18080/api/user?userId=${uid}`,
+        `http://localhost:18080/api/user?userId=${uid}`,
       ).json();
       const uLevelStatus: UserLevelStatus = {
         totalPoint: response.result.totalPoint,
@@ -154,7 +144,7 @@ const MissionView = () => {
     };
     const fetchUserDailyStatus = async () => {
       const response: Response<UserDailyStatus> = await ky(
-        `localhost:18080/api/user/daily?userId=${uid}`,
+        `http://localhost:18080/api/user/daily?userId=${uid}`,
       ).json();
       const uDailyStatus = response.result;
       setuserDailyStatus(uDailyStatus);
@@ -164,7 +154,7 @@ const MissionView = () => {
     void fetchDailyMission();
     void fetchUserLevelStatus();
     void fetchUserDailyStatus();
-  }, [reloadCount]);
+  }, [reloadCount, uid]);
 
   return (
     <Container
@@ -196,11 +186,18 @@ const MissionView = () => {
             <DailyMissionList
               dailyMissionList={dailyMissionList}
               setReloadCount={setReloadCount}
+              reloadCount={reloadCount}
             />
           )}
         </Grid>
         <Grid item xs={12}>
-          {missionList && <MissionList missionList={missionList} />}
+          {missionList && (
+            <MissionList
+              missionList={missionList}
+              setReloadCount={setReloadCount}
+              reloadCount={reloadCount}
+            />
+          )}
         </Grid>
       </Grid>
     </Container>

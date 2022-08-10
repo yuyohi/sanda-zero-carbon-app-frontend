@@ -39,7 +39,11 @@ const DailyLimitPoint = (props: { userDailyStatus: UserDailyStatus }) => {
               <Typography>本日の獲得ポイント</Typography>
             </Grid>
             <Grid item xs={12}>
-              <LinearProgress variant="determinate" sx={{ width: 'auto' }} />
+              <LinearProgress
+                variant="determinate"
+                value={dailyTotalPoint}
+                sx={{ width: 'auto' }}
+              />
             </Grid>
             <Grid item xs={12}>
               <Typography
