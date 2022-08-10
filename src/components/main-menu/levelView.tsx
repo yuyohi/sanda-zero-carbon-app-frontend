@@ -3,9 +3,9 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import LinearProgress from '@mui/material/LinearProgress';
 
-type Status = {
-  level: number;
-  expProgress: number;
+export type Status = {
+  level?: number;
+  expProgress?: number;
 };
 
 const LevelView: FC<Status> = ({ level, expProgress }) => (

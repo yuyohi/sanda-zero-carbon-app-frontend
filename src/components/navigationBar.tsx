@@ -2,8 +2,15 @@ import { FC } from 'react';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import Box from '@mui/material/Box';
-import RestoreIcon from '@mui/icons-material/Restore';
 import { useRecoilValue } from 'recoil';
+import {
+  Article,
+  Home,
+  InsertChart,
+  Quiz,
+  WorkspacePremium,
+} from '@mui/icons-material';
+import { Link } from 'react-router-dom';
 import drawBottomNavigationState from '../atoms/bottomNavigationAtom';
 
 const FixedBottomNavigation: FC = () => {
@@ -14,11 +21,20 @@ const FixedBottomNavigation: FC = () => {
       {drawBottomNavigation ? (
         <Box>
           <BottomNavigation>
-            <BottomNavigationAction label="ミッション" icon={<RestoreIcon />} />
-            <BottomNavigationAction label="振り返り" icon={<RestoreIcon />} />
-            <BottomNavigationAction label="ホーム" icon={<RestoreIcon />} />
-            <BottomNavigationAction label="クイズ" icon={<RestoreIcon />} />
-            <BottomNavigationAction label="バッジ" icon={<RestoreIcon />} />
+            <Link to="/mission">
+              <BottomNavigationAction
+                label="Mission"
+                icon={<WorkspacePremium />}
+              />
+            </Link>
+            <Link to="/lookback">
+              <BottomNavigationAction label="Lookback" icon={<InsertChart />} />
+            </Link>
+            <Link to="/menu">
+              <BottomNavigationAction label="Home" icon={<Home />} />
+            </Link>
+            <BottomNavigationAction label="Quiz" icon={<Quiz />} />
+            <BottomNavigationAction label="Article" icon={<Article />} />
           </BottomNavigation>
         </Box>
       ) : (
