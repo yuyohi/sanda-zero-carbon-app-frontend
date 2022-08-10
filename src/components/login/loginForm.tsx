@@ -16,7 +16,7 @@ import {
 import Form from './form';
 
 export type LoginFormInput = {
-  text: string;
+  id: string;
   password: string;
 };
 
@@ -39,7 +39,7 @@ const LoginForm: FC<LoginFormProps> = ({
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
           <Form
             label="ユーザーID"
-            formName="text"
+            formName="id"
             type="text"
             register={register}
             errors={errors}

@@ -1,22 +1,16 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { FC } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import ky from 'ky';
-import SignUpFormView from '../../components/login/signUpForm';
-
-export type SignUpFormInput = {
-  text: string;
-  password: string;
-  confirmPassword: string;
-};
-
-type ExistResponse = {
-  code: string;
-  message: string;
-  result: boolean;
-};
+import { useNavigate } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
+import userState from '../../atoms/userAtom';
+import drawBottomNavigationState from '../../atoms/bottomNavigationAtom';
+import SignUpFormView, {
+  SignUpFormInput,
+} from '../../components/login/signUpForm';
+import type Response from '../../utils/response';
 
 // ユーザIDが既に存在するかをチェックする
 const isUnique = async (id: string | undefined): Promise<boolean> => {
@@ -24,24 +18,17 @@ const isUnique = async (id: string | undefined): Promise<boolean> => {
     return false;
   }
 
-  const response = await ky.get(
-    `http://localhost:18080/api/user/exist?userId=${id}`,
-    {
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-      },
-    },
-  );
-
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-  const body = (await response.json()) as ExistResponse;
+  const response = (await ky
+    .get(`http://localhost:18080/api/user/exist?userId=${id}`)
+    .json()) as Response<boolean>;
 
-  return body.result;
+  return !response.result;
 };
 
 // バリデーションルール
 const schema = yup.object({
-  text: yup
+  id: yup
     .string()
     .required('ユーザーIDを入力して下さい')
     .test('user-id-test', '既に存在します', (id) => isUnique(id)),
@@ -68,8 +55,28 @@ const SignUpForm: FC = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit: SubmitHandler<SignUpFormInput> = ({ email, password }) => {
-    console.log('test');
+  const setUserId = useSetRecoilState(userState);
+  const setDrawBottomNavigation = useSetRecoilState(drawBottomNavigationState);
+  const navigate = useNavigate();
+
+  const onSubmit: SubmitHandler<SignUpFormInput> = ({ id, password, age }) => {
+    const postData = async () => {
+      const encodedPassword = btoa(password);
+
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const response = await ky.post(`http://localhost:18080/api/user`, {
+        json: {
+          userId: id,
+          password: encodedPassword,
+          age,
+        },
+      });
+
+      setUserId(id);
+      setDrawBottomNavigation(true);
+      navigate('../menu');
+    };
+    void postData();
   };
 
   return (
