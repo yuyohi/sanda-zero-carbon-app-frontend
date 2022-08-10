@@ -18,15 +18,19 @@
   "dependencies": {
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
+    "@hookform/resolvers": "^2.9.7",
     "@mui/icons-material": "^5.8.4",
     "@mui/material": "^5.9.3",
     "date-fns": "^2.29.1",
+    "http-proxy-middleware": "^2.0.6",
     "ky": "^0.31.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-hook-form": "^7.34.0",
     "react-router-dom": "^6.3.0",
     "recharts": "^2.1.13",
-    "recoil": "^0.7.4"
+    "recoil": "^0.7.4",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@emotion/babel-plugin": "^11.10.0",
@@ -34,6 +38,7 @@
     "@types/prettier": "^2.6.4",
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
+    "@types/yup": "^0.29.14",
     "@typescript-eslint/eslint-plugin": "^5.32.0",
     "@typescript-eslint/parser": "^5.32.0",
     "@vitejs/plugin-react": "^2.0.0",
