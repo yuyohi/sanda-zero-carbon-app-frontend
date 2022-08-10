@@ -4,6 +4,8 @@ import { RecoilRoot } from 'recoil';
 import { Box, CssBaseline, ThemeProvider } from '@mui/material';
 import MainMenu from './components/main-menu/mainMenu';
 import FixedBottomNavigation from './components/navigationBar';
+import LoginPage from './containers/login/loginPage';
+import SignUpPage from './containers/login/signUpPage';
 import theme from './theme/theme';
 import MissionView from './components/misson/MissionView';
 import LookbackView from './components/lookback/LookbackView';
@@ -17,10 +19,11 @@ const App: FC = () => (
     <RecoilRoot>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<MainMenu />} />
-          <Route path="/mission" element={<MissionView />} />
-          {/* <Route path="/lookback" element={<MissionView />} /> */}
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignUpPage />} />
           <Route path="/lookback" element={<LookbackView />} />
+          <Route path="/menu" element={<MainMenu />} />
+          <Route path="/mission" element={<MissionView />} />
         </Routes>
       </BrowserRouter>
     </RecoilRoot>
