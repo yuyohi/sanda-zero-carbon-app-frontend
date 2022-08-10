@@ -3,9 +3,9 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import TotalCondition from './totalCondition';
-import LevelView from './levelView';
+import LevelStatus from '../../containers/main-menu/levelStatus';
 import ArticleView from './articleView';
-import Map from './map';
+import Map from '../../containers/main-menu/map';
 
 const MainMenu: FC = () => {
   const articles = [
@@ -28,7 +28,7 @@ const MainMenu: FC = () => {
             <span />
           </Grid>
           <Grid item xs={2.5}>
-            <LevelView level={49} expProgress={60} />
+            <LevelStatus />
           </Grid>
           <Grid item xs={8.5}>
             <Box alignItems="center">
