@@ -11,7 +11,7 @@ const MainMenu: FC = () => {
   const articles = [
     {
       title: 'test_1',
-      date: new Date(2022, 8, 7, 10, 13),
+      date: new Date(2022, 8, 7, 10, 12),
     },
     {
       title: 'test_2',
