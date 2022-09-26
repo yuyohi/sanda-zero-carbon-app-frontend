@@ -5,6 +5,7 @@ import LinearProgress from '@mui/material/LinearProgress';
 import Typography from '@mui/material/Typography';
 import { Grid } from '@mui/material';
 import runningKippy from '../../assets/running_kippy.png';
+import flame1 from '../../assets/flame_1.png';
 import { UserDailyStatus } from './TypeDefinition';
 
 const DailyLimitPoint = (props: { userDailyStatus: UserDailyStatus }) => {
@@ -12,12 +13,19 @@ const DailyLimitPoint = (props: { userDailyStatus: UserDailyStatus }) => {
 
   return (
     <Card
-      sx={{ position: 'relative', height: '100%', backgroundColor: '#ffffff' }}
+      sx={{
+        position: 'relative',
+        height: '100%',
+        backgroundColor: 'transparent',
+        backgroundImage: `url(${flame1})`,
+        backgroundSize: 'cover',
+        boxShadow: 'none',
+      }}
     >
       <Grid
         container
         direction="row"
-        alignItems="stretch"
+        alignItems="center"
         justifyContent="center"
         spacing={1}
         sx={{
@@ -32,7 +40,7 @@ const DailyLimitPoint = (props: { userDailyStatus: UserDailyStatus }) => {
             justifyContent="center"
             spacing={1}
             sx={{
-              mt: '1rem',
+              mt: '6rem',
             }}
           >
             <Grid item xs={12}>
@@ -56,8 +64,8 @@ const DailyLimitPoint = (props: { userDailyStatus: UserDailyStatus }) => {
                 dailyTotalPoint,
               )} / ${dailyMaxMissionPoint} Pt`}</Typography>
             </Grid>
-            <Grid item xs={12}>
-              <img src={runningKippy} alt="runningkippy" width="200" />
+            <Grid item xs={12} sx={{ justifyContent: 'flex-end' }}>
+              <img src={runningKippy} alt="runningkippy" width="150" />
             </Grid>
           </Grid>
         </Grid>

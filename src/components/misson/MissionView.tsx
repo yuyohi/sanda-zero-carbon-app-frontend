@@ -17,6 +17,8 @@ import {
   UserLevelStatus,
 } from './TypeDefinition';
 import userState from '../../atoms/userAtom';
+import BackGround from '../../assets/background_1.jpg';
+import CustomAppBar from '../customAppBar';
 
 /*
 const missions: Array<Mission> = [
@@ -157,17 +159,8 @@ const MissionView = () => {
   }, [reloadCount, uid]);
 
   return (
-    <Container
-      sx={{
-        width: '100%',
-        m: '1rem',
-        position: 'relative',
-        top: '1rem',
-        left: '0',
-        right: '0',
-        overflowY: 'auto',
-      }}
-    >
+    <Container>
+      <CustomAppBar />
       <Grid container spacing={2}>
         <Grid item xs={12} sm={5.9} sx={{ m: '0.1rem', mb: '0.5rem' }}>
           {userLevelStatus && (
