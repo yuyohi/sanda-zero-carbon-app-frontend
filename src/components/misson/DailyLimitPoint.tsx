@@ -18,7 +18,7 @@ const DailyLimitPoint = (props: { userDailyStatus: UserDailyStatus }) => {
         height: '100%',
         backgroundColor: 'transparent',
         backgroundImage: `url(${flame1})`,
-        backgroundSize: 'cover',
+        backgroundSize: '100% 100%',
         boxShadow: 'none',
       }}
     >

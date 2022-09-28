@@ -115,7 +115,8 @@ const MissionView = () => {
   >();
   const [reloadCount, setReloadCount] = useState<number>(0);
 
-  const uid = useRecoilValue(userState);
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const uid: string = useRecoilValue(userState);
 
   useEffect(() => {
     const fetchMission = async () => {
@@ -161,19 +162,36 @@ const MissionView = () => {
   return (
     <Container>
       <CustomAppBar />
-      <Grid container spacing={2}>
-        <Grid item xs={12} sm={5.9} sx={{ m: '0.1rem', mb: '0.5rem' }}>
+
+      <Grid container spacing={1}>
+        {/*
+          <Grid item xs={12} md={5.9} sx={{ m: '0.1rem', mb: '0.5rem' }}>
           {userLevelStatus && (
             <CircularLevelView userLevelStatus={userLevelStatus} />
           )}
         </Grid>
-        <Grid item xs={12} sm={5.9} sx={{ m: '0.1rem', mb: '0.5rem' }}>
+        <Grid item xs={12} md={5.9} sx={{ m: '0.1rem', mb: '0.5rem' }}>
           {userDailyStatus && (
             <DailyLimitPoint userDailyStatus={userDailyStatus} />
           )}
         </Grid>
-      </Grid>
-      <Grid container spacing={1}>
+           */}
+        <Box
+          sx={{
+            width: { xs: 100, md: 350, lg: 490 },
+            height: '76%',
+          }}
+        >
+          {userLevelStatus && (
+            <CircularLevelView userLevelStatus={userLevelStatus} />
+          )}
+        </Box>
+        <Box sx={{ width: { xs: 100, md: 350, lg: 490 }, height: '76%' }}>
+          {userDailyStatus && (
+            <DailyLimitPoint userDailyStatus={userDailyStatus} />
+          )}
+        </Box>
+
         <Grid item xs={12}>
           {dailyMissionList && (
             <DailyMissionList
