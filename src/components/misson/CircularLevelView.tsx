@@ -29,13 +29,20 @@ const CircularLevelView = (props: { userLevelStatus: UserLevelStatus }) => {
             display: 'flex',
             alignSelf: 'center',
             justifyContent: 'center',
-            mt: '6rem',
+            mt: { xs: '3rem', md: '4.7rem', lg: '6.5rem' },
           }}
         >
           <CircularProgress
             variant="determinate"
             value={nextLevelPercentage * 100}
-            size="15rem"
+            size="13rem"
+            sx={{ display: { xs: 'none', md: 'none', lg: 'flex' } }}
+          />
+          <CircularProgress
+            variant="determinate"
+            value={nextLevelPercentage * 100}
+            size="11rem"
+            sx={{ display: { xs: 'none', md: 'flex', lg: 'none' } }}
           />
         </Box>
 

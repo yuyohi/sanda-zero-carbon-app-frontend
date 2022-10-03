@@ -49,7 +49,8 @@ const DailyMissionList = (props: {
   const [informedMisson, setInformedMisson] =
     React.useState<DailyMission | null>(null);
 
-  const uid = useRecoilValue(userState);
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const uid: string = useRecoilValue(userState);
 
   const handleCloseAchive = () => {
     setSelectedMission(null);

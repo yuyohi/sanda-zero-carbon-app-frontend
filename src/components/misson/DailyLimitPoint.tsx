@@ -40,7 +40,7 @@ const DailyLimitPoint = (props: { userDailyStatus: UserDailyStatus }) => {
             justifyContent="center"
             spacing={1}
             sx={{
-              mt: '6rem',
+              mt: { xs: '1rem', md: '4rem', lg: '6rem' },
             }}
           >
             <Grid item xs={12}>
@@ -64,8 +64,25 @@ const DailyLimitPoint = (props: { userDailyStatus: UserDailyStatus }) => {
                 dailyTotalPoint,
               )} / ${dailyMaxMissionPoint} Pt`}</Typography>
             </Grid>
-            <Grid item xs={12} sx={{ justifyContent: 'flex-end' }}>
+            <Grid
+              item
+              xs={12}
+              sx={{
+                justifyContent: 'flex-end',
+                display: { xs: 'none', md: 'none', lg: 'flex' },
+              }}
+            >
               <img src={runningKippy} alt="runningkippy" width="150" />
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              sx={{
+                justifyContent: 'flex-end',
+                display: { xs: 'none', md: 'flex', lg: 'none' },
+              }}
+            >
+              <img src={runningKippy} alt="runningkippy" width="100" />
             </Grid>
           </Grid>
         </Grid>

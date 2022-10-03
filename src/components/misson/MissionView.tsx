@@ -179,14 +179,19 @@ const MissionView = () => {
         <Box
           sx={{
             width: { xs: 100, md: 350, lg: 490 },
-            height: '76%',
+            height: { xs: 100, md: 266, lg: 345.7 },
           }}
         >
           {userLevelStatus && (
             <CircularLevelView userLevelStatus={userLevelStatus} />
           )}
         </Box>
-        <Box sx={{ width: { xs: 100, md: 350, lg: 490 }, height: '76%' }}>
+        <Box
+          sx={{
+            width: { xs: 100, md: 350, lg: 490 },
+            height: { xs: 100, md: 266, lg: 345.7 },
+          }}
+        >
           {userDailyStatus && (
             <DailyLimitPoint userDailyStatus={userDailyStatus} />
           )}

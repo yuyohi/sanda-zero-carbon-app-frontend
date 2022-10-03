@@ -60,7 +60,8 @@ const MissionList = (props: {
     setMissionTime(time);
   };
 
-  const uid = useRecoilValue(userState);
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const uid: string = useRecoilValue(userState);
 
   const handleCloseInfo = () => {
     setInformedMisson(null);
