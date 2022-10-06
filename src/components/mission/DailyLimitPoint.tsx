@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import { Grid } from '@mui/material';
 import runningKippy from '../../assets/running_kippy.png';
 import flame1 from '../../assets/flame_1.png';
-import { UserDailyStatus } from './TypeDefinition';
+import { UserDailyStatus } from '../../utils/TypeDefinition';
 
 const DailyLimitPoint = (props: { userDailyStatus: UserDailyStatus }) => {
   const { dailyTotalPoint, dailyMaxMissionPoint } = props.userDailyStatus;

@@ -15,7 +15,7 @@ import {
   UserDailyStatus,
   UserDto,
   UserLevelStatus,
-} from './TypeDefinition';
+} from '../../utils/TypeDefinition';
 import userState from '../../atoms/userAtom';
 import BackGround from '../../assets/background_1.jpg';
 import CustomAppBar from '../customAppBar';

@@ -3,7 +3,7 @@
 import CircularProgress from '@mui/material/CircularProgress';
 import Typography from '@mui/material/Typography';
 import { Box, Card, Stack } from '@mui/material';
-import { UserLevelStatus } from './TypeDefinition';
+import { UserLevelStatus } from '../../utils/TypeDefinition';
 import flame2 from '../../assets/flame_2.png';
 
 const CircularLevelView = (props: { userLevelStatus: UserLevelStatus }) => {

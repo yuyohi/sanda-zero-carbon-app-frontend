@@ -93,7 +93,7 @@ const MissionList = (props: {
 
   return (
     <Card sx={{ backgroundColor: '#ffffff' }}>
-      <CardHeader title="ミッション" />
+      <CardHeader title="ミッション" sx={{ backgroundColor: '#469DBD' }} />
       <CardContent>
         <Grid
           container

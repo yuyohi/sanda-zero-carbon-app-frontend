@@ -4,7 +4,7 @@ const theme = createTheme({
   palette: {
     background: {
       default: '#7EBFD6',
-      paper: '#7EBFD6',
+      paper: '#ffffff',
     },
   },
   breakpoints: {
