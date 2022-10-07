@@ -6,6 +6,7 @@ import TotalCondition from './totalCondition';
 import LevelStatus from '../../containers/main-menu/levelStatus';
 import ArticleView from './articleView';
 import Map from '../../containers/main-menu/map';
+import MapNavigation from '../../containers/main-menu/mapNavigation';
 
 const MainMenu: FC = () => {
   const articles = [
@@ -55,6 +56,8 @@ const MainMenu: FC = () => {
         <div style={{ width: 10 }} />
         <TotalCondition co2Reduction={30} />
         <div style={{ flexGrow: 1 }} />
+        <MapNavigation />
+        <div style={{ width: 10 }} />
       </Box>
     </Box>
   );
