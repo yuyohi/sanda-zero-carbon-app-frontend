@@ -1,11 +1,12 @@
 import Button from '@mui/material/Button';
 import { Dispatch, SetStateAction } from 'react';
+import { QuizCategory } from '../../utils/TypeDefinition';
 
 const CustomRadioButton = (props: {
   title: string;
   img: string;
-  quizCategory: string;
-  setShowQuizCategory: Dispatch<SetStateAction<string>>;
+  quizCategory: QuizCategory;
+  setShowQuizCategory: Dispatch<SetStateAction<QuizCategory>>;
 }) => {
   const { title, img, quizCategory, setShowQuizCategory } = props;
   const handleClick = () => {

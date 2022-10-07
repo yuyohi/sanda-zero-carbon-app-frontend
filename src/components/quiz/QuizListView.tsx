@@ -1,6 +1,7 @@
 import {
   Box,
   List,
+  ListItem,
   ListItemIcon,
   ListItemText,
   Typography,
@@ -15,10 +16,7 @@ const QuizListView = (props: { quizList: Array<Quiz> }) => {
     <Box>
       <List>
         {quizList.map((quiz) => (
-          <>
-            <ListItemIcon>
-              <ForwardIcon />
-            </ListItemIcon>
+          <ListItem>
             <ListItemText
               disableTypography
               primary={
@@ -27,7 +25,10 @@ const QuizListView = (props: { quizList: Array<Quiz> }) => {
                 </Typography>
               }
             />
-          </>
+            <ListItemIcon>
+              <ForwardIcon />
+            </ListItemIcon>
+          </ListItem>
         ))}
       </List>
     </Box>

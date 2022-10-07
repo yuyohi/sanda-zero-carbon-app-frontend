@@ -58,6 +58,13 @@ type Quiz = {
   tagId: number;
 };
 
+type QuizCategory = 'unAnswered' | 'notCorrect' | 'correct';
+
+type CategorizeQuiz = {
+  category: QuizCategory;
+  quiz: Array<Quiz>;
+};
+
 type AppBarSetting = {
   src: string;
   alt: string;
@@ -73,4 +80,6 @@ export type {
   UserLevelStatus,
   Quiz,
   AppBarSetting,
+  CategorizeQuiz,
+  QuizCategory,
 };
