@@ -15,8 +15,10 @@ import {
   UserDailyStatus,
   UserDto,
   UserLevelStatus,
-} from './TypeDefinition';
+} from '../../utils/TypeDefinition';
 import userState from '../../atoms/userAtom';
+import BackGround from '../../assets/background_1.jpg';
+import CustomAppBar from '../customAppBar';
 
 /*
 const missions: Array<Mission> = [
@@ -113,26 +115,27 @@ const MissionView = () => {
   >();
   const [reloadCount, setReloadCount] = useState<number>(0);
 
-  const uid = useRecoilValue(userState);
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const uid: string = useRecoilValue(userState);
 
   useEffect(() => {
     const fetchMission = async () => {
       const response: Response<Array<Mission>> = await ky(
-        'http://localhost:18080/api/mission',
+        `${import.meta.env.VITE_APP_API_URL}/mission`,
       ).json();
       const missions = response.result;
       setMissionList(missions);
     };
     const fetchDailyMission = async () => {
       const response: Response<Array<DailyMission>> = await ky(
-        `http://localhost:18080/api/daily-mission/${uid}`,
+        `${import.meta.env.VITE_APP_API_URL}/daily-mission/${uid}`,
       ).json();
       const dailyMissions = response.result ? response.result : undefined;
       setDailyMissionList(dailyMissions);
     };
     const fetchUserLevelStatus = async () => {
       const response: Response<UserDto> = await ky(
-        `http://localhost:18080/api/user?userId=${uid}`,
+        `${import.meta.env.VITE_APP_API_URL}/user?userId=${uid}`,
       ).json();
       const uLevelStatus: UserLevelStatus = {
         totalPoint: response.result.totalPoint,
@@ -144,7 +147,7 @@ const MissionView = () => {
     };
     const fetchUserDailyStatus = async () => {
       const response: Response<UserDailyStatus> = await ky(
-        `http://localhost:18080/api/user/daily?userId=${uid}`,
+        `${import.meta.env.VITE_APP_API_URL}/user/daily?userId=${uid}`,
       ).json();
       const uDailyStatus = response.result;
       setuserDailyStatus(uDailyStatus);
@@ -157,30 +160,43 @@ const MissionView = () => {
   }, [reloadCount, uid]);
 
   return (
-    <Container
-      sx={{
-        width: '100%',
-        m: '1rem',
-        position: 'relative',
-        top: '1rem',
-        left: '0',
-        right: '0',
-        overflowY: 'auto',
-      }}
-    >
-      <Grid container spacing={2}>
-        <Grid item xs={12} sm={5.9} sx={{ m: '0.1rem', mb: '0.5rem' }}>
+    <Container>
+      <CustomAppBar />
+
+      <Grid container spacing={1}>
+        {/*
+          <Grid item xs={12} md={5.9} sx={{ m: '0.1rem', mb: '0.5rem' }}>
           {userLevelStatus && (
             <CircularLevelView userLevelStatus={userLevelStatus} />
           )}
         </Grid>
-        <Grid item xs={12} sm={5.9} sx={{ m: '0.1rem', mb: '0.5rem' }}>
+        <Grid item xs={12} md={5.9} sx={{ m: '0.1rem', mb: '0.5rem' }}>
           {userDailyStatus && (
             <DailyLimitPoint userDailyStatus={userDailyStatus} />
           )}
         </Grid>
-      </Grid>
-      <Grid container spacing={1}>
+           */}
+        <Box
+          sx={{
+            width: { xs: 100, md: 350, lg: 490 },
+            height: { xs: 100, md: 266, lg: 345.7 },
+          }}
+        >
+          {userLevelStatus && (
+            <CircularLevelView userLevelStatus={userLevelStatus} />
+          )}
+        </Box>
+        <Box
+          sx={{
+            width: { xs: 100, md: 350, lg: 490 },
+            height: { xs: 100, md: 266, lg: 345.7 },
+          }}
+        >
+          {userDailyStatus && (
+            <DailyLimitPoint userDailyStatus={userDailyStatus} />
+          )}
+        </Box>
+
         <Grid item xs={12}>
           {dailyMissionList && (
             <DailyMissionList

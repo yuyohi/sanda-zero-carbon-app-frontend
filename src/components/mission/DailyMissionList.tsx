@@ -1,7 +1,10 @@
+/* eslint-disable no-unsafe-optional-chaining */
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable react/no-unused-prop-types */
 import {
+  Box,
   Button,
-  ButtonGroup,
   Card,
   CardContent,
   CardHeader,
@@ -16,69 +19,64 @@ import {
   useTheme,
 } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
-import React, { Dispatch, SetStateAction, useState } from 'react';
-import { useRecoilValue } from 'recoil';
+import React, { Dispatch, SetStateAction } from 'react';
 import ky from 'ky';
+import { useRecoilValue } from 'recoil';
 import userState from '../../atoms/userAtom';
 
-type Mission = {
-  missionId: number;
+type DailyMission = {
   title: string;
+  dailyMissionId: number;
+  missionId: number;
   point: number;
   description: string;
-  CO2Reduction: number;
+  co2Reduction: number;
   costReduction: number;
   difficulty: string;
-  missionType: string;
-  tagId: number;
   keyword: string;
 };
 
-const MissionList = (props: {
-  missionList: Array<Mission>;
+const DailyMissionList = (props: {
+  dailyMissionList: Array<DailyMission>;
   setReloadCount: Dispatch<SetStateAction<number>>;
   reloadCount: number;
 }) => {
-  const { missionList, setReloadCount, reloadCount } = props;
+  const { dailyMissionList, setReloadCount, reloadCount } = props;
 
-  const [selectedMission, setSelectedMission] = React.useState<Mission | null>(
-    null,
-  );
+  const [selectedMission, setSelectedMission] =
+    React.useState<DailyMission | null>(null);
 
-  const [missionTime, setMissionTime] = useState<number>(1);
+  const [informedMisson, setInformedMisson] =
+    React.useState<DailyMission | null>(null);
 
-  const [informedMisson, setInformedMisson] = React.useState<Mission | null>(
-    null,
-  );
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const uid: string = useRecoilValue(userState);
 
   const handleCloseAchive = () => {
     setSelectedMission(null);
   };
 
-  const handleClickAchive = (misson: Mission, time: number) => {
+  const handleClickAchive = (misson: DailyMission) => {
     setSelectedMission(misson);
-    setMissionTime(time);
   };
-
-  const uid = useRecoilValue(userState);
 
   const handleCloseInfo = () => {
     setInformedMisson(null);
   };
-  const handleClickInfo = (misson: Mission) => {
+  const handleClickInfo = (misson: DailyMission) => {
     setInformedMisson(misson);
   };
 
   const handleAchiveMission = () => {
     const postMission = async () => {
       const response = await ky.post(
-        'http://localhost:18080/api/mission/achieve',
+        `${import.meta.env.VITE_APP_API_URL}/mission/achieve`,
         {
           json: {
             missionId: selectedMission?.missionId,
             userId: uid,
-            hour: missionTime,
-            isDailyMission: false,
+            hour: 1,
+            isDailyMission: true,
           },
         },
       );
@@ -91,8 +89,8 @@ const MissionList = (props: {
   const theme = useTheme();
 
   return (
-    <Card sx={{ backgroundColor: '#ffffff' }}>
-      <CardHeader title="ミッション" />
+    <Card sx={{ backgroundColor: 'transparent' }}>
+      <CardHeader title="デイリーミッション" />
       <CardContent>
         <Grid
           container
@@ -103,7 +101,7 @@ const MissionList = (props: {
             justifyContent: 'center',
           }}
         >
-          {missionList.map((mission) => (
+          {dailyMissionList.map((mission, index) => (
             <>
               <Grid item xs={8}>
                 <Card
@@ -130,7 +128,7 @@ const MissionList = (props: {
                     </Typography>
                     <Typography>
                       {informedMisson &&
-                        `獲得ポイント： ${informedMisson?.point} Pt`}
+                        `獲得ポイント： ${informedMisson?.point * 2} Pt`}
                     </Typography>
                     <Typography>
                       {informedMisson &&
@@ -138,7 +136,7 @@ const MissionList = (props: {
                     </Typography>
                     <Typography>
                       {informedMisson &&
-                        `CO2の削減量： ${informedMisson?.CO2Reduction}`}
+                        `CO2の削減量： ${informedMisson?.co2Reduction}`}
                     </Typography>
                     <Typography>
                       {informedMisson &&
@@ -156,41 +154,11 @@ const MissionList = (props: {
                 </Dialog>
               </Grid>
               <Grid item xs={3.5}>
-                {mission.missionType === 'DoType' && (
-                  <Button
-                    variant="outlined"
-                    size="medium"
-                    onClick={() => handleClickAchive(mission, 1)}
-                  >
-                    {`達成 [${mission.point}Pt]`}
-                  </Button>
-                )}
-                {mission.missionType === 'TimeType' && (
-                  <ButtonGroup variant="contained">
-                    <Button
-                      variant="outlined"
-                      size="small"
-                      onClick={() => handleClickAchive(mission, 1)}
-                    >
-                      {`達成 (1時間) [${mission.point}Pt]`}
-                    </Button>
-                    <Button
-                      variant="outlined"
-                      size="small"
-                      onClick={() => handleClickAchive(mission, 2)}
-                    >
-                      {`達成 (2時間)[${mission.point * 2}Pt]`}
-                    </Button>
-                    <Button
-                      variant="outlined"
-                      size="small"
-                      onClick={() => handleClickAchive(mission, 3)}
-                    >
-                      {`達成 (3時間)[${mission.point * 3}Pt]`}
-                    </Button>
-                  </ButtonGroup>
-                )}
-
+                <Button
+                  variant="outlined"
+                  size="medium"
+                  onClick={() => handleClickAchive(mission)}
+                >{`達成 [${mission.point}Pt]`}</Button>
                 <Dialog open={!!selectedMission} onClose={handleCloseAchive}>
                   <DialogTitle>ミッション達成確認</DialogTitle>
                   <DialogContent>
@@ -220,4 +188,4 @@ const MissionList = (props: {
   );
 };
 
-export default MissionList;
+export default DailyMissionList;
