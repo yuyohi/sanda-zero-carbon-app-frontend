@@ -1,25 +1,24 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import Grid from '@mui/material/Grid';
 import { Box, Container, Typography } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import ky from 'ky';
+import { useRecoilValue } from 'recoil';
 import CircularLevelView from './CircularLevelView';
 import DailyLimitPoint from './DailyLimitPoint';
-import DailyMissonList from './DailyMissionList';
+import DailyMissionList from './DailyMissionList';
 import MissionList from './MissonList';
+import Response from '../../utils/response';
+import {
+  DailyMission,
+  Mission,
+  UserDailyStatus,
+  UserDto,
+  UserLevelStatus,
+} from './TypeDefinition';
+import userState from '../../atoms/userAtom';
 
-type Mission = {
-  missionId: number;
-  title: string;
-  point: number;
-  description: string;
-  CO2Reduction: number;
-  costReduction: number;
-  difficulty: string;
-  missionType: string;
-  tagId: number;
-  keyword: string;
-};
-
+/*
 const missions: Array<Mission> = [
   {
     missionId: 1,
@@ -58,20 +57,9 @@ const missions: Array<Mission> = [
     keyword: 'ブルーベリージャム',
   },
 ];
+*/
 
-type DailyMission = {
-  title: string;
-  dailyMissionId: number;
-  missionId: number;
-  point: number;
-  description: string;
-  co2Reduction: number;
-  costReduction: number;
-  difficulty: string;
-  tagId: number;
-  keyword: string;
-};
-
+/*
 const dailyMissions: Array<DailyMission> = [
   {
     title: 'Mission1',
@@ -110,18 +98,63 @@ const dailyMissions: Array<DailyMission> = [
     keyword: 'ぶどう',
   },
 ];
-
-type UserLevelStatus = {
-  totalPoint: number;
-  level: number;
-  nextLevelPercentage: number;
-};
+*/
 
 const MissionView = () => {
-  const [missonList, setMissionList] = useState();
-  const [dailyMissionList, setDailyMissionList] = useState();
-  const [userLevelStatus, setUserLevelStatus] = useState();
-  const [userDailyStatus, setuserDailyStatus] = useState();
+  const [missionList, setMissionList] = useState<Array<Mission> | undefined>();
+  const [dailyMissionList, setDailyMissionList] = useState<
+    Array<DailyMission> | undefined
+  >();
+  const [userLevelStatus, setUserLevelStatus] = useState<
+    UserLevelStatus | undefined
+  >();
+  const [userDailyStatus, setuserDailyStatus] = useState<
+    UserDailyStatus | undefined
+  >();
+  const [reloadCount, setReloadCount] = useState<number>(0);
+
+  const uid = useRecoilValue(userState);
+
+  useEffect(() => {
+    const fetchMission = async () => {
+      const response: Response<Array<Mission>> = await ky(
+        'http://localhost:18080/api/mission',
+      ).json();
+      const missions = response.result;
+      setMissionList(missions);
+    };
+    const fetchDailyMission = async () => {
+      const response: Response<Array<DailyMission>> = await ky(
+        `http://localhost:18080/api/daily-mission/${uid}`,
+      ).json();
+      const dailyMissions = response.result ? response.result : undefined;
+      setDailyMissionList(dailyMissions);
+    };
+    const fetchUserLevelStatus = async () => {
+      const response: Response<UserDto> = await ky(
+        `http://localhost:18080/api/user?userId=${uid}`,
+      ).json();
+      const uLevelStatus: UserLevelStatus = {
+        totalPoint: response.result.totalPoint,
+        level: response.result.level,
+        levelRate: response.result.levelRate,
+        nextLevelPercentage: response.result.nextLevelPercentage,
+      };
+      setUserLevelStatus(uLevelStatus);
+    };
+    const fetchUserDailyStatus = async () => {
+      const response: Response<UserDailyStatus> = await ky(
+        `http://localhost:18080/api/user/daily?userId=${uid}`,
+      ).json();
+      const uDailyStatus = response.result;
+      setuserDailyStatus(uDailyStatus);
+    };
+
+    void fetchMission();
+    void fetchDailyMission();
+    void fetchUserLevelStatus();
+    void fetchUserDailyStatus();
+  }, [reloadCount, uid]);
 
   return (
     <Container
@@ -137,18 +170,34 @@ const MissionView = () => {
     >
       <Grid container spacing={2}>
         <Grid item xs={12} sm={5.9} sx={{ m: '0.1rem', mb: '0.5rem' }}>
-          <CircularLevelView variant="determinate" value={80} size="10rem" />
+          {userLevelStatus && (
+            <CircularLevelView userLevelStatus={userLevelStatus} />
+          )}
         </Grid>
         <Grid item xs={12} sm={5.9} sx={{ m: '0.1rem', mb: '0.5rem' }}>
-          <DailyLimitPoint variant="determinate" value={80} />
+          {userDailyStatus && (
+            <DailyLimitPoint userDailyStatus={userDailyStatus} />
+          )}
         </Grid>
       </Grid>
       <Grid container spacing={1}>
         <Grid item xs={12}>
-          <DailyMissonList dailyMissionList={dailyMissions} />
+          {dailyMissionList && (
+            <DailyMissionList
+              dailyMissionList={dailyMissionList}
+              setReloadCount={setReloadCount}
+              reloadCount={reloadCount}
+            />
+          )}
         </Grid>
         <Grid item xs={12}>
-          <MissionList missionList={missions} />
+          {missionList && (
+            <MissionList
+              missionList={missionList}
+              setReloadCount={setReloadCount}
+              reloadCount={reloadCount}
+            />
+          )}
         </Grid>
       </Grid>
     </Container>

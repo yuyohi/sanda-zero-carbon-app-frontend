@@ -1,4 +1,9 @@
+/* eslint-disable no-unsafe-optional-chaining */
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable react/no-unused-prop-types */
 import {
+  Box,
   Button,
   Card,
   CardContent,
@@ -14,7 +19,10 @@ import {
   useTheme,
 } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
+import ky from 'ky';
+import { useRecoilValue } from 'recoil';
+import userState from '../../atoms/userAtom';
 
 type DailyMission = {
   title: string;
@@ -28,14 +36,20 @@ type DailyMission = {
   keyword: string;
 };
 
-const DailyMissionList = (props: { dailyMissionList: Array<DailyMission> }) => {
-  const { dailyMissionList } = props;
+const DailyMissionList = (props: {
+  dailyMissionList: Array<DailyMission>;
+  setReloadCount: Dispatch<SetStateAction<number>>;
+  reloadCount: number;
+}) => {
+  const { dailyMissionList, setReloadCount, reloadCount } = props;
 
   const [selectedMission, setSelectedMission] =
     React.useState<DailyMission | null>(null);
 
   const [informedMisson, setInformedMisson] =
     React.useState<DailyMission | null>(null);
+
+  const uid = useRecoilValue(userState);
 
   const handleCloseAchive = () => {
     setSelectedMission(null);
@@ -50,6 +64,25 @@ const DailyMissionList = (props: { dailyMissionList: Array<DailyMission> }) => {
   };
   const handleClickInfo = (misson: DailyMission) => {
     setInformedMisson(misson);
+  };
+
+  const handleAchiveMission = () => {
+    const postMission = async () => {
+      const response = await ky.post(
+        'http://localhost:18080/api/mission/achieve',
+        {
+          json: {
+            missionId: selectedMission?.missionId,
+            userId: uid,
+            hour: 1,
+            isDailyMission: true,
+          },
+        },
+      );
+    };
+    void postMission();
+    setSelectedMission(null);
+    setReloadCount(reloadCount + 1);
   };
 
   const theme = useTheme();
@@ -67,7 +100,7 @@ const DailyMissionList = (props: { dailyMissionList: Array<DailyMission> }) => {
             justifyContent: 'center',
           }}
         >
-          {dailyMissionList.map((mission) => (
+          {dailyMissionList.map((mission, index) => (
             <>
               <Grid item xs={8}>
                 <Card
@@ -94,7 +127,7 @@ const DailyMissionList = (props: { dailyMissionList: Array<DailyMission> }) => {
                     </Typography>
                     <Typography>
                       {informedMisson &&
-                        `獲得ポイント： ${informedMisson?.point} Pt`}
+                        `獲得ポイント： ${informedMisson?.point * 2} Pt`}
                     </Typography>
                     <Typography>
                       {informedMisson &&
@@ -137,7 +170,7 @@ const DailyMissionList = (props: { dailyMissionList: Array<DailyMission> }) => {
                       キャンセル
                     </Button>
                     <Button
-                      onClick={handleCloseAchive}
+                      onClick={handleAchiveMission}
                       color="primary"
                       autoFocus
                     >
