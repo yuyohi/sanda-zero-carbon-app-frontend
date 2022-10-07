@@ -45,10 +45,32 @@ type UserDailyStatus = {
   dailyMaxMissionPoint: number;
 };
 
+type Quiz = {
+  quizId: number;
+  title: string;
+  quizSentence: string;
+  explain: string;
+  ans1: string;
+  ans2: string;
+  ans3: string;
+  ans4: string;
+  point: number;
+  tagId: number;
+};
+
+type AppBarSetting = {
+  src: string;
+  alt: string;
+  width: number;
+  to: string;
+};
+
 export type {
   Mission,
   DailyMission,
   UserDto,
   UserDailyStatus,
   UserLevelStatus,
+  Quiz,
+  AppBarSetting,
 };
