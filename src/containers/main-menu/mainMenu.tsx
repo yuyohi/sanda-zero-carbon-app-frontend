@@ -3,10 +3,10 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import TotalCondition from './totalCondition';
-import LevelStatus from '../../containers/main-menu/levelStatus';
-import ArticleView from './articleView';
-import Map from '../../containers/main-menu/map';
-import MapNavigation from '../../containers/main-menu/mapNavigation';
+import LevelStatus from './levelStatus';
+import ArticleView from '../../components/main-menu/articleView';
+import Map from './map';
+import MapNavigation from './mapNavigation';
 
 const MainMenu: FC = () => {
   const articles = [
@@ -54,7 +54,7 @@ const MainMenu: FC = () => {
         }}
       >
         <div style={{ width: 10 }} />
-        <TotalCondition co2Reduction={30} />
+        <TotalCondition />
         <div style={{ flexGrow: 1 }} />
         <MapNavigation />
         <div style={{ width: 10 }} />

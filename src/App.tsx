@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import { Box, CssBaseline, ThemeProvider } from '@mui/material';
 
-import MainMenu from './components/main-menu/mainMenu';
+import MainMenu from './containers/main-menu/mainMenu';
 import FixedBottomNavigation from './components/navigationBar';
 import LoginPage from './containers/login/loginPage';
 import SignUpPage from './containers/login/signUpPage';
