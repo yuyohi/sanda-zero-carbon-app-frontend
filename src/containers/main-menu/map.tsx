@@ -10,13 +10,17 @@ import MapView from '../../components/main-menu/map';
 const Map: FC = () => {
   const [map, setMap] = useState<MapInformation | undefined>();
 
-  const userId = useRecoilValue(userState);
+  const userId = useRecoilValue(userState) as string;
 
   useEffect(() => {
     const fetchMapInformation = async () => {
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
       const response = (await ky
-        .get(`http://localhost:18080/api/map/initialLocation?userId=${userId}`)
+        .get(
+          `${
+            import.meta.env.VITE_APP_API_URL
+          }/map/initialLocation?userId=${userId}`,
+        )
         .json()) as Response<MapInformation>;
 
       const userMapInformation = response.result;

@@ -73,7 +73,7 @@ const MissionList = (props: {
   const handleAchiveMission = () => {
     const postMission = async () => {
       const response = await ky.post(
-        'http://localhost:18080/api/mission/achieve',
+        `${import.meta.env.VITE_APP_API_URL}/mission/achieve`,
         {
           json: {
             missionId: selectedMission?.missionId,
