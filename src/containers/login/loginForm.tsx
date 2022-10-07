@@ -37,7 +37,9 @@ const LoginForm: FC = () => {
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
       const response = (await ky
         .get(
-          `http://localhost:18080/api/user/login?userId=${id}&password=${encodedPassword}`,
+          `${
+            import.meta.env.VITE_APP_API_URL
+          }/user/login?userId=${id}&password=${encodedPassword}`,
         )
         .json()) as Response<boolean>;
 

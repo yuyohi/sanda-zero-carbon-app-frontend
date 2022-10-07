@@ -17,7 +17,9 @@ const fetchMapInformation = async (
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
   const response = (await ky
     .get(
-      `http://localhost:18080/api/map?userId=${userId}&currentLocation=${locationNumber}`,
+      `${
+        import.meta.env.VITE_APP_API_URL
+      }/map?userId=${userId}&currentLocation=${locationNumber}`,
     )
     .json()) as Response<MapInformation>;
 
@@ -30,7 +32,7 @@ const MapNavigation: FC = () => {
   const [mapInformation, setInformation] = useRecoilState(
     currentLocationInformation,
   );
-  const userId = useRecoilValue(userState);
+  const userId = useRecoilValue(userState) as string;
 
   const goForward = () => {
     const fetchNewMap = async () => {

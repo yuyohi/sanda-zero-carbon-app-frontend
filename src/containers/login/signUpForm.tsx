@@ -20,7 +20,7 @@ const isUnique = async (id: string | undefined): Promise<boolean> => {
 
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
   const response = (await ky
-    .get(`http://localhost:18080/api/user/exist?userId=${id}`)
+    .get(`${import.meta.env.VITE_APP_API_URL}/user/exist?userId=${id}`)
     .json()) as Response<boolean>;
 
   return !response.result;
@@ -64,13 +64,16 @@ const SignUpForm: FC = () => {
       const encodedPassword = btoa(password);
 
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const response = await ky.post(`http://localhost:18080/api/user`, {
-        json: {
-          userId: id,
-          password: encodedPassword,
-          age,
+      const response = await ky.post(
+        `${import.meta.env.VITE_APP_API_URL}/user`,
+        {
+          json: {
+            userId: id,
+            password: encodedPassword,
+            age,
+          },
         },
-      });
+      );
 
       setUserId(id);
       setDrawBottomNavigation(true);

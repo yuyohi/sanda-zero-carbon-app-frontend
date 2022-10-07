@@ -17,7 +17,7 @@ const fetcherWithPath = async (url: string, path: string) => {
   return data;
 };
 
-const url = 'http://localhost:18080/api/total-condition';
+const url = `${import.meta.env.VITE_APP_API_URL}/total-condition`;
 
 const TotalCondition: FC<{ period: Period; onClick: () => void }> = ({
   period,
