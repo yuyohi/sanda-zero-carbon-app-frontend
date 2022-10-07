@@ -18,13 +18,13 @@ type UserStatus = {
 const LevelStatus: FC = () => {
   const [status, setStatus] = useState<Status | undefined>();
 
-  const userId = useRecoilValue(userState);
+  const userId = useRecoilValue(userState) as string;
 
   useEffect(() => {
     const fetchUserStatus = async () => {
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
       const response = (await ky
-        .get(`http://localhost:18080/api/user?userId=${userId}`)
+        .get(`${import.meta.env.VITE_APP_API_URL}/user?userId=${userId}`)
         .json()) as Response<UserStatus>;
 
       const userLevelStatus = {

@@ -164,7 +164,7 @@ const QuizView = () => {
   useEffect(() => {
     const fetchUserLevelStatus = async () => {
       const response: Response<UserDto> = await ky(
-        `http://localhost:18080/api/user?userId=${uid}`,
+        `${import.meta.env.VITE_APP_API_URL}/api/user?userId=${uid}`,
       ).json();
       const uLevelStatus: UserLevelStatus = {
         totalPoint: response.result.totalPoint,
@@ -177,7 +177,7 @@ const QuizView = () => {
 
     const fetchUserDailyStatus = async () => {
       const response: Response<UserDailyStatus> = await ky(
-        `http://localhost:18080/api/user/daily?userId=${uid}`,
+        `${import.meta.env.VITE_APP_API_URL}/user/daily?userId=${uid}`,
       ).json();
       const uDailyStatus = response.result;
       setuserDailyStatus(uDailyStatus);

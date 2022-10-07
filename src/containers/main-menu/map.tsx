@@ -2,29 +2,33 @@ import { FC, useState, useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import ky from 'ky';
 import userState from '../../atoms/userAtom';
-import type { MapInfo } from '../../components/main-menu/map';
+import type { MapInformation } from '../../atoms/mapAtom';
 import Response from '../../utils/response';
 import MapView from '../../components/main-menu/map';
 
 /** マップのコンポーネント */
 const Map: FC = () => {
-  const [map, setMap] = useState<MapInfo | undefined>();
+  const [map, setMap] = useState<MapInformation | undefined>();
 
-  const userId = useRecoilValue(userState);
+  const userId = useRecoilValue(userState) as string;
 
   useEffect(() => {
-    const fetchMapInfo = async () => {
+    const fetchMapInformation = async () => {
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
       const response = (await ky
-        .get(`http://localhost:18080/api/map/initialLocation?userId=${userId}`)
-        .json()) as Response<MapInfo>;
+        .get(
+          `${
+            import.meta.env.VITE_APP_API_URL
+          }/map/initialLocation?userId=${userId}`,
+        )
+        .json()) as Response<MapInformation>;
 
-      const userMapInfo = response.result;
+      const userMapInformation = response.result;
 
-      setMap(userMapInfo);
+      setMap(userMapInformation);
     };
 
-    void fetchMapInfo();
+    void fetchMapInformation();
   }, [userId]);
 
   return <MapView imageSource={map?.imageSource} />;
