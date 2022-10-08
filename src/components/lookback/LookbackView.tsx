@@ -28,7 +28,7 @@ const weekday = [0, 1, 2, 3, 4, 5, 6];
 type TotalStatus = { co2: number; point: number; cost: number };
 const calculateMap = new Map<number, TotalStatus>();
 weekday.forEach((day) => {
-  calculateMap && calculateMap.set(day, { co2: 0, point: 0, cost: 0 });
+  calculateMap.set(day, { co2: 0, point: 0, cost: 0 });
 });
 const getTotal = (achievements: Achievement[]) => {
   achievements.forEach((achievement) => {
@@ -41,6 +41,7 @@ const getTotal = (achievements: Achievement[]) => {
           status.point += achievement.getPoint;
           status.cost += achievement.getcostReduction;
         }
+        console.log(status);
       }
     });
   });
