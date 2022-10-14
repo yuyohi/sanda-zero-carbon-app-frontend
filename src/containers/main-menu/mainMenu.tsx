@@ -11,6 +11,7 @@ import CustomAppBar from '../../components/customAppBar';
 const MainMenu: FC = () => (
   <Box sx={{ width: '100vw' }}>
     <Box sx={{ position: 'fixed', top: 0, left: 0, right: 0 }}>
+      <CustomAppBar />
       <span style={{ height: 20, display: 'block' }} />
       <Grid container spacing={4}>
         <Grid item xs={0.5}>
@@ -19,11 +20,11 @@ const MainMenu: FC = () => (
         <Grid item xs={2.5}>
           <LevelStatus />
         </Grid>
-        <Grid item xs={8.5}>
+        {/* <Grid item xs={8.5}>
           <Box alignItems="center">
             <CustomAppBar />
           </Box>
-        </Grid>
+        </Grid> */}
         <Grid item xs={0.5}>
           <span />
         </Grid>
@@ -41,7 +42,7 @@ const MainMenu: FC = () => (
         bottom: '10vh',
       }}
     >
-      <div style={{ width: 10 }} />
+      <div style={{ width: 20 }} />
       <TotalCondition />
       <div style={{ flexGrow: 1 }} />
       <MapNavigation />
