@@ -146,9 +146,6 @@ const AchievementList = (props: { achievementList: Array<Achievement> }) => {
                       {informedAchievement &&
                         `削減金額： ${informedAchievement?.getcostReduction}`}
                     </Typography>
-                    <Typography>
-                      {informedAchievement && `※ TimeTypeは1時間ごとの値`}
-                    </Typography>
                   </DialogContent>
                 </Dialog>
               </Grid>
