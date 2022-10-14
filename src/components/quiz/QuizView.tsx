@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Box, Container, Grid } from '@mui/material';
 import { useRecoilValue } from 'recoil';
 import { useEffect, useState } from 'react';
@@ -17,7 +18,7 @@ import {
 import QuizArea from './QuizArea';
 
 const QuizView = () => {
-  const anAnswerdQuiz: Array<Quiz> = [
+  const unAnswerdQuiz: Array<Quiz> = [
     {
       quizId: 1,
       title: 'クイズ1',
@@ -29,6 +30,8 @@ const QuizView = () => {
       ans4: '回答4',
       point: 1,
       tagId: 1,
+      keyword: 'quiz',
+      correctAns: '回答1',
     },
     {
       quizId: 2,
@@ -41,6 +44,8 @@ const QuizView = () => {
       ans4: '回答4',
       point: 1,
       tagId: 2,
+      keyword: 'quiz',
+      correctAns: '回答1',
     },
     {
       quizId: 3,
@@ -53,6 +58,8 @@ const QuizView = () => {
       ans4: '回答4',
       point: 1,
       tagId: 3,
+      keyword: 'quiz',
+      correctAns: '回答1',
     },
   ];
 
@@ -68,6 +75,8 @@ const QuizView = () => {
       ans4: '回答4',
       point: 1,
       tagId: 4,
+      keyword: 'quiz',
+      correctAns: '回答1',
     },
     {
       quizId: 5,
@@ -80,6 +89,8 @@ const QuizView = () => {
       ans4: '回答4',
       point: 1,
       tagId: 5,
+      keyword: 'quiz',
+      correctAns: '回答1',
     },
     {
       quizId: 6,
@@ -92,6 +103,8 @@ const QuizView = () => {
       ans4: '回答4',
       point: 1,
       tagId: 6,
+      keyword: 'quiz',
+      correctAns: '回答1',
     },
   ];
 
@@ -107,6 +120,8 @@ const QuizView = () => {
       ans4: '回答4',
       point: 1,
       tagId: 7,
+      keyword: 'quiz',
+      correctAns: '回答1',
     },
     {
       quizId: 8,
@@ -119,6 +134,8 @@ const QuizView = () => {
       ans4: '回答4',
       point: 1,
       tagId: 8,
+      keyword: 'quiz',
+      correctAns: '回答1',
     },
     {
       quizId: 9,
@@ -131,13 +148,34 @@ const QuizView = () => {
       ans4: '回答4',
       point: 1,
       tagId: 9,
+      keyword: 'quiz',
+      correctAns: '回答1',
     },
   ];
+
+  const [userLevelStatus, setUserLevelStatus] = useState<
+    UserLevelStatus | undefined
+  >();
+  const [userDailyStatus, setUserDailyStatus] = useState<
+    UserDailyStatus | undefined
+  >();
+  const [unAnswerdQuizs, setUnAnswerdQuiz] = useState<
+    Array<Quiz> | undefined
+  >();
+  const [notCorrectQuizs, setNotCorrectQuiz] = useState<
+    Array<Quiz> | undefined
+  >();
+  const [correctQuizs, setCorrectQuiz] = useState<Array<Quiz> | undefined>();
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const uid: string = useRecoilValue(userState);
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [reloadCount, setReloadCount] = useState<number>(0);
 
   const quizList: Array<CategorizeQuiz> = [
     {
       category: 'unAnswered',
-      quiz: anAnswerdQuiz,
+      quiz: unAnswerdQuiz,
     },
     {
       category: 'notCorrect',
@@ -149,22 +187,10 @@ const QuizView = () => {
     },
   ];
 
-  const [userLevelStatus, setUserLevelStatus] = useState<
-    UserLevelStatus | undefined
-  >();
-  const [userDailyStatus, setuserDailyStatus] = useState<
-    UserDailyStatus | undefined
-  >();
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const uid: string = useRecoilValue(userState);
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [reloadCount, setReloadCount] = useState<number>(0);
-
   useEffect(() => {
     const fetchUserLevelStatus = async () => {
       const response: Response<UserDto> = await ky(
-        `${import.meta.env.VITE_APP_API_URL}/api/user?userId=${uid}`,
+        `${import.meta.env.VITE_APP_API_URL}/user?userId=${uid}`,
       ).json();
       const uLevelStatus: UserLevelStatus = {
         totalPoint: response.result.totalPoint,
@@ -180,11 +206,35 @@ const QuizView = () => {
         `${import.meta.env.VITE_APP_API_URL}/user/daily?userId=${uid}`,
       ).json();
       const uDailyStatus = response.result;
-      setuserDailyStatus(uDailyStatus);
+      setUserDailyStatus(uDailyStatus);
+    };
+
+    const fetchUnAnswerdQuiz = async () => {
+      const response: Response<Array<Quiz>> = await ky(
+        `${import.meta.env.VITE_APP_API_URL}/quiz/unanswer/?userId=${uid}`,
+      ).json();
+      setUnAnswerdQuiz(response.result);
+    };
+
+    const fetchNotCorrectQuiz = async () => {
+      const response: Response<Array<Quiz>> = await ky(
+        `${import.meta.env.VITE_APP_API_URL}/quiz/incorrect/?userId=${uid}`,
+      ).json();
+      setUnAnswerdQuiz(response.result);
+    };
+
+    const fetchCorrectQuiz = async () => {
+      const response: Response<Array<Quiz>> = await ky(
+        `${import.meta.env.VITE_APP_API_URL}/quiz/correct/?userId=${uid}`,
+      ).json();
+      setUnAnswerdQuiz(response.result);
     };
 
     void fetchUserLevelStatus();
     void fetchUserDailyStatus();
+    void fetchUnAnswerdQuiz();
+    void fetchNotCorrectQuiz();
+    void fetchCorrectQuiz();
   }, [reloadCount, uid]);
 
   return (
