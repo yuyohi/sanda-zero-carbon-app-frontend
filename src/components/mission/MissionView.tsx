@@ -197,7 +197,7 @@ const MissionView = () => {
           )}
         </Box>
 
-        <Grid item xs={12}>
+        <Grid item xs={12} sx={{ my: '0.5rem' }}>
           {dailyMissionList && (
             <DailyMissionList
               dailyMissionList={dailyMissionList}
@@ -206,7 +206,7 @@ const MissionView = () => {
             />
           )}
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} sx={{ my: '0.5rem' }}>
           {missionList && (
             <MissionList
               missionList={missionList}

@@ -41,7 +41,8 @@ type UserLevelStatus = {
 };
 
 type UserDailyStatus = {
-  dailyTotalPoint: number;
+  dailyQuizPoint: number;
+  dailyMissionPoint: number;
   dailyMaxMissionPoint: number;
 };
 
@@ -56,6 +57,15 @@ type Quiz = {
   ans4: string;
   point: number;
   tagId: number;
+  keyword: string;
+  correctAns: string;
+};
+
+type QuizCategory = 'unAnswered' | 'notCorrect' | 'correct';
+
+type CategorizeQuiz = {
+  category: QuizCategory;
+  quiz: Array<Quiz>;
 };
 
 type AppBarSetting = {
@@ -73,4 +83,6 @@ export type {
   UserLevelStatus,
   Quiz,
   AppBarSetting,
+  CategorizeQuiz,
+  QuizCategory,
 };

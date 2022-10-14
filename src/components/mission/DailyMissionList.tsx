@@ -89,8 +89,11 @@ const DailyMissionList = (props: {
   const theme = useTheme();
 
   return (
-    <Card sx={{ backgroundColor: 'transparent' }}>
-      <CardHeader title="デイリーミッション" />
+    <Card sx={{ backgroundColor: '#ffffff' }}>
+      <CardHeader
+        title="デイリーミッション"
+        sx={{ backgroundColor: '#469DBD' }}
+      />
       <CardContent>
         <Grid
           container

@@ -1,24 +1,29 @@
 import {
   Box,
+  Button,
   List,
-  ListItemIcon,
+  ListItem,
   ListItemText,
   Typography,
 } from '@mui/material';
 import ForwardIcon from '@mui/icons-material/Forward';
+import { Dispatch, SetStateAction } from 'react';
 import { Quiz } from '../../utils/TypeDefinition';
 
-const QuizListView = (props: { quizList: Array<Quiz> }) => {
-  const { quizList } = props;
+const QuizListView = (props: {
+  quizList: Array<Quiz>;
+  setCurrentQuiz: Dispatch<SetStateAction<Quiz | undefined>>;
+}) => {
+  const { quizList, setCurrentQuiz } = props;
+  const handleClick = (quiz: Quiz) => {
+    setCurrentQuiz(quiz);
+  };
 
   return (
     <Box>
       <List>
         {quizList.map((quiz) => (
-          <>
-            <ListItemIcon>
-              <ForwardIcon />
-            </ListItemIcon>
+          <ListItem>
             <ListItemText
               disableTypography
               primary={
@@ -27,7 +32,10 @@ const QuizListView = (props: { quizList: Array<Quiz> }) => {
                 </Typography>
               }
             />
-          </>
+            <Button onClick={() => handleClick(quiz)}>
+              <ForwardIcon />
+            </Button>
+          </ListItem>
         ))}
       </List>
     </Box>

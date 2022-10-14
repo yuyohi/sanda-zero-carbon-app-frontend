@@ -9,7 +9,7 @@ import flame1 from '../../assets/flame_1.png';
 import { UserDailyStatus } from '../../utils/TypeDefinition';
 
 const DailyLimitPoint = (props: { userDailyStatus: UserDailyStatus }) => {
-  const { dailyTotalPoint, dailyMaxMissionPoint } = props.userDailyStatus;
+  const { dailyMissionPoint, dailyMaxMissionPoint } = props.userDailyStatus;
 
   return (
     <Card
@@ -50,7 +50,7 @@ const DailyLimitPoint = (props: { userDailyStatus: UserDailyStatus }) => {
               <LinearProgress
                 variant="determinate"
                 value={Math.round(
-                  (dailyTotalPoint / dailyMaxMissionPoint) * 100,
+                  (dailyMissionPoint / dailyMaxMissionPoint) * 100,
                 )}
                 sx={{ width: 'auto' }}
               />
@@ -61,7 +61,7 @@ const DailyLimitPoint = (props: { userDailyStatus: UserDailyStatus }) => {
                 component="div"
                 color="text.secondary"
               >{`${Math.round(
-                dailyTotalPoint,
+                dailyMissionPoint,
               )} / ${dailyMaxMissionPoint} Pt`}</Typography>
             </Grid>
             <Grid
