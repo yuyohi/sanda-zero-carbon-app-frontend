@@ -1,26 +1,29 @@
-import { Button, Grid } from '@mui/material';
-import React, { FC } from 'react';
+import Button from '@mui/material/Button';
+import { Dispatch, SetStateAction } from 'react';
 
-const GenreButton: FC = () => (
-  <Grid container spacing={1} sx={{ width: '100vw' }}>
-    <Grid item xs={4}>
-      <Button variant="contained" style={{ width: '30vw' }}>
-        ポイント
-      </Button>
-    </Grid>
-    <Grid item xs={4}>
-      <Button variant="contained" color="success" style={{ width: '30vw' }}>
-        {' '}
-        CO2{' '}
-      </Button>
-    </Grid>
-    <Grid item xs={4}>
-      <Button variant="contained" color="warning" style={{ width: '30vw' }}>
-        {' '}
-        金額{' '}
-      </Button>
-    </Grid>
-  </Grid>
-);
+type GraphGenre = 'point' | 'co2' | 'cost';
+
+const GenreButton = (props: {
+  title: string;
+  img: string;
+  graphGenre: GraphGenre;
+  setShowGraphGenre: Dispatch<SetStateAction<GraphGenre>>;
+}) => {
+  const { title, img, graphGenre, setShowGraphGenre } = props;
+  const handleClick = () => {
+    setShowGraphGenre(graphGenre);
+  };
+
+  return (
+    <Button
+      type="submit"
+      style={{ width: '33vw' }}
+      sx={{ backgroundColor: 'transparent' }}
+      onClick={handleClick}
+    >
+      <img src={img} alt={title} width={100} />
+    </Button>
+  );
+};
 
 export default GenreButton;
