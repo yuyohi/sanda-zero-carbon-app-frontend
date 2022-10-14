@@ -32,16 +32,24 @@ weekday.forEach((day) => {
 });
 const getTotal = (achievements: Achievement[]) => {
   achievements.forEach((achievement) => {
+    console.log(achievement);
     weekday.forEach((week) => {
       const date = new Date(achievement.achievedAt);
       if (week === date.getDay()) {
         const status = calculateMap.get(week);
-        if (status !== undefined) {
-          status.co2 += achievement.getCo2Reduction;
-          status.point += achievement.getPoint;
-          status.cost += achievement.getcostReduction;
+        if (achievement.missionType === 'TimeType') {
+          if (status !== undefined) {
+            status.co2 += achievement.getCo2Reduction * achievement.hour;
+            status.point += achievement.getPoint * achievement.hour;
+            status.cost += achievement.getcostReduction * achievement.hour;
+          }
+        } else if (achievement.missionType === 'DoType') {
+          if (status !== undefined) {
+            status.co2 += achievement.getCo2Reduction;
+            status.point += achievement.getPoint;
+            status.cost += achievement.getcostReduction;
+          }
         }
-        console.log(status);
       }
     });
   });
@@ -50,6 +58,12 @@ const getTotal = (achievements: Achievement[]) => {
 };
 
 const LookbackView = () => {
+  const now = new Date();
+  const today = `${now.getFullYear()}/${String(now.getMonth() + 1).padStart(
+    2,
+    '0',
+  )}/${String(now.getDate()).padStart(2, '0')} `;
+
   const [achievementList, setAchievementList] = useState<
     Array<Achievement> | undefined
   >();
@@ -63,15 +77,15 @@ const LookbackView = () => {
   useEffect(() => {
     const fetchAchievement = async () => {
       const response: Response<Array<Achievement>> = await ky(
-        `http://localhost:18080/api/achievement/weekly?userId=${uid}&date=2022/10/07`,
+        `http://localhost:18080/api/achievement/weekly?userId=${uid}&date=${today}`,
       ).json();
       const achievements = response.result;
       setAchievementList(achievements);
-      const achievementMap = getTotal(achievements);
+      const achievementMap = getTotal(response.result);
       setAchievementMap(achievementMap);
     };
     void fetchAchievement();
-  }, [uid]);
+  }, [uid, today]);
 
   return (
     <Container>

@@ -5,10 +5,11 @@ type GraphGenre = 'point' | 'co2' | 'cost';
 
 const GenreButton = (props: {
   title: string;
+  img: string;
   graphGenre: GraphGenre;
   setShowGraphGenre: Dispatch<SetStateAction<GraphGenre>>;
 }) => {
-  const { title, graphGenre, setShowGraphGenre } = props;
+  const { title, img, graphGenre, setShowGraphGenre } = props;
   const handleClick = () => {
     setShowGraphGenre(graphGenre);
   };
@@ -16,10 +17,11 @@ const GenreButton = (props: {
   return (
     <Button
       type="submit"
-      sx={{ backgroundColor: 'white' }}
+      style={{ width: '33vw' }}
+      sx={{ backgroundColor: 'transparent' }}
       onClick={handleClick}
     >
-      {title}
+      <img src={img} alt={title} width={100} />
     </Button>
   );
 };
