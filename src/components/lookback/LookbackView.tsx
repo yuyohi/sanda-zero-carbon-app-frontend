@@ -77,7 +77,9 @@ const LookbackView = () => {
   useEffect(() => {
     const fetchAchievement = async () => {
       const response: Response<Array<Achievement>> = await ky(
-        `http://localhost:18080/api/achievement/weekly?userId=${uid}&date=${today}`,
+        `${
+          import.meta.env.VITE_APP_API_URL
+        }/achievement/weekly?userId=${uid}&date=${today}`,
       ).json();
       const achievements = response.result;
       setAchievementList(achievements);
