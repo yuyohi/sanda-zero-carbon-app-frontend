@@ -20,11 +20,6 @@ const MainMenu: FC = () => (
         <Grid item xs={2.5}>
           <LevelStatus />
         </Grid>
-        {/* <Grid item xs={8.5}>
-          <Box alignItems="center">
-            <CustomAppBar />
-          </Box>
-        </Grid> */}
         <Grid item xs={0.5}>
           <span />
         </Grid>
