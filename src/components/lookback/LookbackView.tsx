@@ -27,12 +27,11 @@ type Achievement = {
 const weekday = [0, 1, 2, 3, 4, 5, 6];
 type TotalStatus = { co2: number; point: number; cost: number };
 const calculateMap = new Map<number, TotalStatus>();
-weekday.forEach((day) => {
-  calculateMap.set(day, { co2: 0, point: 0, cost: 0 });
-});
 const getTotal = (achievements: Achievement[]) => {
   achievements.forEach((achievement) => {
-    console.log(achievement);
+    weekday.forEach((day) => {
+      calculateMap.set(day, { co2: 0, point: 0, cost: 0 });
+    });
     weekday.forEach((week) => {
       const date = new Date(achievement.achievedAt);
       if (week === date.getDay()) {
