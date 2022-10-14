@@ -37,18 +37,10 @@ const getTotal = (achievements: Achievement[]) => {
       const date = new Date(achievement.achievedAt);
       if (week === date.getDay()) {
         const status = calculateMap.get(week);
-        if (achievement.missionType === 'TimeType') {
-          if (status !== undefined) {
-            status.co2 += achievement.getCo2Reduction * achievement.hour;
-            status.point += achievement.getPoint * achievement.hour;
-            status.cost += achievement.getcostReduction * achievement.hour;
-          }
-        } else if (achievement.missionType === 'DoType') {
-          if (status !== undefined) {
-            status.co2 += achievement.getCo2Reduction;
-            status.point += achievement.getPoint;
-            status.cost += achievement.getcostReduction;
-          }
+        if (status !== undefined) {
+          status.co2 += achievement.getCo2Reduction;
+          status.point += achievement.getPoint;
+          status.cost += achievement.getcostReduction;
         }
       }
     });
