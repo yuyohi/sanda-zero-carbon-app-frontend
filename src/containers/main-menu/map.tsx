@@ -1,16 +1,19 @@
-import { FC, useState, useEffect } from 'react';
-import { useRecoilValue } from 'recoil';
+import { FC, useEffect } from 'react';
+import { useRecoilValue, useRecoilState } from 'recoil';
 import ky from 'ky';
 import userState from '../../atoms/userAtom';
 import type { MapInformation } from '../../atoms/mapAtom';
+import currentLocationInformation from '../../atoms/mapAtom';
 import Response from '../../utils/response';
 import MapView from '../../components/main-menu/map';
 
 /** マップのコンポーネント */
 const Map: FC = () => {
-  const [map, setMap] = useState<MapInformation | undefined>();
+  const [mapInformation, setInformation] = useRecoilState(
+    currentLocationInformation,
+  );
 
-  const userId = useRecoilValue(userState) as string;
+  const userId = useRecoilValue(userState) ;
 
   useEffect(() => {
     const fetchMapInformation = async () => {
@@ -25,13 +28,13 @@ const Map: FC = () => {
 
       const userMapInformation = response.result;
 
-      setMap(userMapInformation);
+      setInformation(userMapInformation);
     };
 
     void fetchMapInformation();
-  }, [userId]);
+  }, [userId, setInformation]);
 
-  return <MapView imageSource={map?.imageSource} />;
+  return <MapView imageSource={mapInformation?.imageSource} />;
 };
 
 export default Map;
