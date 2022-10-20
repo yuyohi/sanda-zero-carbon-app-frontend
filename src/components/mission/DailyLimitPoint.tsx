@@ -1,15 +1,35 @@
-/* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable react/destructuring-assignment */
 import Card from '@mui/material/Card';
 import LinearProgress from '@mui/material/LinearProgress';
 import Typography from '@mui/material/Typography';
 import { Grid } from '@mui/material';
+import ky from 'ky';
+import { useRecoilValue } from 'recoil';
+import { useQuery } from 'react-query';
 import runningKippy from '../../assets/running_kippy.png';
 import flame1 from '../../assets/flame_1.png';
 import { UserDailyStatus } from '../../utils/TypeDefinition';
+import Response from '../../utils/response';
+import userState from '../../atoms/userAtom';
 
-const DailyLimitPoint = (props: { userDailyStatus: UserDailyStatus }) => {
-  const { dailyMissionPoint, dailyMaxMissionPoint } = props.userDailyStatus;
+const useDailyStatus = (uid: string) =>
+  useQuery(['user', uid, 'dailyPoint'], async () => {
+    const response: Response<UserDailyStatus> = await ky(
+      `${import.meta.env.VITE_APP_API_URL}/user/daily?userId=${uid}`,
+    ).json();
+
+    return response.result;
+  });
+
+const DailyLimitPoint = () => {
+  const uid: string = useRecoilValue(userState);
+
+  const { data, isLoading } = useDailyStatus(uid);
+
+  if (isLoading) {
+    return <Typography>Loading...</Typography>;
+  }
+
+  const { dailyMissionPoint, dailyMaxMissionPoint } = data as UserDailyStatus;
 
   return (
     <Card

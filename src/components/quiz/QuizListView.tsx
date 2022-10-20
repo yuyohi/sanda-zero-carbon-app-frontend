@@ -22,21 +22,22 @@ const QuizListView = (props: {
   return (
     <Box>
       <List>
-        {quizList.map((quiz) => (
-          <ListItem>
-            <ListItemText
-              disableTypography
-              primary={
-                <Typography>
-                  Question#{quiz.quizId} : {quiz.title}
-                </Typography>
-              }
-            />
-            <Button onClick={() => handleClick(quiz)}>
-              <ForwardIcon />
-            </Button>
-          </ListItem>
-        ))}
+        {quizList &&
+          quizList.map((quiz) => (
+            <ListItem>
+              <ListItemText
+                disableTypography
+                primary={
+                  <Typography>
+                    Question#{quiz.quizId} : {quiz.title}
+                  </Typography>
+                }
+              />
+              <Button onClick={() => handleClick(quiz)}>
+                <ForwardIcon />
+              </Button>
+            </ListItem>
+          ))}
       </List>
     </Box>
   );

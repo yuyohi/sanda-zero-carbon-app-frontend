@@ -19,14 +19,16 @@ import InfoIcon from '@mui/icons-material/Info';
 import React, { Dispatch, SetStateAction, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import ky from 'ky';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import userState from '../../atoms/userAtom';
+import Response from '../../utils/response';
 
 type Mission = {
   missionId: number;
   title: string;
   point: number;
   description: string;
-  CO2Reduction: number;
+  co2Reduction: number;
   costReduction: number;
   difficulty: string;
   missionType: string;
@@ -34,18 +36,59 @@ type Mission = {
   keyword: string;
 };
 
-const MissionList = (props: {
-  missionList: Array<Mission>;
-  setReloadCount: Dispatch<SetStateAction<number>>;
-  reloadCount: number;
-}) => {
-  const { missionList, setReloadCount, reloadCount } = props;
+type AchiveMissionPayload = {
+  uid: string;
+  selectedMission: Mission;
+  hour: number;
+};
+
+const useMission = (uid: string) =>
+  useQuery([uid, 'mission'], async () => {
+    const response: Response<Array<Mission>> = await ky(
+      `${import.meta.env.VITE_APP_API_URL}/mission`,
+    ).json();
+
+    return response.result;
+  });
+
+const useMissionMutation = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation(
+    async (payload: AchiveMissionPayload) => {
+      const response = await ky.post(
+        `${import.meta.env.VITE_APP_API_URL}/mission/achieve`,
+        {
+          json: {
+            missionId: payload.selectedMission.missionId,
+            userId: payload.uid,
+            hour: payload.hour,
+            isDailyMission: false,
+          },
+        },
+      );
+
+      return response.json;
+    },
+    {
+      onSuccess: () => {
+        void queryClient.invalidateQueries('user');
+      },
+    },
+  );
+};
+
+const MissionList = () => {
+  const uid: string = useRecoilValue(userState);
+  const { data, isLoading } = useMission(uid);
+
+  const missionList = data as Array<Mission>;
 
   const [selectedMission, setSelectedMission] = React.useState<Mission | null>(
     null,
   );
 
-  const [missionTime, setMissionTime] = useState<number>(1);
+  const [hour, setHour] = useState<number>(1);
 
   const [informedMisson, setInformedMisson] = React.useState<Mission | null>(
     null,
@@ -57,11 +100,8 @@ const MissionList = (props: {
 
   const handleClickAchive = (misson: Mission, time: number) => {
     setSelectedMission(misson);
-    setMissionTime(time);
+    setHour(time);
   };
-
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const uid: string = useRecoilValue(userState);
 
   const handleCloseInfo = () => {
     setInformedMisson(null);
@@ -70,26 +110,13 @@ const MissionList = (props: {
     setInformedMisson(misson);
   };
 
-  const handleAchiveMission = () => {
-    const postMission = async () => {
-      const response = await ky.post(
-        `${import.meta.env.VITE_APP_API_URL}/mission/achieve`,
-        {
-          json: {
-            missionId: selectedMission?.missionId,
-            userId: uid,
-            hour: missionTime,
-            isDailyMission: false,
-          },
-        },
-      );
-    };
-    void postMission();
-    setSelectedMission(null);
-    setReloadCount(reloadCount + 1);
-  };
+  const { mutate } = useMissionMutation();
 
   const theme = useTheme();
+
+  if (isLoading) {
+    return <Typography>Loading...</Typography>;
+  }
 
   return (
     <Card sx={{ backgroundColor: '#ffffff' }}>
@@ -139,19 +166,21 @@ const MissionList = (props: {
                     </Typography>
                     <Typography>
                       {informedMisson &&
-                        `CO2の削減量： ${informedMisson?.CO2Reduction}`}
+                        `CO2の削減量： ${informedMisson?.co2Reduction}`}
                     </Typography>
                     <Typography>
                       {informedMisson &&
                         `削減金額： ${informedMisson?.costReduction}`}
                     </Typography>
                     <Typography>
-                      {informedMisson &&
-                        `キーワード： ${informedMisson?.keyword}`}
+                      {informedMisson && `タグ： ${informedMisson?.keyword}`}
                     </Typography>
                     <Typography>
                       {informedMisson &&
                         `ミッションの難易度： ${informedMisson?.difficulty}`}
+                    </Typography>
+                    <Typography>
+                      ※獲得ポイント，CO2の削減量，削減金額は1時間もしくは1回当たりの値となっています
                     </Typography>
                   </DialogContent>
                 </Dialog>
@@ -204,7 +233,12 @@ const MissionList = (props: {
                       キャンセル
                     </Button>
                     <Button
-                      onClick={handleAchiveMission}
+                      onClick={() => {
+                        if (selectedMission) {
+                          mutate({ uid, selectedMission, hour });
+                          setSelectedMission(null);
+                        }
+                      }}
                       color="primary"
                       autoFocus
                     >
