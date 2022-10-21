@@ -20,18 +20,23 @@ const useAnswerQuizMutation = (
 
   return useMutation(
     async (payload: AnswerQuizPayload) => {
-      const response: Response<QuizAnswer> = await ky(
-        `${import.meta.env.VITE_APP_API_URL}/quiz/answer?quizId=${
-          payload.qid
-        }&userAns=${payload.ans}&userId=${payload.uid}`,
-      ).json();
+      const response: Response<QuizAnswer> = await ky
+        .post(`${import.meta.env.VITE_APP_API_URL}/quiz/answer`, {
+          json: {
+            quizId: payload.qid,
+            userAns: payload.ans,
+            userId: payload.uid,
+          },
+        })
+        .json();
 
       return response.result;
     },
     {
       onSuccess: (data) => {
-        void queryClient.invalidateQueries('user');
         void queryClient.invalidateQueries('quiz');
+        void queryClient.invalidateQueries('user');
+
         setQuizAns(data);
       },
     },
@@ -53,7 +58,6 @@ const AnswerQuizView = (props: {
   // eslint-disable-next-line no-shadow
   const onClick = (uid: string, ans: string, qid: number) => {
     mutate({ uid, ans, qid });
-    setCurrentQuiz(undefined);
   };
 
   if (quizAns) {

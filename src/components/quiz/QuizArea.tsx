@@ -14,7 +14,7 @@ import AnswerQuizView from './AnswerQuizView';
 import userState from '../../atoms/userAtom';
 
 const useQuiz = (uid: string, category: QuizCategory) =>
-  useQuery([uid, category, 'quiz'], async () => {
+  useQuery(['quiz', uid, category], async () => {
     const response: Response<Array<Quiz>> = await ky(
       `${import.meta.env.VITE_APP_API_URL}/quiz/${category}/?userId=${uid}`,
     ).json();
@@ -46,19 +46,22 @@ const QuizArea = () => {
             <CustomRadioButton
               title="unAnswerd"
               img={answerdButton}
-              quizCategory="unanswer"
+              buttonQuizCategory="unanswer"
+              showQuizCategory={quizCategory}
               setShowQuizCategory={setQuizCategory}
             />
             <CustomRadioButton
               title="notCorrect"
               img={notCorrectButton}
-              quizCategory="incorrect"
+              buttonQuizCategory="incorrect"
+              showQuizCategory={quizCategory}
               setShowQuizCategory={setQuizCategory}
             />
             <CustomRadioButton
               title="correct"
               img={correctButton}
-              quizCategory="correct"
+              buttonQuizCategory="correct"
+              showQuizCategory={quizCategory}
               setShowQuizCategory={setQuizCategory}
             />
           </>
