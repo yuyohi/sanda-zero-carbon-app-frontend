@@ -13,7 +13,7 @@ const Map: FC = () => {
     currentLocationInformation,
   );
 
-  const userId = useRecoilValue(userState) as string;
+  const userId = useRecoilValue(userState) ;
 
   useEffect(() => {
     const fetchMapInformation = async () => {

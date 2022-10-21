@@ -1,14 +1,46 @@
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable react/jsx-props-no-spreading */
 import CircularProgress from '@mui/material/CircularProgress';
 import Typography from '@mui/material/Typography';
 import { Box, Card, Stack } from '@mui/material';
-import { UserLevelStatus } from '../../utils/TypeDefinition';
+import { useQuery } from 'react-query';
+import ky from 'ky';
+import { useRecoilValue } from 'recoil';
+import { UserDto, UserLevelStatus } from '../../utils/TypeDefinition';
 import flame2 from '../../assets/flame_2.png';
+import Response from '../../utils/response';
+import userState from '../../atoms/userAtom';
 
-const CircularLevelView = (props: { userLevelStatus: UserLevelStatus }) => {
+// ユーザレベルステータス取得用カスタムフック
+const useLevelStatus = (uid: string) =>
+  useQuery(['user', uid, 'level'], async () => {
+    const response: Response<UserDto> = await ky(
+      `${import.meta.env.VITE_APP_API_URL}/user?userId=${uid}`,
+    ).json();
+
+    const uLevelStatus: UserLevelStatus = {
+      totalPoint: response.result.totalPoint,
+      level: response.result.level,
+      levelRate: response.result.levelRate,
+      nextLevelPercentage: response.result.nextLevelPercentage,
+    };
+
+    return uLevelStatus;
+  });
+
+/**
+ *
+ * @returns ユーザレベル表示View
+ */
+const CircularLevelView = () => {
+  const uid: string = useRecoilValue(userState);
+
+  const { data, isLoading } = useLevelStatus(uid);
+
+  if (isLoading) {
+    return <Typography>Loading...</Typography>;
+  }
+
   const { totalPoint, level, levelRate, nextLevelPercentage } =
-    props.userLevelStatus;
+    data as UserLevelStatus;
 
   return (
     <Card

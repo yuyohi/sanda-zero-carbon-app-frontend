@@ -3,7 +3,7 @@ type Mission = {
   title: string;
   point: number;
   description: string;
-  CO2Reduction: number;
+  co2Reduction: number;
   costReduction: number;
   difficulty: string;
   missionType: string;
@@ -51,17 +51,14 @@ type Quiz = {
   title: string;
   quizSentence: string;
   explain: string;
-  ans1: string;
-  ans2: string;
-  ans3: string;
-  ans4: string;
+  answerList: Array<string>;
   point: number;
   tagId: number;
   keyword: string;
   correctAns: string;
 };
 
-type QuizCategory = 'unAnswered' | 'notCorrect' | 'correct';
+type QuizCategory = 'unanswer' | 'incorrect' | 'correct';
 
 type CategorizeQuiz = {
   category: QuizCategory;
@@ -75,6 +72,22 @@ type AppBarSetting = {
   to: string;
 };
 
+type QuizAnswer = {
+  quizId: number;
+  title: string;
+  quizSentence: string;
+  explaination: string;
+  point: number;
+  tagId: number;
+  keyword: string;
+  correctAns: string;
+  answeredAt: string;
+  answeredQuizId: number;
+  isCorrect: boolean;
+  userAns: string;
+  userId: string;
+};
+
 export type {
   Mission,
   DailyMission,
@@ -85,4 +98,5 @@ export type {
   AppBarSetting,
   CategorizeQuiz,
   QuizCategory,
+  QuizAnswer,
 };
