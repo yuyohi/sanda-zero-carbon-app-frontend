@@ -82,8 +82,8 @@ type QuizAnswer = {
   keyword: string;
   correctAns: string;
   answeredAt: string;
-  answeredQuizId: string;
-  isCorrect: string;
+  answeredQuizId: number;
+  isCorrect: boolean;
   userAns: string;
   userId: string;
 };
