@@ -5,6 +5,7 @@ import { CssBaseline, ThemeProvider } from '@mui/material';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 
+import ProtectRoute from './auth/protectRoute';
 import MainMenu from './containers/main-menu/mainMenu';
 import LoginPage from './containers/login/loginPage';
 import SignUpPage from './containers/login/signUpPage';
@@ -21,15 +22,42 @@ const App: FC = () => (
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-
           <Routes>
-            <Route path="/" element={<Navigate to="login" replace />} />
+            <Route path="/" element={<Navigate to="menu" replace />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUpPage />} />
-            <Route path="/lookback" element={<LookbackView />} />
-            <Route path="/menu" element={<MainMenu />} />
-            <Route path="/mission" element={<MissionView />} />
-            <Route path="/quiz" element={<QuizView />} />
+            <Route
+              path="/lookback"
+              element={
+                <ProtectRoute>
+                  <LookbackView />
+                </ProtectRoute>
+              }
+            />
+            <Route
+              path="/menu"
+              element={
+                <ProtectRoute>
+                  <MainMenu />
+                </ProtectRoute>
+              }
+            />
+            <Route
+              path="/mission"
+              element={
+                <ProtectRoute>
+                  <MissionView />
+                </ProtectRoute>
+              }
+            />
+            <Route
+              path="/quiz"
+              element={
+                <ProtectRoute>
+                  <QuizView />
+                </ProtectRoute>
+              }
+            />
           </Routes>
         </ThemeProvider>
         <ReactQueryDevtools initialIsOpen={false} />
