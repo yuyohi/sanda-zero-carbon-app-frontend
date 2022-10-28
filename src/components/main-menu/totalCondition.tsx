@@ -18,7 +18,7 @@ export type ConditionProp = {
 };
 
 const TotalCondition: FC<ConditionProp> = ({ reduction, period, onClick }) => (
-  <Box sx={{ textAlign: 'center' }} onClick={onClick}>
+  <Box sx={{ textAlign: 'center', width: '20em' }} onClick={onClick}>
     <Card
       sx={{
         padding: 2,
@@ -41,7 +41,8 @@ const TotalCondition: FC<ConditionProp> = ({ reduction, period, onClick }) => (
         </Grid>
         <Grid item xs={12}>
           <Typography variant="h3" component="h3">
-            {reduction?.co2Reduction} kg
+            {reduction ? Math.round(reduction.co2Reduction * 100) / 100 : '0'}
+            kg
           </Typography>
         </Grid>
       </Grid>
