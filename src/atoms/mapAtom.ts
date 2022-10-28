@@ -4,8 +4,9 @@ export type MapInformation = {
   currentLocation: number;
   nextLocation: number | null;
   backLocation: number | null;
-  imageSource: string | undefined;
-  source: string | undefined;
+  mapImage: string | undefined;
+  placeImage: string | undefined;
+  placeName: string | undefined;
 };
 
 const currentLocationInformation = atom<MapInformation>({
@@ -14,8 +15,9 @@ const currentLocationInformation = atom<MapInformation>({
     currentLocation: 0,
     nextLocation: 0,
     backLocation: 0,
-    imageSource: undefined,
-    source: undefined,
+    mapImage: undefined,
+    placeImage: undefined,
+    placeName: undefined,
   },
 });
 
