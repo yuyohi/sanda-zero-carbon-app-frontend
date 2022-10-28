@@ -10,7 +10,7 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 600,
+  width: '80%',
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -31,7 +31,7 @@ const PlaceModal: FC<{ handleClose: () => void; open: boolean }> = ({
       aria-describedby="三田市の名勝"
     >
       <Box sx={style}>
-        <Typography variant="h6" component="h6">
+        <Typography variant="h6" component="h6" sx={{ textAlign: 'center' }}>
           {mapInformation.placeName}
         </Typography>
         <img src={mapInformation.placeImage} alt="観光地" width="100%" />
