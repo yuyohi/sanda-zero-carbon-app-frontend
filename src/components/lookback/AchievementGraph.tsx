@@ -17,8 +17,8 @@ const AchievementGraph = (props: {
 }) => {
   const { achievementMap } = props;
   const [graphGenre, setGraphGenre] = useState<GraphGenre>('point');
-  const dates = Array.from(achievementMap.keys());
 
+  const dates = Array.from(achievementMap.keys());
   let data = dates.map((date) => ({
     name: weekday[date],
     value: achievementMap.get(date)?.point,
@@ -44,7 +44,7 @@ const AchievementGraph = (props: {
   return (
     <>
       <br />
-      <Grid container spacing={1} sx={{ width: '100vw' }}>
+      <Grid container spacing={1} sx={{ width: '100%' }}>
         <Grid item xs={4}>
           <GenreButton
             title="ポイント"
