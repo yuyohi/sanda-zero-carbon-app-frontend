@@ -142,6 +142,7 @@ const DailyMissionList = () => {
         titleTypographyProps={{
           fontFamily: ['Yusei Magic', 'sans-serif'].join(','),
           fontSize: { xs: '1.2em', md: '1.5em', lg: '2.0em' },
+          marginLeft: '1%',
         }}
         sx={{ backgroundColor: '#F29574' }}
       />
@@ -214,7 +215,7 @@ const DailyMissionList = () => {
                   </DialogContent>
                 </Dialog>
               </Grid>
-              <Grid item xs={4} sm={3.2} sx={{ ml: '1%' }}>
+              <Grid item xs={4} sm={3.2} sx={{ ml: '2%' }}>
                 <Box>
                   <Typography sx={{ ...bodyTypographyStyle }}>
                     ミッションを達成する

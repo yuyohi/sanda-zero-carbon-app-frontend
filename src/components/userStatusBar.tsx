@@ -77,17 +77,20 @@ const UserStatusBar = () => {
     return <Typography>Loading...</Typography>;
   }
 
-  const { levelRate, nextLevelPercentage } = data as UserLevelStatus;
+  const { level, levelRate, nextLevelPercentage } = data as UserLevelStatus;
 
   return (
     <StatusBarBox>
       <LevelBox>
-        <Typography sx={{ ...bodyTypographyStyle }}> Level: 5</Typography>
+        <Typography sx={{ ...bodyTypographyStyle }}>
+          {' '}
+          Level : {level}
+        </Typography>
       </LevelBox>
       <UserNameBox>
-        <Stack sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Stack sx={{ textAlign: 'center' }}>
           <Typography sx={{ ...bodyTypographyStyle }}>ユーザ名</Typography>
-          <Typography sx={{ ...bodyTypographyStyle }}>○○○○</Typography>
+          <Typography sx={{ ...bodyTypographyStyle }}>{uid}</Typography>
         </Stack>
       </UserNameBox>
       <LevelBarBox>

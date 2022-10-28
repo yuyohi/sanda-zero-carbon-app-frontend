@@ -17,73 +17,40 @@ import quiz from '../assets/quiz_icon.png';
 import lookback from '../assets/lookback_icon.png';
 import article from '../assets/article_icon.png';
 import { AppBarSetting } from '../utils/TypeDefinition';
+import AccordionMenu from './accordionMenu';
 
 const customAppBar = () => {
-  const lgButtonWidth = 100;
-  const mdButtonWidth = 70;
+  const ButtonWidth = 100;
 
-  const appBarSettingsLg: Array<AppBarSetting> = [
+  const appBarSettings: Array<AppBarSetting> = [
     {
       src: record,
       alt: 'record icon',
-      width: lgButtonWidth,
+      width: ButtonWidth,
       to: '/mission',
     },
     {
       src: lookback,
       alt: 'lookback icon',
-      width: lgButtonWidth,
+      width: ButtonWidth,
       to: '/lookback',
     },
     {
       src: home,
       alt: 'home icon',
-      width: lgButtonWidth,
+      width: ButtonWidth,
       to: '/menu',
     },
     {
       src: quiz,
       alt: 'quiz icon',
-      width: lgButtonWidth,
+      width: ButtonWidth,
       to: '/quiz',
     },
     {
       src: article,
       alt: 'study icon',
-      width: lgButtonWidth,
-      to: '/article',
-    },
-  ];
-
-  const appBarSettingsMd: Array<AppBarSetting> = [
-    {
-      src: record,
-      alt: 'record icon',
-      width: mdButtonWidth,
-      to: '/mission',
-    },
-    {
-      src: lookback,
-      alt: 'lookback icon',
-      width: mdButtonWidth,
-      to: '/lookback',
-    },
-    {
-      src: home,
-      alt: 'home icon',
-      width: mdButtonWidth,
-      to: '/menu',
-    },
-    {
-      src: quiz,
-      alt: 'quiz icon',
-      width: mdButtonWidth,
-      to: '/quiz',
-    },
-    {
-      src: article,
-      alt: 'study icon',
-      width: mdButtonWidth,
+      width: ButtonWidth,
       to: '/article',
     },
   ];
@@ -110,7 +77,7 @@ const customAppBar = () => {
               justifyContent: 'center',
             }}
           >
-            {appBarSettingsLg.map((setting) => (
+            {appBarSettings.map((setting) => (
               <Button
                 type="submit"
                 component={Link}
@@ -121,6 +88,15 @@ const customAppBar = () => {
                 <img src={setting.src} alt={setting.alt} width="100%" />
               </Button>
             ))}
+          </Box>
+          <Box
+            sx={{
+              width: '65%',
+              display: { sm: 'none', xs: 'flex' },
+              justifyContent: 'end',
+            }}
+          >
+            <AccordionMenu />
           </Box>
         </Box>
       </Toolbar>

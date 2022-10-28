@@ -147,6 +147,7 @@ const MissionList = () => {
         titleTypographyProps={{
           fontFamily: ['Yusei Magic', 'sans-serif'].join(','),
           fontSize: { xs: '1.2em', md: '1.5em', lg: '2.0em' },
+          marginLeft: '1%',
         }}
         sx={{ backgroundColor: '#74F2D8' }}
       />
@@ -219,7 +220,7 @@ const MissionList = () => {
                   </DialogContent>
                 </Dialog>
               </Grid>
-              <Grid item xs={4} sm={3.2} sx={{ ml: '1%' }}>
+              <Grid item xs={4} sm={3.2} sx={{ ml: '2%' }}>
                 {mission.missionType === 'DoType' && (
                   <Box>
                     <Typography sx={{ ...bodyTypographyStyle }}>
