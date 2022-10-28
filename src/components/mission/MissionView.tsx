@@ -12,6 +12,7 @@ const BodyBox = styled(Box)({
   padding: '2%',
   width: 'fullwidth',
   maxWidth: '2560px',
+  minWidth: '450px',
 });
 
 const ContentsBox = styled(Box)({

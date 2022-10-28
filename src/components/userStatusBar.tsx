@@ -30,7 +30,7 @@ const StatusBarBox = styled(Box)({
 const LevelBox = styled(Box)({
   backgroundImage: `url(${circleImg})`,
   backgroundSize: '100% 100%',
-  aspectRatio: '307 / 217',
+  aspectRatio: '1 / 1',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
@@ -39,7 +39,7 @@ const LevelBox = styled(Box)({
 const UserNameBox = styled(Box)({
   backgroundImage: `url(${circleImg2})`,
   backgroundSize: '100% 100%',
-  aspectRatio: '307 / 217',
+  aspectRatio: '1 / 1',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
