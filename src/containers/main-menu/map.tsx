@@ -13,7 +13,7 @@ const Map: FC = () => {
     currentLocationInformation,
   );
 
-  const userId = useRecoilValue(userState) as string;
+  const userId = useRecoilValue(userState);
 
   useEffect(() => {
     const fetchMapInformation = async () => {
@@ -34,7 +34,7 @@ const Map: FC = () => {
     void fetchMapInformation();
   }, [userId, setInformation]);
 
-  return <MapView imageSource={mapInformation?.imageSource} />;
+  return <MapView imageSource={mapInformation.mapImage} />;
 };
 
 export default Map;
