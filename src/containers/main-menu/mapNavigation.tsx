@@ -37,7 +37,7 @@ const MapNavigation: FC = () => {
   const [mapInformation, setInformation] = useRecoilState(
     currentLocationInformation,
   );
-  const userId = useRecoilValue(userState) ;
+  const userId = useRecoilValue(userState);
 
   const goForward = () => {
     const fetchNewMap = async () => {
