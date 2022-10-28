@@ -41,9 +41,12 @@ const getTotal = (achievements: Achievement[]) => {
       if (week === date.getDay()) {
         const status = calculateMap.get(week);
         if (status !== undefined) {
-          status.co2 += achievement.getCo2Reduction;
-          status.point += achievement.getPoint;
-          status.cost += achievement.getcostReduction;
+          const co2 = achievement.getCo2Reduction.toFixed(2);
+          const point = achievement.getPoint.toFixed(2);
+          const cost = achievement.getcostReduction.toFixed(2);
+          status.co2 += Number(co2);
+          status.point += Number(point);
+          status.cost += Number(cost);
         }
       }
     });
