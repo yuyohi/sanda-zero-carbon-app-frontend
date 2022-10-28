@@ -5,18 +5,33 @@ import { QuizCategory } from '../../utils/TypeDefinition';
 const CustomRadioButton = (props: {
   title: string;
   img: string;
-  quizCategory: QuizCategory;
+  buttonQuizCategory: QuizCategory;
+  showQuizCategory: QuizCategory;
   setShowQuizCategory: Dispatch<SetStateAction<QuizCategory>>;
 }) => {
-  const { title, img, quizCategory, setShowQuizCategory } = props;
+  const {
+    title,
+    img,
+    buttonQuizCategory,
+    showQuizCategory,
+    setShowQuizCategory,
+  } = props;
   const handleClick = () => {
-    setShowQuizCategory(quizCategory);
+    setShowQuizCategory(buttonQuizCategory);
   };
 
   return (
     <Button
       type="submit"
-      sx={{ backgroundColor: 'transparent' }}
+      sx={[
+        {
+          backgroundColor:
+            buttonQuizCategory === showQuizCategory ? 'red' : 'transparent',
+        },
+        {
+          '&:hover': { backgroundColor: 'blue' },
+        },
+      ]}
       onClick={handleClick}
     >
       <img src={img} alt={title} width={100} />
