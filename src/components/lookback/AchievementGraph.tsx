@@ -21,23 +21,23 @@ const AchievementGraph = (props: {
   const dates = Array.from(achievementMap.keys());
   let data = dates.map((date) => ({
     name: weekday[date],
-    value: achievementMap.get(date)?.point,
+    value: Number(achievementMap.get(date)?.point.toFixed(2)),
   }));
 
   if (graphGenre === 'point') {
     data = dates.map((date) => ({
       name: weekday[date],
-      value: achievementMap.get(date)?.point,
+      value: Number(achievementMap.get(date)?.point.toFixed(2)),
     }));
   } else if (graphGenre === 'co2') {
     data = dates.map((date) => ({
       name: weekday[date],
-      value: achievementMap.get(date)?.co2,
+      value: Number(achievementMap.get(date)?.co2.toFixed(2)),
     }));
   } else if (graphGenre === 'cost') {
     data = dates.map((date) => ({
       name: weekday[date],
-      value: achievementMap.get(date)?.cost,
+      value: Number(achievementMap.get(date)?.cost.toFixed(2)),
     }));
   }
 
