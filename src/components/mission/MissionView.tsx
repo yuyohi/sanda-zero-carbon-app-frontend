@@ -1,56 +1,40 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import Grid from '@mui/material/Grid';
-import { Box, Container } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 
-import CircularLevelView from './CircularLevelView';
-import DailyLimitPoint from './DailyLimitPoint';
+import { styled } from '@mui/system';
+
 import DailyMissionList from './DailyMissionList';
 import MissionList from './MissonList';
 
 import CustomAppBar from '../customAppBar';
+import UserStatusBar from '../userStatusBar';
+
+const BodyBox = styled(Box)({
+  padding: '2%',
+  width: 'fullwidth',
+  maxWidth: '2560px',
+});
+
+const ContentsBox = styled(Box)({
+  padding: '1%',
+});
 
 const MissionView = () => (
-  <Container>
-    <CustomAppBar />
-
-    <Grid container spacing={1}>
-      {/*
-          <Grid item xs={12} md={5.9} sx={{ m: '0.1rem', mb: '0.5rem' }}>
-          {userLevelStatus && (
-            <CircularLevelView userLevelStatus={userLevelStatus} />
-          )}
-        </Grid>
-        <Grid item xs={12} md={5.9} sx={{ m: '0.1rem', mb: '0.5rem' }}>
-          {userDailyStatus && (
-            <DailyLimitPoint userDailyStatus={userDailyStatus} />
-          )}
-        </Grid>
-           */}
-      <Box
-        sx={{
-          width: { xs: 100, md: 350, lg: 490 },
-          height: { xs: 100, md: 266, lg: 345.7 },
-        }}
-      >
-        <CircularLevelView />
-      </Box>
-      <Box
-        sx={{
-          width: { xs: 100, md: 350, lg: 490 },
-          height: { xs: 100, md: 266, lg: 345.7 },
-        }}
-      >
-        <DailyLimitPoint />
-      </Box>
-
-      <Grid item xs={12} sx={{ my: '0.5rem' }}>
+  <BodyBox>
+    <Stack>
+      <ContentsBox>
+        <CustomAppBar />
+      </ContentsBox>
+      <ContentsBox>
+        <UserStatusBar />
+      </ContentsBox>
+      <ContentsBox>
         <DailyMissionList />
-      </Grid>
-      <Grid item xs={12} sx={{ my: '0.5rem' }}>
+      </ContentsBox>
+      <ContentsBox>
         <MissionList />
-      </Grid>
-    </Grid>
-  </Container>
+      </ContentsBox>
+    </Stack>
+  </BodyBox>
 );
 
 export default MissionView;

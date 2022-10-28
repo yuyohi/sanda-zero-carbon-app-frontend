@@ -20,6 +20,8 @@ import { useRecoilValue } from 'recoil';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import userState from '../../atoms/userAtom';
 import Response from '../../utils/response';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { titleTypographyStyle } from '../../utils/customStyles';
 
 type DailyMission = {
   title: string;
@@ -112,10 +114,7 @@ const DailyMissionList = () => {
 
   return (
     <Card sx={{ backgroundColor: '#ffffff' }}>
-      <CardHeader
-        title="デイリーミッション"
-        sx={{ backgroundColor: '#469DBD' }}
-      />
+      <CardHeader title="デイリーミッション" />
       <CardContent>
         <Grid
           container
