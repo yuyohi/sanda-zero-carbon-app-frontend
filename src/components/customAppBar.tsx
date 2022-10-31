@@ -66,7 +66,9 @@ const customAppBar = () => {
             width: '100%',
           }}
         >
-          <Box sx={{ width: '30%', aspectRatio: '389 / 219' }}>
+          <Box
+            sx={{ width: '30%', aspectRatio: '389 / 219', maxWidth: '350px' }}
+          >
             <img src={Logo} alt="site logo" width="100%" />
           </Box>
 
@@ -74,7 +76,7 @@ const customAppBar = () => {
             sx={{
               width: '65%',
               display: { sm: 'flex', xs: 'none' },
-              justifyContent: 'center',
+              justifyContent: 'end',
             }}
           >
             {appBarSettings.map((setting) => (
@@ -82,7 +84,7 @@ const customAppBar = () => {
                 type="submit"
                 component={Link}
                 to={setting.to}
-                sx={{ backgroundColor: 'transparent' }}
+                sx={{ backgroundColor: 'transparent', maxWidth: '180px' }}
                 key={setting.alt}
               >
                 <img src={setting.src} alt={setting.alt} width="100%" />
