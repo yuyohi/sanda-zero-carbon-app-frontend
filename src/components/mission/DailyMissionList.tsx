@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Card,
   CardContent,
@@ -10,8 +11,8 @@ import {
   DialogTitle,
   Grid,
   IconButton,
+  styled,
   Typography,
-  useTheme,
 } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
 import React from 'react';
@@ -20,6 +21,11 @@ import { useRecoilValue } from 'recoil';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import userState from '../../atoms/userAtom';
 import Response from '../../utils/response';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import {
+  bodyBigTypographyStyle,
+  bodyTypographyStyle,
+} from '../../utils/customStyles';
 
 type DailyMission = {
   title: string;
@@ -37,6 +43,27 @@ type AchiveDailyMissionPayload = {
   uid: string;
   selectedMission: DailyMission;
 };
+
+const DailyMissionCard = styled(Box)({
+  outline: 'dashed 0.1em orange',
+  outlineOffset: '-0.3em',
+  borderRadius: '0.5em',
+  backgroundColor: '#F7C7A8',
+  padding: '2%',
+});
+
+const DailyMissionAchiveButton = styled('button')({
+  borderRadius: '5%',
+  backgroundColor: '#F7C7A8',
+  borderTop: '4px solid #C78B5D',
+  borderRight: '4px solid #946746',
+  borderBottom: '4px solid #946746',
+  borderLeft: '4px solid #C78B5D',
+  padding: '1%',
+  margin: '1%',
+  width: '30%',
+  aspectRatio: '1 / 1',
+});
 
 const useDailyMission = (uid: string) =>
   useQuery(['user', uid, 'dailyMission'], async () => {
@@ -104,17 +131,20 @@ const DailyMissionList = () => {
 
   const { mutate } = useDailyMissionMutation();
 
-  const theme = useTheme();
-
   if (isLoading) {
     return <Typography>Loading...</Typography>;
   }
 
   return (
-    <Card sx={{ backgroundColor: '#ffffff' }}>
+    <Card sx={{ backgroundColor: '#F2F2F2' }}>
       <CardHeader
         title="デイリーミッション"
-        sx={{ backgroundColor: '#469DBD' }}
+        titleTypographyProps={{
+          fontFamily: ['Yusei Magic', 'sans-serif'].join(','),
+          fontSize: { xs: '1.2em', md: '1.5em', lg: '2.0em' },
+          marginLeft: '1%',
+        }}
+        sx={{ backgroundColor: '#F29574' }}
       />
       <CardContent>
         <Grid
@@ -128,17 +158,22 @@ const DailyMissionList = () => {
         >
           {dailyMissionList.map((dmission) => (
             <>
-              <Grid item xs={8}>
-                <Card
-                  sx={{
-                    backgroundColor: theme.palette.primary.main,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <Typography>{dmission.title}</Typography>
-                </Card>
+              <Grid item xs={10} sm={8}>
+                <DailyMissionCard>
+                  <Typography sx={{ ...bodyTypographyStyle }}>
+                    {' '}
+                    ミッション# {dmission.missionId}
+                  </Typography>
+                  <Typography
+                    sx={{
+                      ...bodyBigTypographyStyle,
+                      display: 'flex',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    {dmission.title}
+                  </Typography>
+                </DailyMissionCard>
               </Grid>
               <Grid item xs={0.5}>
                 <IconButton onClick={() => handleClickInfo(dmission)}>
@@ -180,12 +215,19 @@ const DailyMissionList = () => {
                   </DialogContent>
                 </Dialog>
               </Grid>
-              <Grid item xs={3.5}>
-                <Button
-                  variant="outlined"
-                  size="medium"
-                  onClick={() => handleClickAchive(dmission)}
-                >{`達成 [${dmission.point}Pt]`}</Button>
+              <Grid item xs={4} sm={3.2} sx={{ ml: '2%' }}>
+                <Box>
+                  <Typography sx={{ ...bodyTypographyStyle }}>
+                    ミッションを達成する
+                  </Typography>
+                  <DailyMissionAchiveButton
+                    onClick={() => handleClickAchive(dmission)}
+                  >
+                    <Typography sx={{ ...bodyTypographyStyle }}>
+                      1h/1回
+                    </Typography>
+                  </DailyMissionAchiveButton>
+                </Box>
                 <Dialog open={!!selectedMission} onClose={handleCloseAchive}>
                   <DialogTitle>ミッション達成確認</DialogTitle>
                   <DialogContent>

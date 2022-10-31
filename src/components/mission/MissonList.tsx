@@ -1,7 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+import { styled } from '@mui/system';
 import {
+  Box,
   Button,
-  ButtonGroup,
   Card,
   CardContent,
   CardHeader,
@@ -13,15 +13,18 @@ import {
   Grid,
   IconButton,
   Typography,
-  useTheme,
 } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import ky from 'ky';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import userState from '../../atoms/userAtom';
 import Response from '../../utils/response';
+import {
+  bodyBigTypographyStyle,
+  bodyTypographyStyle,
+} from '../../utils/customStyles';
 
 type Mission = {
   missionId: number;
@@ -41,6 +44,27 @@ type AchiveMissionPayload = {
   selectedMission: Mission;
   hour: number;
 };
+
+const MissionCard = styled(Box)({
+  outline: 'dashed 0.1em green',
+  outlineOffset: '-0.3em',
+  borderRadius: '0.5em',
+  backgroundColor: '#D1F5E3',
+  padding: '2%',
+});
+
+const MissionAchiveButton = styled('button')({
+  borderRadius: '5%',
+  backgroundColor: '#D1F5E3',
+  borderTop: '4px solid #48ecc4',
+  borderRight: '4px solid #0a5f4a',
+  borderBottom: '4px solid #0f745b',
+  borderLeft: '4px solid #8cf9de',
+  padding: '1%',
+  margin: '1%',
+  width: '30%',
+  aspectRatio: '1 / 1',
+});
 
 const useMission = (uid: string) =>
   useQuery([uid, 'mission'], async () => {
@@ -112,15 +136,21 @@ const MissionList = () => {
 
   const { mutate } = useMissionMutation();
 
-  const theme = useTheme();
-
   if (isLoading) {
     return <Typography>Loading...</Typography>;
   }
 
   return (
-    <Card sx={{ backgroundColor: '#ffffff' }}>
-      <CardHeader title="ミッション" sx={{ backgroundColor: '#469DBD' }} />
+    <Card sx={{ backgroundColor: '#F2F2F2' }}>
+      <CardHeader
+        title="ミッション"
+        titleTypographyProps={{
+          fontFamily: ['Yusei Magic', 'sans-serif'].join(','),
+          fontSize: { xs: '1.2em', md: '1.5em', lg: '2.0em' },
+          marginLeft: '1%',
+        }}
+        sx={{ backgroundColor: '#74F2D8' }}
+      />
       <CardContent>
         <Grid
           container
@@ -133,17 +163,22 @@ const MissionList = () => {
         >
           {missionList.map((mission) => (
             <>
-              <Grid item xs={8}>
-                <Card
-                  sx={{
-                    backgroundColor: theme.palette.primary.main,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <Typography>{mission.title}</Typography>
-                </Card>
+              <Grid item xs={10} sm={8}>
+                <MissionCard>
+                  <Typography sx={{ ...bodyTypographyStyle }}>
+                    {' '}
+                    ミッション# {mission.missionId}
+                  </Typography>
+                  <Typography
+                    sx={{
+                      ...bodyBigTypographyStyle,
+                      display: 'flex',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    {mission.title}
+                  </Typography>
+                </MissionCard>
               </Grid>
               <Grid item xs={0.5}>
                 <IconButton onClick={() => handleClickInfo(mission)}>
@@ -185,40 +220,48 @@ const MissionList = () => {
                   </DialogContent>
                 </Dialog>
               </Grid>
-              <Grid item xs={3.5}>
+              <Grid item xs={4} sm={3.2} sx={{ ml: '2%' }}>
                 {mission.missionType === 'DoType' && (
-                  <Button
-                    variant="outlined"
-                    size="medium"
-                    onClick={() => handleClickAchive(mission, 1)}
-                  >
-                    {`達成 [${mission.point}Pt]`}
-                  </Button>
-                )}
-                {mission.missionType === 'TimeType' && (
-                  <ButtonGroup variant="contained">
-                    <Button
-                      variant="outlined"
-                      size="small"
+                  <Box>
+                    <Typography sx={{ ...bodyTypographyStyle }}>
+                      ミッションを達成する
+                    </Typography>
+                    <MissionAchiveButton
                       onClick={() => handleClickAchive(mission, 1)}
                     >
-                      {`達成 (1時間) [${mission.point}Pt]`}
-                    </Button>
-                    <Button
-                      variant="outlined"
-                      size="small"
+                      <Typography sx={{ ...bodyTypographyStyle }}>
+                        達成
+                      </Typography>
+                    </MissionAchiveButton>
+                  </Box>
+                )}
+                {mission.missionType === 'TimeType' && (
+                  <Box>
+                    <Typography sx={{ ...bodyTypographyStyle }}>
+                      ミッションを達成する
+                    </Typography>
+                    <MissionAchiveButton
+                      onClick={() => handleClickAchive(mission, 1)}
+                    >
+                      <Typography sx={{ ...bodyTypographyStyle }}>
+                        1h
+                      </Typography>
+                    </MissionAchiveButton>
+                    <MissionAchiveButton
                       onClick={() => handleClickAchive(mission, 2)}
                     >
-                      {`達成 (2時間)[${mission.point * 2}Pt]`}
-                    </Button>
-                    <Button
-                      variant="outlined"
-                      size="small"
+                      <Typography sx={{ ...bodyTypographyStyle }}>
+                        2h
+                      </Typography>
+                    </MissionAchiveButton>
+                    <MissionAchiveButton
                       onClick={() => handleClickAchive(mission, 3)}
                     >
-                      {`達成 (3時間)[${mission.point * 3}Pt]`}
-                    </Button>
-                  </ButtonGroup>
+                      <Typography sx={{ ...bodyTypographyStyle }}>
+                        3h
+                      </Typography>
+                    </MissionAchiveButton>
+                  </Box>
                 )}
 
                 <Dialog open={!!selectedMission} onClose={handleCloseAchive}>

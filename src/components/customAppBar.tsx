@@ -6,6 +6,7 @@ import {
   Quiz,
   Article,
   AlignHorizontalCenter,
+  AspectRatio,
 } from '@mui/icons-material';
 import { AppBar, Button, Toolbar, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
@@ -14,76 +15,43 @@ import home from '../assets/home_icon.png';
 import record from '../assets/record_icon.png';
 import quiz from '../assets/quiz_icon.png';
 import lookback from '../assets/lookback_icon.png';
-import study from '../assets/study_icon.png';
+import article from '../assets/article_icon.png';
 import { AppBarSetting } from '../utils/TypeDefinition';
+import AccordionMenu from './accordionMenu';
 
 const customAppBar = () => {
-  const lgButtonWidth = 100;
-  const mdButtonWidth = 70;
+  const ButtonWidth = 100;
 
-  const appBarSettingsLg: Array<AppBarSetting> = [
+  const appBarSettings: Array<AppBarSetting> = [
     {
       src: record,
       alt: 'record icon',
-      width: lgButtonWidth,
+      width: ButtonWidth,
       to: '/mission',
     },
     {
       src: lookback,
       alt: 'lookback icon',
-      width: lgButtonWidth,
+      width: ButtonWidth,
       to: '/lookback',
     },
     {
       src: home,
       alt: 'home icon',
-      width: lgButtonWidth,
+      width: ButtonWidth,
       to: '/menu',
     },
     {
       src: quiz,
       alt: 'quiz icon',
-      width: lgButtonWidth,
+      width: ButtonWidth,
       to: '/quiz',
     },
     {
-      src: study,
+      src: article,
       alt: 'study icon',
-      width: lgButtonWidth,
-      to: '/stydy',
-    },
-  ];
-
-  const appBarSettingsMd: Array<AppBarSetting> = [
-    {
-      src: record,
-      alt: 'record icon',
-      width: mdButtonWidth,
-      to: '/mission',
-    },
-    {
-      src: lookback,
-      alt: 'lookback icon',
-      width: mdButtonWidth,
-      to: '/lookback',
-    },
-    {
-      src: home,
-      alt: 'home icon',
-      width: mdButtonWidth,
-      to: '/menu',
-    },
-    {
-      src: quiz,
-      alt: 'quiz icon',
-      width: mdButtonWidth,
-      to: '/quiz',
-    },
-    {
-      src: study,
-      alt: 'study icon',
-      width: mdButtonWidth,
-      to: '/stydy',
+      width: ButtonWidth,
+      to: '/article',
     },
   ];
 
@@ -98,58 +66,39 @@ const customAppBar = () => {
             width: '100%',
           }}
         >
-          <Box sx={{ display: { xs: 'none', lg: 'flex' } }}>
-            <img src={Logo} alt="site logo" width={300} />
-          </Box>
-          <Box sx={{ display: { xs: 'flex', lg: 'none' } }}>
-            <img src={Logo} alt="site logo" width={200} />
+          <Box
+            sx={{ width: '30%', aspectRatio: '389 / 219', maxWidth: '350px' }}
+          >
+            <img src={Logo} alt="site logo" width="100%" />
           </Box>
 
           <Box
             sx={{
-              alignContent: 'center',
-              alignItems: 'center',
-              display: { xs: 'none', lg: 'flex' },
+              width: '65%',
+              display: { sm: 'flex', xs: 'none' },
+              justifyContent: 'end',
             }}
           >
-            {appBarSettingsLg.map((setting) => (
+            {appBarSettings.map((setting) => (
               <Button
                 type="submit"
                 component={Link}
                 to={setting.to}
-                sx={{ backgroundColor: 'transparent' }}
+                sx={{ backgroundColor: 'transparent', maxWidth: '180px' }}
                 key={setting.alt}
               >
-                <img
-                  src={setting.src}
-                  alt={setting.alt}
-                  width={setting.width}
-                />
+                <img src={setting.src} alt={setting.alt} width="100%" />
               </Button>
             ))}
           </Box>
           <Box
             sx={{
-              alignContent: 'center',
-              alignItems: 'center',
-              display: { xs: 'flex', lg: 'none' },
+              width: '65%',
+              display: { sm: 'none', xs: 'flex' },
+              justifyContent: 'end',
             }}
           >
-            {appBarSettingsMd.map((setting) => (
-              <Button
-                type="submit"
-                component={Link}
-                to={setting.to}
-                sx={{ backgroundColor: 'transparent' }}
-                key={setting.alt}
-              >
-                <img
-                  src={setting.src}
-                  alt={setting.alt}
-                  width={setting.width}
-                />
-              </Button>
-            ))}
+            <AccordionMenu />
           </Box>
         </Box>
       </Toolbar>
