@@ -1,10 +1,12 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { Stack } from '@mui/material';
+import Button from '@mui/material/Button';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import ky from 'ky';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import IconButton from '@mui/material/IconButton';
+import PlaceModal from './placeModal';
 import currentLocationInformation from '../../atoms/mapAtom';
 import type { MapInformation } from '../../atoms/mapAtom';
 import userState from '../../atoms/userAtom';
@@ -29,10 +31,13 @@ const fetchMapInformation = async (
 };
 
 const MapNavigation: FC = () => {
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const [mapInformation, setInformation] = useRecoilState(
     currentLocationInformation,
   );
-  const userId = useRecoilValue(userState) as string;
+  const userId = useRecoilValue(userState);
 
   const goForward = () => {
     const fetchNewMap = async () => {
@@ -65,14 +70,20 @@ const MapNavigation: FC = () => {
   };
 
   return (
-    <Stack direction="row" spacing={1}>
-      <IconButton>
-        <ChevronLeftIcon onClick={goForward} />
-      </IconButton>
-      <IconButton>
-        <ChevronRightIcon onClick={goBack} />
-      </IconButton>
-    </Stack>
+    <>
+      <Stack direction="row" spacing={1}>
+        <IconButton>
+          <ChevronLeftIcon onClick={goForward} />
+        </IconButton>
+        <IconButton>
+          <Button onClick={handleOpen}>詳細</Button>
+        </IconButton>
+        <IconButton>
+          <ChevronRightIcon onClick={goBack} />
+        </IconButton>
+      </Stack>
+      <PlaceModal handleClose={handleClose} open={open} />
+    </>
   );
 };
 export default MapNavigation;

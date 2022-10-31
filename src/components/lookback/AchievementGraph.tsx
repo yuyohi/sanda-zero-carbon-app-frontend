@@ -17,34 +17,34 @@ const AchievementGraph = (props: {
 }) => {
   const { achievementMap } = props;
   const [graphGenre, setGraphGenre] = useState<GraphGenre>('point');
-  const dates = Array.from(achievementMap.keys());
 
+  const dates = Array.from(achievementMap.keys());
   let data = dates.map((date) => ({
     name: weekday[date],
-    value: achievementMap.get(date)?.point,
+    value: Number(achievementMap.get(date)?.point.toFixed(2)),
   }));
 
   if (graphGenre === 'point') {
     data = dates.map((date) => ({
       name: weekday[date],
-      value: achievementMap.get(date)?.point,
+      value: Number(achievementMap.get(date)?.point.toFixed(2)),
     }));
   } else if (graphGenre === 'co2') {
     data = dates.map((date) => ({
       name: weekday[date],
-      value: achievementMap.get(date)?.co2,
+      value: Number(achievementMap.get(date)?.co2.toFixed(2)),
     }));
   } else if (graphGenre === 'cost') {
     data = dates.map((date) => ({
       name: weekday[date],
-      value: achievementMap.get(date)?.cost,
+      value: Number(achievementMap.get(date)?.cost.toFixed(2)),
     }));
   }
 
   return (
     <>
       <br />
-      <Grid container spacing={1} sx={{ width: '100vw' }}>
+      <Grid container spacing={1} sx={{ width: '100%' }}>
         <Grid item xs={4}>
           <GenreButton
             title="ポイント"
