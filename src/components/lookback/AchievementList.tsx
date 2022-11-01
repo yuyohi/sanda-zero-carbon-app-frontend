@@ -13,6 +13,10 @@ import {
 import InfoIcon from '@mui/icons-material/Info';
 import React from 'react';
 import { parseISO, format } from 'date-fns';
+import {
+  bodyBigTypographyStyle,
+  bodySmallTypographyStyle,
+} from '../../utils/customStyles';
 
 type Achievement = {
   title: string;
@@ -41,8 +45,16 @@ const AchievementList = (props: { achievementList: Array<Achievement> }) => {
   };
 
   return (
-    <Card sx={{ backgroundColor: 'lightcyan' }}>
-      <CardHeader title="ふりかえり" sx={{ backgroundColor: '#469DBD' }} />
+    <Card sx={{ backgroundColor: '#F2F2F2' }}>
+      <CardHeader
+        title="達成したミッション"
+        titleTypographyProps={{
+          fontFamily: ['Yusei Magic', 'sans-serif'].join(','),
+          fontSize: { xs: '1.2em', md: '1.5em', lg: '2.0em' },
+          marginLeft: '1%',
+        }}
+        sx={{ backgroundColor: '#FFD37A' }}
+      />
       <CardContent>
         <Grid
           container
@@ -56,32 +68,36 @@ const AchievementList = (props: { achievementList: Array<Achievement> }) => {
           <Grid item xs={3}>
             <Card
               sx={{
-                backgroundColor: 'lightblue',
+                backgroundColor: '#FFE6B9',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
               }}
             >
-              <Typography>時間</Typography>
+              <Typography sx={{ ...bodySmallTypographyStyle }}>
+                達成日時
+              </Typography>
             </Card>
           </Grid>
-          <Grid item xs={8.5}>
+          <Grid item xs={8}>
             <Card
               sx={{
-                backgroundColor: 'lightblue',
+                backgroundColor: '#ffdead',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
               }}
             >
-              <Typography>ミッション名</Typography>
+              <Typography sx={{ ...bodySmallTypographyStyle }}>
+                ミッション名
+              </Typography>
             </Card>
           </Grid>
 
-          <Grid item xs={0.5}>
+          <Grid item xs={1}>
             <Card
               sx={{
-                backgroundColor: 'lightblue',
+                backgroundColor: '#ffdead',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -96,30 +112,39 @@ const AchievementList = (props: { achievementList: Array<Achievement> }) => {
               <Grid item xs={3}>
                 <Card
                   sx={{
-                    backgroundColor: 'lightblue',
+                    backgroundColor: '#FFE6B9',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
+                    borderRadius: '0.5em',
+                    padding: '3%',
                   }}
                 >
-                  <Typography>
-                    {format(parseISO(achievement.achievedAt), 'MM-dd HH:mm')}{' '}
+                  <Typography sx={{ ...bodyBigTypographyStyle }}>
+                    {format(
+                      parseISO(achievement.achievedAt),
+                      'MM月dd日 HH時mm分',
+                    )}{' '}
                   </Typography>
                 </Card>
               </Grid>
-              <Grid item xs={8.5}>
+              <Grid item xs={8}>
                 <Card
                   sx={{
-                    backgroundColor: 'lightblue',
+                    backgroundColor: '#ffdead',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
+                    borderRadius: '0.5em',
+                    padding: '2%',
                   }}
                 >
-                  <Typography>{achievement.title}</Typography>
+                  <Typography sx={{ ...bodyBigTypographyStyle }}>
+                    {achievement.title}
+                  </Typography>
                 </Card>
               </Grid>
-              <Grid item xs={0.5}>
+              <Grid item xs={1}>
                 <IconButton onClick={() => handleClickInfo(achievement)}>
                   <InfoIcon />
                 </IconButton>

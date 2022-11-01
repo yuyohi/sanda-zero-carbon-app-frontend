@@ -2,7 +2,7 @@
 /* eslint no-unused-expressions: "off" */
 /* eslint-disable no-shadow */
 import Grid from '@mui/material/Grid';
-import { Card, Container, Typography } from '@mui/material';
+import { Box, Card, Container, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import ky from 'ky';
 import { useRecoilValue } from 'recoil';
@@ -15,6 +15,7 @@ import prevButton from '../../assets/lookback_prevweek.png';
 import nextButton from '../../assets/lookback_nextweek.png';
 import flame from '../../assets/flame_1.png';
 import WeeklyButton from './WeeklyButton';
+import { bodyBigTypographyStyle } from '../../utils/customStyles';
 
 /* 達成の型 */
 type Achievement = {
@@ -92,60 +93,64 @@ const LookbackView = () => {
 
   return (
     <Container>
-      <CustomAppBar />
-      <Grid container spacing={1}>
-        <Grid item xs={12}>
-          {achievementMap && (
-            <AchievementGraph achievementMap={achievementMap} />
-          )}
+      <Box sx={{ width: '95vw' }}>
+        <CustomAppBar />
+        <Grid container spacing={1}>
+          <Grid item xs={12}>
+            {achievementMap && (
+              <AchievementGraph achievementMap={achievementMap} />
+            )}
+          </Grid>
+          <br />
+          <Grid item xs={3.5}>
+            <WeeklyButton
+              title="前の週"
+              img={prevButton}
+              currentDate={currentDate}
+              change={-7}
+              setCurrentDate={(newDate: Date) => setCurrentDate(newDate)}
+            />
+          </Grid>
+          <Grid item xs={5}>
+            <Card
+              sx={{
+                backgroundColor: 'transparent',
+                backgroundImage: `url(${flame})`,
+                backgroundSize: '100% 100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: '8vh',
+              }}
+            >
+              <Typography sx={{ ...bodyBigTypographyStyle }}>
+                {`${String(prevDate.getMonth() + 1).padStart(2, '0')}月${String(
+                  prevDate.getDate(),
+                ).padStart(2, '0')}日～${String(
+                  currentDate.getMonth() + 1,
+                ).padStart(2, '0')}月${String(currentDate.getDate()).padStart(
+                  2,
+                  '0',
+                )}日 `}
+              </Typography>
+            </Card>
+          </Grid>
+          <Grid item xs={3.5}>
+            <WeeklyButton
+              title="次の週"
+              img={nextButton}
+              currentDate={currentDate}
+              change={7}
+              setCurrentDate={(newDate: Date) => setCurrentDate(newDate)}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            {achievementList && (
+              <AchievementList achievementList={achievementList} />
+            )}
+          </Grid>
         </Grid>
-        <br />
-        <Grid item xs={4}>
-          <WeeklyButton
-            title="前の週"
-            img={prevButton}
-            currentDate={currentDate}
-            change={-7}
-            setCurrentDate={(newDate: Date) => setCurrentDate(newDate)}
-          />
-        </Grid>
-        <Grid item xs={4}>
-          <Card
-            sx={{
-              backgroundColor: 'transparent',
-              backgroundImage: `url(${flame})`,
-              backgroundSize: '100% 100%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              height: '8vh',
-            }}
-          >
-            {`${String(prevDate.getMonth() + 1).padStart(2, '0')}月${String(
-              prevDate.getDate(),
-            ).padStart(2, '0')}日 ～ ${String(
-              currentDate.getMonth() + 1,
-            ).padStart(2, '0')}月${String(currentDate.getDate()).padStart(
-              2,
-              '0',
-            )}日 `}
-          </Card>
-        </Grid>
-        <Grid item xs={4}>
-          <WeeklyButton
-            title="次の週"
-            img={nextButton}
-            currentDate={currentDate}
-            change={7}
-            setCurrentDate={(newDate: Date) => setCurrentDate(newDate)}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          {achievementList && (
-            <AchievementList achievementList={achievementList} />
-          )}
-        </Grid>
-      </Grid>
+      </Box>
     </Container>
   );
 };
