@@ -17,8 +17,8 @@ const WeeklyButton = (props: {
   return (
     <Button
       type="submit"
-      style={{ width: '33vw' }}
-      sx={{ backgroundColor: 'transparent' }}
+      style={{ width: '25vw' }}
+      sx={{ backgroundColor: 'transparent', height: '8vh' }}
       onClick={handleClick}
     >
       <img src={img} alt={title} width={100} />
