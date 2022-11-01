@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState, ChangeEvent } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -11,6 +11,7 @@ import SignUpFormView, {
   SignUpFormInput,
 } from '../../components/login/signUpForm';
 import type Response from '../../utils/response';
+import getAutoGeneratePassword from '../../utils/passwordGenerator';
 
 // ユーザIDが既に存在するかをチェックする
 const isUnique = async (id: string | undefined): Promise<boolean> => {
@@ -32,18 +33,28 @@ const schema = yup.object({
     .string()
     .required('ユーザーIDを入力して下さい')
     .test('user-id-test', '既に存在します', (id) => isUnique(id)),
-  password: yup
-    .string()
-    .required('パスワードを入力して下さい')
-    .min(8, 'パスワードは8文字以上入力してください')
-    .matches(
-      /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&].*$/,
-      '英字と数字が最低1文字必要です',
-    ),
-  confirmPassword: yup
-    .string()
-    .oneOf([yup.ref('password')], 'パスワードが一致しません')
-    .required('パスワードをもう一度入力して下さい'),
+  password: yup.lazy((value) => {
+    if (value)
+      return yup
+        .string()
+        .required('パスワードを入力して下さい')
+        .min(6, 'パスワードは6文字以上入力してください')
+        .matches(
+          /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&].*$/,
+          '英字と数字が最低1文字必要です',
+        );
+
+    return yup.string();
+  }),
+  confirmPassword: yup.lazy((value) => {
+    if (value)
+      return yup
+        .string()
+        .oneOf([yup.ref('password')], 'パスワードが一致しません')
+        .required('パスワードをもう一度入力して下さい');
+
+    return yup.string();
+  }),
 });
 
 const SignUpForm: FC = () => {
@@ -58,10 +69,17 @@ const SignUpForm: FC = () => {
   const setUserId = useSetRecoilState(userState);
   const setDrawBottomNavigation = useSetRecoilState(drawBottomNavigationState);
   const navigate = useNavigate();
+  const [needPassword, setNeedPassword] = useState(false);
+
+  const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setNeedPassword(event.target.checked);
+  };
 
   const onSubmit: SubmitHandler<SignUpFormInput> = ({ id, password, age }) => {
     const postData = async () => {
-      const encodedPassword = btoa(password);
+      const encodedPassword = needPassword
+        ? btoa(password)
+        : getAutoGeneratePassword();
 
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const response = await ky.post(
@@ -88,6 +106,8 @@ const SignUpForm: FC = () => {
       onSubmit={onSubmit}
       register={register}
       errors={errors}
+      needPassword={needPassword}
+      handlePasswordChange={handlePasswordChange}
     />
   );
 };
