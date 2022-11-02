@@ -6,9 +6,10 @@ import {
   Path,
   FieldErrorsImpl,
   DeepRequired,
+  FieldValues,
 } from 'react-hook-form';
 
-type FormProps<T> = {
+type FormProps<T extends FieldValues> = {
   label?: string;
   type?: string;
   formName?: Path<T>;
@@ -16,7 +17,7 @@ type FormProps<T> = {
   errors?: FieldErrorsImpl<DeepRequired<T>>;
 };
 
-const Form = <T,>({
+const Form = <T extends FieldValues>({
   label = '',
   formName,
   type = 'text',

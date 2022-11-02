@@ -1,10 +1,13 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import { FC } from 'react';
+import { FC, ChangeEvent } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
+import Switch from '@mui/material/Switch';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import {
   UseFormHandleSubmit,
   UseFormRegister,
@@ -19,6 +22,7 @@ export type SignUpFormInput = {
   age: number;
   password: string;
   confirmPassword: string;
+  handlePasswordChange?: (event: ChangeEvent<HTMLInputElement>) => void;
 };
 
 type SignUpFormProps = {
@@ -26,6 +30,8 @@ type SignUpFormProps = {
   onSubmit?: SubmitHandler<SignUpFormInput>;
   register?: UseFormRegister<SignUpFormInput>;
   errors?: FieldErrorsImpl<DeepRequired<SignUpFormInput>>;
+  needPassword?: boolean;
+  handlePasswordChange?: (event: ChangeEvent<HTMLInputElement>) => void;
 };
 
 const SignUpForm: FC<SignUpFormProps> = ({
@@ -33,6 +39,8 @@ const SignUpForm: FC<SignUpFormProps> = ({
   onSubmit = undefined,
   register = undefined,
   errors = undefined,
+  needPassword = false,
+  handlePasswordChange = () => undefined,
 }) => (
   <Card sx={{ width: { xs: '80%', sm: '50%', lg: '20%', xl: '15%' } }}>
     <CardContent>
@@ -55,25 +63,42 @@ const SignUpForm: FC<SignUpFormProps> = ({
             errors={errors}
           />
         </Box>
-        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-          <Form
-            label="パスワード"
-            formName="password"
-            type="password"
-            register={register}
-            errors={errors}
-          />
-        </Box>
-        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-          <Form
-            label="パスワードの確認"
-            formName="confirmPassword"
-            type="password"
-            register={register}
-            errors={errors}
-          />
-        </Box>
+        {needPassword ? (
+          <>
+            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+              <Form
+                label="パスワード"
+                formName="password"
+                type="password"
+                register={register}
+                errors={errors}
+              />
+            </Box>
+            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+              <Form
+                label="パスワードの確認"
+                formName="confirmPassword"
+                type="password"
+                register={register}
+                errors={errors}
+              />
+            </Box>
+          </>
+        ) : (
+          <div />
+        )}
       </Stack>
+      <Box sx={{ mt: 1, display: 'flex' }}>
+        <div style={{ flexGrow: 1 }} />
+        <FormGroup>
+          <FormControlLabel
+            control={
+              <Switch checked={needPassword} onChange={handlePasswordChange} />
+            }
+            label="パスワードの設定"
+          />
+        </FormGroup>
+      </Box>
       <Box sx={{ mt: 3, display: 'flex' }}>
         <div style={{ flexGrow: 1 }} />
         {handleSubmit && onSubmit ? (
