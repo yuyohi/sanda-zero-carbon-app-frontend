@@ -15,6 +15,7 @@ const bodySmallTypographyStyle: SxProps<Theme> = {
 const bodyBigTypographyStyle: SxProps<Theme> = {
   fontSize: { xs: '0.7em', sm: '0.9em', md: '1.1em', lg: '1.4em' },
   fontFamily: ['Noto Sans JP', 'sans-serif'].join(','),
+  fontWeight: 'bold',
 };
 
 const titleTypographyStyle: SxProps<Theme> = {
