@@ -2,7 +2,7 @@
 /* eslint no-unused-expressions: "off" */
 /* eslint-disable no-shadow */
 import Grid from '@mui/material/Grid';
-import { Box, Card, Container, Typography } from '@mui/material';
+import { Box, Card, Container, styled, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import ky from 'ky';
 import { useRecoilValue } from 'recoil';
@@ -54,6 +54,17 @@ const getTotal = (achievements: Achievement[]) => {
   return calculateMap;
 };
 
+const BodyBox = styled(Box)({
+  padding: '2%',
+  width: '100vw',
+  maxWidth: '2560px',
+  minWidth: '450px',
+});
+
+const ContentsBox = styled(Box)({
+  padding: '1%',
+});
+
 /* 振り返り画面 */
 const LookbackView = () => {
   /* 日付設定 */
@@ -92,9 +103,12 @@ const LookbackView = () => {
   }, [uid, currentDate]);
 
   return (
-    <Container>
-      <Box sx={{ width: '95vw' }}>
+    <BodyBox>
+      <ContentsBox>
         <CustomAppBar />
+      </ContentsBox>
+
+      <ContentsBox>
         <Grid container spacing={1}>
           <Grid item xs={12}>
             {achievementMap && (
@@ -150,8 +164,8 @@ const LookbackView = () => {
             )}
           </Grid>
         </Grid>
-      </Box>
-    </Container>
+      </ContentsBox>
+    </BodyBox>
   );
 };
 
