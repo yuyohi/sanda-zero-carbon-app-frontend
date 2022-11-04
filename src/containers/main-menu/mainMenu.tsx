@@ -25,7 +25,7 @@ const MainMenu: FC = () => (
         </Grid>
       </Grid>
     </Box>
-    <Container sx={{ textAlign: 'center' }}>
+    <Container sx={{ height: '100vh', alignItems: 'center', display: 'flex' }}>
       <Map />
     </Container>
     <Box

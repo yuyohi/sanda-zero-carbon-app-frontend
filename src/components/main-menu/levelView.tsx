@@ -10,7 +10,11 @@ export type Status = {
 
 const LevelView: FC<Status> = ({ level, expProgress }) => (
   <Box>
-    <Typography variant="h3" component="h3">
+    <Typography
+      variant="h3"
+      component="h3"
+      sx={{ fontSize: { xs: '2em', md: '3em', lg: '4em' } }}
+    >
       Lv. {level}
     </Typography>
     <LinearProgress variant="determinate" value={expProgress} />
