@@ -42,7 +42,7 @@ const MainMenu: FC = () => (
       <Map />
     </ContentsBox>
     <ContentsBox>
-      <div style={{ width: 20 }} />
+      <div style={{ width: '30%' }} />
       <TotalCondition />
       <div style={{ flexGrow: 1 }} />
       <MapNavigation />
