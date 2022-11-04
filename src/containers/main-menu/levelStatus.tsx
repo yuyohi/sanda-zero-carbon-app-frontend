@@ -18,7 +18,7 @@ type UserStatus = {
 const LevelStatus: FC = () => {
   const [status, setStatus] = useState<Status | undefined>();
 
-  const userId = useRecoilValue(userState) as string;
+  const userId = useRecoilValue(userState);
 
   useEffect(() => {
     const fetchUserStatus = async () => {

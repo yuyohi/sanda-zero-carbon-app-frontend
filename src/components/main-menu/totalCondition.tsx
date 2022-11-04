@@ -18,7 +18,10 @@ export type ConditionProp = {
 };
 
 const TotalCondition: FC<ConditionProp> = ({ reduction, period, onClick }) => (
-  <Box sx={{ textAlign: 'center', width: '20em' }} onClick={onClick}>
+  <Box
+    sx={{ textAlign: 'center', width: { sm: '30%', xs: '50%' } }}
+    onClick={onClick}
+  >
     <Card
       sx={{
         padding: 2,
@@ -30,15 +33,22 @@ const TotalCondition: FC<ConditionProp> = ({ reduction, period, onClick }) => (
     >
       <Grid container>
         <Grid item xs={12}>
-          <span style={{ height: '40px', display: 'block' }} />
+          <span style={{ height: '30px', display: 'block' }} />
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="h5" component="h5">
+          <Typography
+            variant="h6"
+            component="h6"
+            sx={{
+              fontFamily: ['Yusei Magic', 'sans-serif'].join(','),
+              fontSize: { xs: '1.2em', md: '1.5em', lg: '2.0em' },
+            }}
+          >
             {period}のCO2削減量
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="h3" component="h3">
+          <Typography variant="h4" component="h4">
             {reduction ? Math.round(reduction.co2Reduction * 100) / 100 : '0'}
             kg
           </Typography>
