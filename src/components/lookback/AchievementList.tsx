@@ -65,48 +65,6 @@ const AchievementList = (props: { achievementList: Array<Achievement> }) => {
             justifyContent: 'center',
           }}
         >
-          <Grid item xs={3}>
-            <Card
-              sx={{
-                backgroundColor: '#FFE6B9',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <Typography sx={{ ...bodySmallTypographyStyle }}>
-                達成日時
-              </Typography>
-            </Card>
-          </Grid>
-          <Grid item xs={8}>
-            <Card
-              sx={{
-                backgroundColor: '#ffdead',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <Typography sx={{ ...bodySmallTypographyStyle }}>
-                ミッション名
-              </Typography>
-            </Card>
-          </Grid>
-
-          <Grid item xs={1}>
-            <Card
-              sx={{
-                backgroundColor: '#ffdead',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <Typography />
-            </Card>
-          </Grid>
-
           {achievementList.map((achievement) => (
             <>
               <Grid item xs={3}>
@@ -117,7 +75,7 @@ const AchievementList = (props: { achievementList: Array<Achievement> }) => {
                     alignItems: 'center',
                     justifyContent: 'center',
                     borderRadius: '0.5em',
-                    padding: '3%',
+                    padding: '5%',
                   }}
                 >
                   <Typography sx={{ ...bodyBigTypographyStyle }}>
