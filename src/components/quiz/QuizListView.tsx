@@ -6,7 +6,6 @@ import {
   ListItemText,
   Typography,
 } from '@mui/material';
-import ForwardIcon from '@mui/icons-material/Forward';
 import { Dispatch, SetStateAction } from 'react';
 import { Quiz } from '../../utils/TypeDefinition';
 import { bodyTypographyStyle } from '../../utils/customStyles';
@@ -21,7 +20,7 @@ const QuizListView = (props: {
   };
 
   return (
-    <Box>
+    <Box sx={{ my: '2%' }}>
       <List>
         {quizList &&
           quizList.map((quiz) => (
@@ -29,14 +28,22 @@ const QuizListView = (props: {
               <ListItemText
                 disableTypography
                 primary={
-                  <Typography sx={{ ...bodyTypographyStyle }}>
-                    Question#{quiz.quizId} : {quiz.title}
-                  </Typography>
+                  <Button
+                    className="button-53"
+                    onClick={() => handleClick(quiz)}
+                    sx={{ backgroundColor: '#febca2' }}
+                  >
+                    <Typography
+                      sx={{
+                        ...bodyTypographyStyle,
+                        backgroundColor: 'transparent',
+                      }}
+                    >
+                      Question#{quiz.quizId} : {quiz.title}
+                    </Typography>
+                  </Button>
                 }
               />
-              <Button onClick={() => handleClick(quiz)}>
-                <ForwardIcon />
-              </Button>
             </ListItem>
           ))}
       </List>

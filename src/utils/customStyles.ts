@@ -1,7 +1,7 @@
 import { SxProps, Theme } from '@mui/material';
 
 const bodyTypographyStyle: SxProps<Theme> = {
-  fontSize: { xs: '0.5em', sm: '0.6em', md: '0.8em', lg: '1.1em' },
+  fontSize: { xs: '0.5em', sm: '0.6em', md: '0.8em', lg: '1.3em' },
   fontFamily: ['Noto Sans JP', 'sans-serif'].join(','),
   textShadow: '0.06em 0.03em 0 #B0BEC5, 0.12em 0.075em 0 rgba(0, 0, 0, 0.6)',
   color: '#05736D',
