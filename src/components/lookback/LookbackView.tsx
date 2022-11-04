@@ -59,7 +59,7 @@ const BodyBox = styled(Box)({
   padding: '2%',
   width: '100vw',
   maxWidth: '2560px',
-  minWidth: '450px',
+  minWidth: '375px',
 });
 
 const ContentsBox = styled(Box)({
