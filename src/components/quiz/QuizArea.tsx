@@ -38,7 +38,7 @@ const QuizArea = () => {
   }
 
   return (
-    <Card sx={{ backgroundColor: '#F2F2F2' }}>
+    <Card sx={{ backgroundColor: '#FFF' }}>
       <CardHeader
         title="クイズ"
         titleTypographyProps={{

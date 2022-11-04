@@ -7,6 +7,8 @@ import { Quiz, QuizAnswer } from '../../utils/TypeDefinition';
 import userState from '../../atoms/userAtom';
 import Response from '../../utils/response';
 import { bodyBigTypographyStyle } from '../../utils/customStyles';
+import correct from '../../assets/quiz_correct.png';
+import incorrect from '../../assets/quiz_incorrect.png';
 
 type AnswerQuizPayload = {
   uid: string;
@@ -79,24 +81,62 @@ const AnswerQuizView = (props: {
     return (
       <Box sx={{ p: '1%' }}>
         {quizAns.correctAns === quizAns.userAns ? (
-          <Typography sx={{ ...bodyBigTypographyStyle, mb: '1%', pl: '1%' }}>
-            正解
-          </Typography>
+          <img src={correct} alt="quiz_correct" width="50%" />
         ) : (
-          <Typography sx={{ ...bodyBigTypographyStyle, mb: '1%', pl: '1%' }}>
-            ざんねん
-          </Typography>
+          <img src={incorrect} alt="quiz_incorrect" width="50%" />
         )}
-        <Typography sx={{ ...bodyBigTypographyStyle, mb: '1%' }}>
-          あなたの答え:{quizAns.userAns}
+        <Typography
+          sx={{
+            ...bodyBigTypographyStyle,
+            my: '2%',
+            p: '2%',
+            borderRadius: '100vh 0 0 100vh',
+            backgroundColor: '#31e3c0',
+            color: '#fff',
+          }}
+        >
+          答え
         </Typography>
-        <Typography sx={{ ...bodyBigTypographyStyle, mb: '1%' }}>
-          正しい答え:{quizAns.correctAns}
+        <Typography
+          sx={{
+            ...bodyBigTypographyStyle,
+            mb: '2%',
+            borderLeft: '5px solid #000',
+            p: '1%',
+          }}
+        >
+          あなたの答え: <em>{quizAns.userAns}</em>
         </Typography>
-        <Typography sx={{ ...bodyBigTypographyStyle, mb: '1%', pl: '1%' }}>
+        <Typography
+          sx={{
+            ...bodyBigTypographyStyle,
+            mb: '3%',
+            borderLeft: '5px solid #000',
+            p: '1%',
+          }}
+        >
+          正しい答え: <strong>{quizAns.correctAns}</strong>
+        </Typography>
+        <Typography
+          sx={{
+            ...bodyBigTypographyStyle,
+            mb: '1%',
+            p: '2%',
+            borderRadius: '100vh 0 0 100vh',
+            backgroundColor: '#fd6591',
+            color: '#fff',
+          }}
+        >
           解説
         </Typography>
-        <Typography sx={{ ...bodyBigTypographyStyle, mb: '1%' }}>
+        <Typography
+          sx={{
+            ...bodyBigTypographyStyle,
+            mb: '1%',
+            borderLeft: '5px solid #000',
+            p: '1%',
+          }}
+        >
           {quizAns.explaination}
         </Typography>
         <Button
