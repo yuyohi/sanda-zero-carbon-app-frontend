@@ -55,7 +55,7 @@ const TotalCondition: FC<ConditionProp> = ({ reduction, period, onClick }) => (
             component="h4"
             sx={{
               fontFamily: ['Yusei Magic', 'sans-serif'].join(','),
-              fontSize: { xs: '1.6em', md: '1.8em', lg: '2.0em' },
+              fontSize: { xs: '1.3em', md: '1.5em', lg: '1.7em' },
             }}
           >
             {reduction ? Math.round(reduction.co2Reduction * 100) / 100 : '0'}
