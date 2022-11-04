@@ -2,16 +2,30 @@ import { FC } from 'react';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
+import { styled } from '@mui/material';
 import TotalCondition from './totalCondition';
 import LevelStatus from './levelStatus';
 import Map from './map';
 import MapNavigation from './mapNavigation';
 import CustomAppBar from '../../components/customAppBar';
 
+const BodyBox = styled(Box)({
+  padding: '2%',
+  width: '100vw',
+  maxWidth: '2560px',
+  minWidth: '375px',
+});
+
+const ContentsBox = styled(Box)({
+  padding: '1%',
+});
+
 const MainMenu: FC = () => (
-  <Box sx={{ width: '100vw' }}>
-    <Box sx={{ position: 'fixed', top: 0, left: 0, right: 0 }}>
+  <BodyBox>
+    <ContentsBox>
       <CustomAppBar />
+    </ContentsBox>
+    <ContentsBox>
       <span style={{ height: 20, display: 'block' }} />
       <Grid container spacing={4}>
         <Grid item xs={0.5}>
@@ -24,27 +38,33 @@ const MainMenu: FC = () => (
           <span />
         </Grid>
       </Grid>
-    </Box>
-    <Container sx={{ height: '100vh', alignItems: 'center', display: 'flex' }}>
-      <Map />
-    </Container>
-    <Box
-      sx={{
-        display: 'flex',
-        position: 'fixed',
-        left: 0,
-        right: 0,
-        bottom: '5%',
-        alignItems: 'center',
-      }}
-    >
-      <div style={{ width: 20 }} />
-      <TotalCondition />
-      <div style={{ flexGrow: 1 }} />
-      <MapNavigation />
-      <div style={{ width: 10 }} />
-    </Box>
-  </Box>
+    </ContentsBox>
+    <ContentsBox>
+      <Container
+        sx={{ height: '100vh', alignItems: 'center', display: 'flex' }}
+      >
+        <Map />
+      </Container>
+    </ContentsBox>
+    <ContentsBox>
+      <Box
+        sx={{
+          display: 'flex',
+          position: 'fixed',
+          left: 0,
+          right: 0,
+          bottom: '5%',
+          alignItems: 'center',
+        }}
+      >
+        <div style={{ width: 20 }} />
+        <TotalCondition />
+        <div style={{ flexGrow: 1 }} />
+        <MapNavigation />
+        <div style={{ width: 10 }} />
+      </Box>
+    </ContentsBox>
+  </BodyBox>
 );
 
 export default MainMenu;
