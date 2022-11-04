@@ -10,7 +10,7 @@ import UserStatusBar from '../userStatusBar';
 
 const BodyBox = styled(Box)({
   padding: '2%',
-  width: 'fullwidth',
+  width: '100vw',
   maxWidth: '2560px',
   minWidth: '450px',
 });

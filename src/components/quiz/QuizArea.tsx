@@ -38,8 +38,16 @@ const QuizArea = () => {
   }
 
   return (
-    <Card sx={{ width: { xs: 200, md: 780, lg: 990 }, m: '1rem' }}>
-      <CardHeader title="クイズ" />
+    <Card sx={{ backgroundColor: '#F2F2F2' }}>
+      <CardHeader
+        title="クイズ"
+        titleTypographyProps={{
+          fontFamily: ['Yusei Magic', 'sans-serif'].join(','),
+          fontSize: { xs: '1.2em', md: '1.5em', lg: '2.0em' },
+          marginLeft: '1%',
+        }}
+        sx={{ backgroundColor: '#F29574' }}
+      />
       <CardContent>
         {!currentQuiz && (
           <>

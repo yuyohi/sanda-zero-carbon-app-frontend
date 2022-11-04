@@ -9,6 +9,7 @@ import {
 import ForwardIcon from '@mui/icons-material/Forward';
 import { Dispatch, SetStateAction } from 'react';
 import { Quiz } from '../../utils/TypeDefinition';
+import { bodyTypographyStyle } from '../../utils/customStyles';
 
 const QuizListView = (props: {
   quizList: Array<Quiz>;
@@ -28,7 +29,7 @@ const QuizListView = (props: {
               <ListItemText
                 disableTypography
                 primary={
-                  <Typography>
+                  <Typography sx={{ ...bodyTypographyStyle }}>
                     Question#{quiz.quizId} : {quiz.title}
                   </Typography>
                 }
