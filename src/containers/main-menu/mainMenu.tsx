@@ -24,20 +24,18 @@ const MainMenu: FC = () => (
     <ContentsBox>
       <CustomAppBar />
     </ContentsBox>
-    <ContentsBox>
-      <span style={{ height: 20, display: 'block' }} />
-      <Grid container spacing={4}>
-        <Grid item xs={0.5}>
-          <span />
-        </Grid>
-        <Grid item xs={2.5}>
-          <LevelStatus />
-        </Grid>
-        <Grid item xs={0.5}>
-          <span />
-        </Grid>
+    <span style={{ height: 20, display: 'block' }} />
+    <Grid container spacing={4}>
+      <Grid item xs={0.5}>
+        <span />
       </Grid>
-    </ContentsBox>
+      <Grid item xs={2.5}>
+        <LevelStatus />
+      </Grid>
+      <Grid item xs={0.5}>
+        <span />
+      </Grid>
+    </Grid>
     <Container sx={{ height: '100vh', alignItems: 'center', display: 'flex' }}>
       <Map />
     </Container>
