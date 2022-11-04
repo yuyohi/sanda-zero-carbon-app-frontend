@@ -3,7 +3,7 @@ import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import flame2 from '../../assets/flame_2.png';
+import flame2 from '../../assets/cloud.png';
 
 export type Period = '今週' | '全期間';
 export type ReductionCondition = {
@@ -24,10 +24,10 @@ const TotalCondition: FC<ConditionProp> = ({ reduction, period, onClick }) => (
   >
     <Card
       sx={{
-        padding: 2,
+        padding: 3,
         backgroundColor: 'transparent',
         backgroundImage: `url(${flame2})`,
-        backgroundSize: '100% 100%',
+        backgroundSize: '100% 112%',
         boxShadow: 'none',
       }}
     >
@@ -41,7 +41,7 @@ const TotalCondition: FC<ConditionProp> = ({ reduction, period, onClick }) => (
             component="h6"
             sx={{
               fontFamily: ['Yusei Magic', 'sans-serif'].join(','),
-              fontSize: { xs: '1.2em', md: '1.5em', lg: '2.0em' },
+              fontSize: { xs: '0.8em', md: '1.0em', lg: '1.2em' },
             }}
           >
             CO2削減量
@@ -53,7 +53,10 @@ const TotalCondition: FC<ConditionProp> = ({ reduction, period, onClick }) => (
           <Typography
             variant="h4"
             component="h4"
-            sx={{ fontSize: { xs: '2.0em', md: '3.0em', lg: '3.5em' } }}
+            sx={{
+              fontFamily: ['Yusei Magic', 'sans-serif'].join(','),
+              fontSize: { xs: '1.6em', md: '1.8em', lg: '2.0em' },
+            }}
           >
             {reduction ? Math.round(reduction.co2Reduction * 100) / 100 : '0'}
             kg
