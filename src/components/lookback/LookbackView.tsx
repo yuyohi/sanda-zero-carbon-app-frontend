@@ -16,6 +16,7 @@ import nextButton from '../../assets/lookback_nextweek.png';
 import flame from '../../assets/flame_1.png';
 import WeeklyButton from './WeeklyButton';
 import { bodyBigTypographyStyle } from '../../utils/customStyles';
+import UserStatusBar from '../userStatusBar';
 
 /* 達成の型 */
 type Achievement = {
@@ -107,7 +108,9 @@ const LookbackView = () => {
       <ContentsBox>
         <CustomAppBar />
       </ContentsBox>
-
+      <ContentsBox>
+        <UserStatusBar />
+      </ContentsBox>
       <ContentsBox>
         <Grid container spacing={1}>
           <Grid item xs={12}>
