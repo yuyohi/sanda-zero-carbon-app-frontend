@@ -31,10 +31,13 @@ const CustomRadioButton = (props: {
         {
           '&:hover': { backgroundColor: 'blue' },
         },
+        {
+          width: '15%',
+        },
       ]}
       onClick={handleClick}
     >
-      <img src={img} alt={title} width={100} />
+      <img src={img} alt={title} width="100%" />
     </Button>
   );
 };
