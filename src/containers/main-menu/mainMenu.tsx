@@ -22,7 +22,6 @@ const MainMenu: FC = () => (
     <ContentsBox>
       <CustomAppBar />
     </ContentsBox>
-    <span style={{ height: 20, display: 'block' }} />
     <Container sx={{ height: '50vh', alignItems: 'center', display: 'flex' }}>
       <Map />
     </Container>
