@@ -34,9 +34,7 @@ const TotalCondition: FC<ConditionProp> = ({ reduction, period, onClick }) => (
         </Grid>
         <Grid item xs={12}>
           <Typography variant="h5" component="h5">
-            ユーザの{period}の
-            <br />
-            CO2削減量の合計
+            {period}のCO2削減量
           </Typography>
         </Grid>
         <Grid item xs={12}>
