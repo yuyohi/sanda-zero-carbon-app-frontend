@@ -34,6 +34,7 @@ const LevelBox = styled(Box)({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
+  width: '13.5%',
 });
 
 const UserNameBox = styled(Box)({
@@ -43,6 +44,7 @@ const UserNameBox = styled(Box)({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
+  width: '13.5%',
 });
 
 const LevelBarBox = styled(Box)({
