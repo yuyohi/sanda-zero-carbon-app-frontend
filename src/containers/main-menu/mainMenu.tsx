@@ -44,7 +44,6 @@ const MainMenu: FC = () => (
     <Box
       sx={{
         display: 'flex',
-        position: 'fixed',
         left: 0,
         right: 0,
         bottom: '5%',
