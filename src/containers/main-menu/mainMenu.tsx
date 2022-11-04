@@ -41,13 +41,22 @@ const MainMenu: FC = () => (
     <ContentsBox>
       <Map />
     </ContentsBox>
-    <ContentsBox>
-      <div style={{ width: '30%' }} />
+    <Box
+      sx={{
+        display: 'flex',
+        position: 'fixed',
+        left: 0,
+        right: 0,
+        bottom: '5%',
+        alignItems: 'center',
+      }}
+    >
+      <div style={{ width: 20 }} />
       <TotalCondition />
       <div style={{ flexGrow: 1 }} />
       <MapNavigation />
       <div style={{ width: 10 }} />
-    </ContentsBox>
+    </Box>
   </BodyBox>
 );
 
