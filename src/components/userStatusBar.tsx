@@ -16,12 +16,12 @@ import userState from '../atoms/userAtom';
 import DailyLimitPoint from './mission/DailyLimitPoint';
 
 const StatusBarBox = styled(Box)({
-  aspectRatio: '10 / 2',
+  aspectRatio: '6 / 1',
   display: 'flex',
   padding: '2%',
   backgroundColor: '#F4FFD3',
-  outline: 'dashed 0.1em green',
-  outlineOffset: '-0.5em',
+  outline: 'double 0.3em green',
+  outlineOffset: '-0.4em',
   boxShadow: '0px 0px 0px 0.01em',
   borderRadius: '0.5em',
   width: '100%',

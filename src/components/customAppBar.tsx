@@ -1,13 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import {
-  WorkspacePremium,
-  InsertChart,
-  Home,
-  Quiz,
-  Article,
-  AlignHorizontalCenter,
-  AspectRatio,
-} from '@mui/icons-material';
 import { AppBar, Button, Toolbar, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
 import Logo from '../assets/logo.png';
