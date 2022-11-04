@@ -21,7 +21,6 @@ import { useRecoilValue } from 'recoil';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import userState from '../../atoms/userAtom';
 import Response from '../../utils/response';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import {
   bodyBigTypographyStyle,
   bodyTypographyStyle,
