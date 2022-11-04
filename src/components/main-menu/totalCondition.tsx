@@ -44,11 +44,17 @@ const TotalCondition: FC<ConditionProp> = ({ reduction, period, onClick }) => (
               fontSize: { xs: '1.2em', md: '1.5em', lg: '2.0em' },
             }}
           >
-            {period}のCO2削減量
+            CO2削減量
+            <br />
+            {period}
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          <Typography variant="h4" component="h4">
+          <Typography
+            variant="h4"
+            component="h4"
+            sx={{ fontSize: { xs: '2.0em', md: '3.0em', lg: '3.5em' } }}
+          >
             {reduction ? Math.round(reduction.co2Reduction * 100) / 100 : '0'}
             kg
           </Typography>

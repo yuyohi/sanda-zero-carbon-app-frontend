@@ -3,14 +3,14 @@ import { Stack } from '@mui/material';
 import Button from '@mui/material/Button';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import ky from 'ky';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import IconButton from '@mui/material/IconButton';
 import PlaceModal from './placeModal';
 import currentLocationInformation from '../../atoms/mapAtom';
 import type { MapInformation } from '../../atoms/mapAtom';
 import userState from '../../atoms/userAtom';
 import Response from '../../utils/response';
+import forward from '../../assets/forward.png';
+import backward from '../../assets/backward.png';
 
 const fetchMapInformation = async (
   locationNumber: number,
@@ -54,7 +54,7 @@ const MapNavigation: FC = () => {
     void fetchNewMap();
   };
 
-  const goBack = () => {
+  const goBackward = () => {
     const fetchNewMap = async () => {
       if (mapInformation.backLocation != null) {
         const mapInformationResponse = await fetchMapInformation(
@@ -71,16 +71,20 @@ const MapNavigation: FC = () => {
 
   return (
     <>
-      <Stack direction="row" spacing={1}>
-        <IconButton>
-          <ChevronLeftIcon onClick={goForward} />
-        </IconButton>
+      <Stack
+        direction="row"
+        spacing={1}
+        sx={{ height: { xs: '70px', md: '100px' } }}
+      >
+        <Button onClick={goBackward}>
+          <img src={backward} alt="戻る" height="100%" />
+        </Button>
         <IconButton>
           <Button onClick={handleOpen}>詳細</Button>
         </IconButton>
-        <IconButton>
-          <ChevronRightIcon onClick={goBack} />
-        </IconButton>
+        <Button onClick={goForward}>
+          <img src={forward} alt="進む" height="100%" />
+        </Button>
       </Stack>
       <PlaceModal handleClose={handleClose} open={open} />
     </>
