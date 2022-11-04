@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
 import { styled } from '@mui/material';
 import TotalCondition from './totalCondition';
 import LevelStatus from './levelStatus';
@@ -40,29 +39,14 @@ const MainMenu: FC = () => (
       </Grid>
     </ContentsBox>
     <ContentsBox>
-      <Container
-        sx={{ height: '100vh', alignItems: 'center', display: 'flex' }}
-      >
-        <Map />
-      </Container>
+      <Map />
     </ContentsBox>
     <ContentsBox>
-      <Box
-        sx={{
-          display: 'flex',
-          position: 'fixed',
-          left: 0,
-          right: 0,
-          bottom: '5%',
-          alignItems: 'center',
-        }}
-      >
-        <div style={{ width: 20 }} />
-        <TotalCondition />
-        <div style={{ flexGrow: 1 }} />
-        <MapNavigation />
-        <div style={{ width: 10 }} />
-      </Box>
+      <div style={{ width: 20 }} />
+      <TotalCondition />
+      <div style={{ flexGrow: 1 }} />
+      <MapNavigation />
+      <div style={{ width: 10 }} />
     </ContentsBox>
   </BodyBox>
 );
