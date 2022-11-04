@@ -13,7 +13,7 @@ const LevelView: FC<Status> = ({ level, expProgress }) => (
     <Typography
       variant="h3"
       component="h3"
-      sx={{ fontSize: { xs: '2em', md: '3em', lg: '4em' } }}
+      sx={{ fontSize: { xs: '1.5em', md: '3em', lg: '4em' } }}
     >
       Lv. {level}
     </Typography>

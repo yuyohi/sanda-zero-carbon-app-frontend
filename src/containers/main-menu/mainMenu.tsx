@@ -34,7 +34,8 @@ const MainMenu: FC = () => (
         position: 'fixed',
         left: 0,
         right: 0,
-        bottom: '10vh',
+        bottom: '5%',
+        alignItems: 'center',
       }}
     >
       <div style={{ width: 20 }} />
