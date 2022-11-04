@@ -77,13 +77,13 @@ const MapNavigation: FC = () => {
         sx={{ height: { xs: '70px', md: '100px' } }}
       >
         <Button onClick={goBackward}>
-          <img src={backward} alt="戻る" height="100%" />
+          <img src={backward} alt="戻る" height="100%" width="100%" />
         </Button>
         <IconButton>
           <Button onClick={handleOpen}>詳細</Button>
         </IconButton>
         <Button onClick={goForward}>
-          <img src={forward} alt="進む" height="100%" />
+          <img src={forward} alt="進む" height="100%" width="100%" />
         </Button>
       </Stack>
       <PlaceModal handleClose={handleClose} open={open} />
