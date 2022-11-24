@@ -21,7 +21,7 @@ const LoginPage: FC = () => (
 
       <LoginForm />
     </Box>
-    <Box sx={{ position: 'fixed', bottom: 0, right: 0 }}>
+    <Box sx={{ position: 'fixed', bottom: 0, left: 0 }}>
       <BottomLogo />
     </Box>
   </>

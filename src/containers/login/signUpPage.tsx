@@ -20,7 +20,7 @@ const SignUpPage: FC = () => (
       <span style={{ display: 'block', width: '50px', height: '50px' }} />
       <SignUpForm />
     </Box>
-    <Box sx={{ position: 'fixed', bottom: 0, right: 0 }}>
+    <Box sx={{ position: 'fixed', bottom: 0, left: 0 }}>
       <BottomLogo />
     </Box>
   </>
