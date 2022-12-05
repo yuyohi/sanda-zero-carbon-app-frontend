@@ -88,6 +88,18 @@ type QuizAnswer = {
   userId: string;
 };
 
+type Article = {
+  // Articleのtype定義
+  articleId: number;
+  title: string;
+  tagId: number;
+  description: string;
+  postedAt: Date;
+  thumbnailSource: string;
+  isImportant: boolean;
+  url: string;
+};
+
 export type {
   Mission,
   DailyMission,
@@ -99,4 +111,5 @@ export type {
   CategorizeQuiz,
   QuizCategory,
   QuizAnswer,
+  Article,
 };
