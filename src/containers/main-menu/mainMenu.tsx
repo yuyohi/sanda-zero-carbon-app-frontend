@@ -22,14 +22,22 @@ const MainMenu: FC = () => (
     <ContentsBox>
       <CustomAppBar />
     </ContentsBox>
-    <Container sx={{ height: '50vh', alignItems: 'center', display: 'flex' }}>
+    <Container
+      sx={{
+        height: { xs: '70vh', lg: '50vh' },
+        alignItems: 'center',
+        display: 'flex',
+      }}
+    >
       <Map />
     </Container>
     <Box
       sx={{
         display: 'flex',
+        position: 'absolute',
         left: 0,
         right: 0,
+        bottom: '10%',
         alignItems: 'center',
       }}
     >
