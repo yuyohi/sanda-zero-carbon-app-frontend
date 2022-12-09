@@ -55,7 +55,7 @@ type Quiz = {
   point: number;
   tagId: number;
   keyword: string;
-  correctAns: string;
+  correctAnsNum: number;
 };
 
 type QuizCategory = 'unanswer' | 'incorrect' | 'correct';
@@ -80,11 +80,11 @@ type QuizAnswer = {
   point: number;
   tagId: number;
   keyword: string;
-  correctAns: string;
+  correctAnsNum: number;
   answeredAt: string;
   answeredQuizId: number;
   isCorrect: boolean;
-  userAns: string;
+  userAnsNum: number;
   userId: string;
 };
 
