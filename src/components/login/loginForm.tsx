@@ -6,6 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
+import Alert from '@mui/material/Alert';
 import {
   UseFormHandleSubmit,
   UseFormRegister,
@@ -20,11 +21,17 @@ export type LoginFormInput = {
   password: string;
 };
 
+export type LoginState = {
+  success: boolean;
+  message: string;
+};
+
 type LoginFormProps = {
   handleSubmit?: UseFormHandleSubmit<LoginFormInput>;
   onSubmit?: SubmitHandler<LoginFormInput>;
   register?: UseFormRegister<LoginFormInput>;
   errors?: FieldErrorsImpl<DeepRequired<LoginFormInput>>;
+  loginState?: LoginState;
 };
 
 const LoginForm: FC<LoginFormProps> = ({
@@ -32,10 +39,16 @@ const LoginForm: FC<LoginFormProps> = ({
   onSubmit = undefined,
   register = undefined,
   errors = undefined,
+  loginState = undefined,
 }) => (
   <Card sx={{ width: { xs: '80%', sm: '50%', lg: '20%', xl: '15%' } }}>
     <CardContent>
       <Stack spacing={2}>
+        {!loginState || loginState.success ? (
+          <div />
+        ) : (
+          <Alert severity="error">{loginState?.message}</Alert>
+        )}
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
           <Form
             label="ユーザーID"
