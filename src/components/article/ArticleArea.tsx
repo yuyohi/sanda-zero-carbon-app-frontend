@@ -18,7 +18,7 @@ const useArticle = () =>
   // 記事の取得
   useQuery(['article'], async () => {
     const response: Response<Array<Article>> = await ky(
-      `${import.meta.env.VITE_APP_API_URL}/article`,
+      `${import.meta.env.VITE_APP_API_URL}/article/ogp`,
     ).json(); // APIをたたく
 
     return response.result;
