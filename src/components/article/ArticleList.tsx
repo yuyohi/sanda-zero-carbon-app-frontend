@@ -22,7 +22,6 @@ import {
   bodyArticleBigTypographyStyle,
   bodyArticleSmallTypographyStyle,
   bodyArticleTypographyStyle,
-  bodyTypographyStyle,
   titleTypographyStyle,
 } from '../../utils/customStyles';
 
@@ -42,8 +41,9 @@ const ArticleCard = styled(Box)({
   outline: 'dashed 0.1em orange',
   outlineOffset: '-0.3em',
   borderRadius: '0.5em',
-  backgroundColor: '#F7C7A8',
+  backgroundColor: '#fffcd2',
   padding: '2%',
+  width: '100%',
 });
 
 const ArticleReadButton = styled('button')({
@@ -71,7 +71,7 @@ const useArticle = () =>
   // 記事の取得
   useQuery(['article'], async () => {
     const response: Response<Array<Article>> = await ky(
-      `${import.meta.env.VITE_APP_API_URL}/article`,
+      `${import.meta.env.VITE_APP_API_URL}/article/ogp`,
     ).json(); // APIをたたく
     // console.log(response.result)
 
@@ -110,7 +110,7 @@ const ArticleList = () => {
           fontSize: { xs: '1.2em', md: '1.5em', lg: '2.0em' },
           marginLeft: '1%',
         }}
-        sx={{ backgroundColor: '#F29574' }}
+        sx={{ backgroundColor: '#FFFF64' }}
       />
       <CardContent>
         <Grid
@@ -123,81 +123,94 @@ const ArticleList = () => {
           }}
         >
           {articleList.map((article) => (
-            <Grid item xs={10} sm={13}>
+            <Grid item xs={12}>
               <ArticleCard>
-                <Typography sx={{ ...bodyTypographyStyle }}>
-                  {' '}
-                  記事# {article.articleId}
-                </Typography>
-                <Typography
-                  sx={{
-                    ...titleTypographyStyle,
-                    display: 'flex',
-                    justifyContent: 'left',
-                  }}
-                >
-                  {article.title}
-                </Typography>
-                <Divider />
-                <Typography
-                  sx={{
-                    ...bodyArticleSmallTypographyStyle,
-                    display: 'flex',
-                    justifyContent: 'left',
-                  }}
-                >
-                  {article.postedAt.toString().split('T')[0]}
-                </Typography>
-                <Typography
-                  sx={{
-                    ...bodyArticleBigTypographyStyle,
-                    display: 'flex',
-                    justifyContent: 'left',
-                  }}
-                >
-                  {article.description}
-                </Typography>
+                <Grid sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <Grid item xs={4} sm={4}>
+                    <img
+                      src={article.thumbnailSource}
+                      width="100%"
+                      alt={article.title}
+                    />
+                  </Grid>
 
-                <Typography
-                  sx={{
-                    ...bodyArticleBigTypographyStyle,
-                    display: 'flex',
-                    justifyContent: 'right',
-                  }}
-                >
-                  <ArticleReadButton onClick={() => handleClickAchive(article)}>
-                    <Typography sx={{ ...bodyArticleTypographyStyle }}>
-                      読む
+                  <Grid item xs={7.5} sm={7.5}>
+                    <Typography
+                      sx={{
+                        ...titleTypographyStyle,
+                        display: 'flex',
+                        justifyContent: 'left',
+                      }}
+                    >
+                      {article.title}
                     </Typography>
-                  </ArticleReadButton>
+                    <Divider />
+                    <Typography
+                      sx={{
+                        ...bodyArticleSmallTypographyStyle,
+                        display: 'flex',
+                        justifyContent: 'left',
+                      }}
+                    >
+                      {article.postedAt.toString().split('T')[0]}
+                    </Typography>
+                    <Typography
+                      sx={{
+                        ...bodyArticleBigTypographyStyle,
+                        display: 'flex',
+                        justifyContent: 'left',
+                      }}
+                    >
+                      {article.description}
+                    </Typography>
 
-                  <Dialog open={!!selectedArticle} onClose={handleCloseAchive}>
-                    <DialogTitle>確認</DialogTitle>
-                    <DialogContent>
-                      <DialogContentText>
-                        外部サイトへ飛びますが、よろしいですか？
-                      </DialogContentText>
-                    </DialogContent>
-                    <DialogActions>
-                      <Button onClick={handleCloseAchive} color="primary">
-                        キャンセル
-                      </Button>
-                      <Button
-                        onClick={() => {
-                          if (selectedArticle) {
-                            const { url } = selectedArticle; // .split('"').join('')
-                            window.open(url, '_blank');
-                            setSelectedArticle(null);
-                          }
-                        }}
-                        color="primary"
-                        autoFocus
+                    <Typography
+                      sx={{
+                        ...bodyArticleBigTypographyStyle,
+                        display: 'flex',
+                        justifyContent: 'right',
+                      }}
+                    >
+                      <ArticleReadButton
+                        onClick={() => handleClickAchive(article)}
                       >
-                        はい
-                      </Button>
-                    </DialogActions>
-                  </Dialog>
-                </Typography>
+                        <Typography sx={{ ...bodyArticleTypographyStyle }}>
+                          読む
+                        </Typography>
+                      </ArticleReadButton>
+
+                      <Dialog
+                        open={!!selectedArticle}
+                        onClose={handleCloseAchive}
+                      >
+                        <DialogTitle>確認</DialogTitle>
+                        <DialogContent>
+                          <DialogContentText>
+                            外部サイトへ飛びますが、よろしいですか？
+                          </DialogContentText>
+                        </DialogContent>
+                        <DialogActions>
+                          <Button onClick={handleCloseAchive} color="primary">
+                            キャンセル
+                          </Button>
+                          <Button
+                            onClick={() => {
+                              if (selectedArticle) {
+                                const { url } = selectedArticle; // .split('"').join('')
+                                window.open(url, '_blank');
+                                setSelectedArticle(null);
+                              }
+                            }}
+                            color="primary"
+                            autoFocus
+                          >
+                            はい
+                          </Button>
+                        </DialogActions>
+                      </Dialog>
+                    </Typography>
+                  </Grid>
+                </Grid>
               </ArticleCard>
             </Grid>
           ))}
