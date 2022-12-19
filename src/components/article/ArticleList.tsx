@@ -78,11 +78,11 @@ const ArticleList = () => {
     null,
   );
 
-  const handleCloseAchive = () => {
+  const handleCloseAchieve = () => {
     setSelectedArticle(null);
   };
 
-  const handleClickAchive = (article: Article) => {
+  const handleClickAchieve = (article: Article) => {
     setSelectedArticle(article);
   };
 
@@ -161,7 +161,7 @@ const ArticleList = () => {
                       }}
                     >
                       <ArticleReadButton
-                        onClick={() => handleClickAchive(article)}
+                        onClick={() => handleClickAchieve(article)}
                       >
                         <Typography sx={{ ...bodyArticleTypographyStyle }}>
                           読む
@@ -170,7 +170,7 @@ const ArticleList = () => {
 
                       <Dialog
                         open={!!selectedArticle}
-                        onClose={handleCloseAchive}
+                        onClose={handleCloseAchieve}
                       >
                         <DialogTitle>確認</DialogTitle>
                         <DialogContent>
@@ -179,7 +179,7 @@ const ArticleList = () => {
                           </DialogContentText>
                         </DialogContent>
                         <DialogActions>
-                          <Button onClick={handleCloseAchive} color="primary">
+                          <Button onClick={handleCloseAchieve} color="primary">
                             キャンセル
                           </Button>
                           <Button
