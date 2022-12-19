@@ -59,28 +59,17 @@ const ArticleReadButton = styled('button')({
   aspectRatio: '4 / 1',
 });
 
-// const useDailyMission = (uid: string) =>
-//   useQuery(['user', uid, 'dailyMission'], async () => {
-//     const response: Response<Array<DailyMission>> = await ky(
-//       `${import.meta.env.VITE_APP_API_URL}/daily-mission/${uid}`,
-//     ).json();
-
-//     return response.result;
-//   });
 const useArticle = () =>
   // 記事の取得
   useQuery(['article'], async () => {
     const response: Response<Array<Article>> = await ky(
       `${import.meta.env.VITE_APP_API_URL}/article/ogp`,
     ).json(); // APIをたたく
-    // console.log(response.result)
 
     return response.result;
   });
 
 const ArticleList = () => {
-  // const uid: string = useRecoilValue(userState);
-
   const { data, isLoading } = useArticle();
 
   const articleList = data as Array<Article>;
@@ -123,7 +112,7 @@ const ArticleList = () => {
           }}
         >
           {articleList.map((article) => (
-            <Grid item xs={12}>
+            <Grid item xs={12} key={article.title}>
               <ArticleCard>
                 <Grid sx={{ display: 'flex', justifyContent: 'space-between' }}>
                   <Grid item xs={4} sm={4}>
@@ -196,7 +185,7 @@ const ArticleList = () => {
                           <Button
                             onClick={() => {
                               if (selectedArticle) {
-                                const { url } = selectedArticle; // .split('"').join('')
+                                const { url } = selectedArticle;
                                 window.open(url, '_blank');
                                 setSelectedArticle(null);
                               }
