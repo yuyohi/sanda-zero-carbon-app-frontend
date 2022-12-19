@@ -13,6 +13,7 @@ import theme from './theme/theme';
 import MissionView from './components/mission/MissionView';
 import LookbackView from './components/lookback/LookbackView';
 import QuizView from './components/quiz/QuizView';
+import Article from './components/article/ArticleView';
 
 const queryClient = new QueryClient();
 
@@ -55,6 +56,14 @@ const App: FC = () => (
               element={
                 <ProtectRoute>
                   <QuizView />
+                </ProtectRoute>
+              }
+            />
+            <Route // 記事のRouteを設定
+              path="/article"
+              element={
+                <ProtectRoute>
+                  <Article />
                 </ProtectRoute>
               }
             />
