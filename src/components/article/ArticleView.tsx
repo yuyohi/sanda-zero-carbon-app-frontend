@@ -21,7 +21,6 @@ const ArticleView = () => (
       <ContentsBox>
         <CustomAppBar />
       </ContentsBox>
-      <ContentsBox>{/* <UserStatusBar /> */}</ContentsBox>
       <ContentsBox>
         <ArticleList />
       </ContentsBox>
