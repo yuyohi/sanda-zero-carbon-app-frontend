@@ -2,7 +2,6 @@ import { Box, Stack } from '@mui/material';
 import { styled } from '@mui/system';
 
 import CustomAppBar from '../customAppBar';
-// import UserStatusBar from '../userStatusBar';
 import ArticleList from './ArticleList';
 
 const BodyBox = styled(Box)({
@@ -16,7 +15,7 @@ const ContentsBox = styled(Box)({
   padding: '1%',
 });
 
-const Article = () => (
+const ArticleView = () => (
   <BodyBox>
     <Stack>
       <ContentsBox>
@@ -29,4 +28,4 @@ const Article = () => (
     </Stack>
   </BodyBox>
 );
-export default Article;
+export default ArticleView;
