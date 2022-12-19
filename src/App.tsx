@@ -13,7 +13,7 @@ import theme from './theme/theme';
 import MissionView from './components/mission/MissionView';
 import LookbackView from './components/lookback/LookbackView';
 import QuizView from './components/quiz/QuizView';
-import Article from './components/article/Article';
+import Article from './components/article/ArticleView';
 
 const queryClient = new QueryClient();
 
