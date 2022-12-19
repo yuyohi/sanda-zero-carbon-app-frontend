@@ -106,7 +106,7 @@ const ArticleListView = (props: { article: Article }) => {
                 justifyContent: 'right',
               }}
             >
-              <ArticleReadButton onClick={() => handleClickAchieve(article)}>
+              <ArticleReadButton onClick={() => handleClickAchieve()}>
                 <Typography sx={{ ...bodyArticleTypographyStyle }}>
                   読む
                 </Typography>

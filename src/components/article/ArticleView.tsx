@@ -3,6 +3,7 @@ import { styled } from '@mui/system';
 
 import CustomAppBar from '../customAppBar';
 import ArticleArea from './ArticleArea';
+import ImportantArticleArea from './ImportantArticleArea';
 
 const BodyBox = styled(Box)({
   padding: '2%',
@@ -20,6 +21,9 @@ const ArticleView = () => (
     <Stack>
       <ContentsBox>
         <CustomAppBar />
+      </ContentsBox>
+      <ContentsBox>
+        <ImportantArticleArea />
       </ContentsBox>
       <ContentsBox>
         <ArticleArea />
