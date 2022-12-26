@@ -27,7 +27,12 @@ const TotalCondition: FC<{ period: Period; onClick: () => void }> = ({
   const { data } = useSWR([url, periodPath], fetcherWithPath);
 
   return (
-    <TotalConditionView reduction={data} period={period} onClick={onClick} />
+    <TotalConditionView
+      targetValue={10}
+      reduction={data}
+      period={period}
+      onClick={onClick}
+    />
   );
 };
 

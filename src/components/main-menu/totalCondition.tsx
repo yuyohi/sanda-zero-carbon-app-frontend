@@ -14,10 +14,16 @@ export type ReductionCondition = {
 export type ConditionProp = {
   period: Period;
   reduction?: ReductionCondition;
+  targetValue: number;
   onClick: () => void;
 };
 
-const TotalCondition: FC<ConditionProp> = ({ reduction, period, onClick }) => (
+const TotalCondition: FC<ConditionProp> = ({
+  reduction,
+  period,
+  targetValue,
+  onClick,
+}) => (
   <Box
     sx={{ textAlign: 'center', width: { sm: '30%', xs: '50%' } }}
     onClick={onClick}
@@ -64,6 +70,14 @@ const TotalCondition: FC<ConditionProp> = ({ reduction, period, onClick }) => (
         </Grid>
       </Grid>
     </Card>
+    <Typography
+      sx={{
+        fontFamily: ['Yusei Magic', 'sans-serif'].join(','),
+        fontSize: { xs: '1.0em', md: '1.2em', lg: '1.5em' },
+      }}
+    >
+      今月の目標: {targetValue}kg
+    </Typography>
   </Box>
 );
 
