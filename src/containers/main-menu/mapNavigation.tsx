@@ -82,7 +82,7 @@ const MapNavigation: FC = () => {
         </Button>
         <IconButton>
           <Button onClick={handleOpen}>
-            <img src={detailIcon} alt="詳細" />
+            <img src={detailIcon} alt="詳細" height="50px" />
           </Button>
         </IconButton>
         <Button onClick={goForward}>
