@@ -15,7 +15,6 @@ import React from 'react';
 import {
   bodyArticleBigTypographyStyle,
   bodyArticleSmallTypographyStyle,
-  // bodyArticleTypographyStyle,
   titleTypographyStyle,
 } from '../../utils/customStyles';
 import { Article } from '../../utils/TypeDefinition';
@@ -31,12 +30,7 @@ const ArticleCard = styled(Box)({
 });
 
 const ArticleReadButton = styled('button')({
-  // borderRadius: '5%',
   backgroundColor: '#F79428',
-  // borderTop: '4px solid #C78B5D',
-  // borderRight: '4px solid #946746',
-  // borderBottom: '4px solid #946746',
-  // borderLeft: '4px solid #C78B5D',
   padding: '0%',
   margin: '1%',
   width: '100%',
