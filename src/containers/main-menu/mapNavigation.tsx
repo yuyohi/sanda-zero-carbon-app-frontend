@@ -11,6 +11,7 @@ import userState from '../../atoms/userAtom';
 import Response from '../../utils/response';
 import forward from '../../assets/forward.png';
 import backward from '../../assets/backward.png';
+import detailIcon from '../../assets/magnifying_glass.svg';
 
 const fetchMapInformation = async (
   locationNumber: number,
@@ -80,7 +81,9 @@ const MapNavigation: FC = () => {
           <img src={backward} alt="戻る" height="100%" width="100%" />
         </Button>
         <IconButton>
-          <Button onClick={handleOpen}>詳細</Button>
+          <Button onClick={handleOpen}>
+            <img src={detailIcon} alt="詳細" />
+          </Button>
         </IconButton>
         <Button onClick={goForward}>
           <img src={forward} alt="進む" height="100%" width="100%" />
