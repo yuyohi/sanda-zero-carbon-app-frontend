@@ -25,7 +25,6 @@ const ArticleCard = styled(Box)({
   borderRadius: '0.5em',
   backgroundColor: '#fffcd2',
   padding: '2%',
-  width: '100%',
   height: '100%',
 });
 
@@ -33,8 +32,7 @@ const ArticleReadButton = styled('button')({
   backgroundColor: '#F79428',
   padding: '0%',
   margin: '1%',
-  width: '100%',
-  aspectRatio: '4 / 1',
+  aspectRatio: '3 / 1',
   justifyContent: 'center',
 });
 
@@ -56,12 +54,29 @@ const ArticleListView = (props: { article: Article }) => {
   return (
     <Grid item xs={12} key={article.title}>
       <ArticleReadButton onClick={() => handleClickAchieve()}>
-        <ArticleCard>
-          <Grid sx={{ display: 'flex', justifyContent: 'space-between' }}>
+        <ArticleCard
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            justify: 'center',
+          }}
+        >
+          <Grid
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              justify: 'center',
+            }}
+          >
             <Grid item xs={3.5}>
               <img
                 src={article.thumbnailSource}
+                max-width="100%"
                 width="100%"
+                // object-fit="cover"
+                max-height="100%"
                 alt={article.title}
               />
             </Grid>
@@ -70,8 +85,6 @@ const ArticleListView = (props: { article: Article }) => {
               <Typography
                 sx={{
                   ...titleTypographyStyle,
-                  display: 'flex',
-                  justifyContent: 'left',
                   color: 'black',
                 }}
               >
@@ -82,7 +95,6 @@ const ArticleListView = (props: { article: Article }) => {
                 sx={{
                   ...bodyArticleSmallTypographyStyle,
                   display: 'flex',
-                  justifyContent: 'left',
                 }}
               >
                 {article.postedAt.toString().split('T')[0]}
@@ -90,8 +102,6 @@ const ArticleListView = (props: { article: Article }) => {
               <Typography
                 sx={{
                   ...bodyArticleBigTypographyStyle,
-                  display: 'flex',
-                  justifyContent: 'left',
                   color: 'black',
                 }}
               >

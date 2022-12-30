@@ -27,7 +27,7 @@ const ArticleArea = () => {
   return (
     <Card sx={{ backgroundColor: '#F2F2F2' }}>
       <CardHeader
-        title="記事"
+        title="おしらせ"
         titleTypographyProps={{
           fontFamily: ['Yusei Magic', 'sans-serif'].join(','),
           fontSize: { xs: '1.2em', md: '1.5em', lg: '2.0em' },
