@@ -1,9 +1,11 @@
 import { FC } from 'react';
 import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
 import { Container, styled } from '@mui/material';
 import TotalCondition from './totalCondition';
 import Map from './map';
 import MapNavigation from './mapNavigation';
+import LevelStatus from './levelStatus';
 import CustomAppBar from '../../components/customAppBar';
 
 const BodyBox = styled(Box)({
@@ -22,14 +24,33 @@ const MainMenu: FC = () => (
     <ContentsBox>
       <CustomAppBar />
     </ContentsBox>
-    <Container sx={{ height: '50vh', alignItems: 'center', display: 'flex' }}>
+    <Grid container spacing={4}>
+      <Grid item xs={1}>
+        <span />
+      </Grid>
+      <Grid item xs={2.5}>
+        <LevelStatus />
+      </Grid>
+      <Grid item xs={0.5}>
+        <span />
+      </Grid>
+    </Grid>
+    <Container
+      sx={{
+        height: { xs: '70vh', lg: '50vh' },
+        alignItems: 'center',
+        display: 'flex',
+      }}
+    >
       <Map />
     </Container>
     <Box
       sx={{
         display: 'flex',
+        position: 'absolute',
         left: 0,
         right: 0,
+        bottom: '10%',
         alignItems: 'center',
       }}
     >
