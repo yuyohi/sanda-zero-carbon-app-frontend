@@ -28,6 +28,14 @@ const TotalCondition: FC<ConditionProp> = ({
     sx={{ textAlign: 'center', width: { sm: '30%', xs: '50%' } }}
     onClick={onClick}
   >
+    <Typography
+      sx={{
+        fontFamily: ['Yusei Magic', 'sans-serif'].join(','),
+        fontSize: { xs: '1.0em', md: '1.2em', lg: '1.5em' },
+      }}
+    >
+      今月の目標: {targetValue}kg
+    </Typography>
     <Card
       sx={{
         padding: 3,
@@ -70,14 +78,6 @@ const TotalCondition: FC<ConditionProp> = ({
         </Grid>
       </Grid>
     </Card>
-    <Typography
-      sx={{
-        fontFamily: ['Yusei Magic', 'sans-serif'].join(','),
-        fontSize: { xs: '1.0em', md: '1.2em', lg: '1.5em' },
-      }}
-    >
-      今月の目標: {targetValue}kg
-    </Typography>
   </Box>
 );
 

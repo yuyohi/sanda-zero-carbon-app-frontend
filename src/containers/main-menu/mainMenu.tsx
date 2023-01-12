@@ -57,7 +57,10 @@ const MainMenu: FC = () => (
       <div style={{ width: 20 }} />
       <TotalCondition />
       <div style={{ flexGrow: 1 }} />
-      <MapNavigation />
+      <Box>
+        <div style={{ height: 100 }} />
+        <MapNavigation />
+      </Box>
       <div style={{ width: 10 }} />
     </Box>
   </BodyBox>
