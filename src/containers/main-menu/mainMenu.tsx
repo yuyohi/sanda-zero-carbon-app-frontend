@@ -54,14 +54,12 @@ const MainMenu: FC = () => (
         alignItems: 'center',
       }}
     >
-      <div style={{ width: 20 }} />
       <TotalCondition />
       <div style={{ flexGrow: 1 }} />
-      <Box>
+      <Box width={{ xs: '80%', sm: '25%' }}>
         <div style={{ height: 100 }} />
         <MapNavigation />
       </Box>
-      <div style={{ width: 10 }} />
     </Box>
   </BodyBox>
 );
