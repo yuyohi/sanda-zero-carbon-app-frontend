@@ -37,9 +37,10 @@ const MainMenu: FC = () => (
     </Grid>
     <Container
       sx={{
-        height: { xs: '30vh', sm: '50vh' },
+        height: { xs: '30vh', sm: '40vh', md: '30vh' },
         alignItems: 'center',
         display: 'flex',
+        width: { xs: '100%', sm: '80%', md: '70%' },
       }}
     >
       <Map />
@@ -56,7 +57,7 @@ const MainMenu: FC = () => (
     >
       <TotalCondition />
       <div style={{ flexGrow: 1 }} />
-      <Box width={{ xs: '80%', sm: '25%' }}>
+      <Box width={{ xs: '80%', sm: '50%', md: '30%' }}>
         <div style={{ height: 100 }} />
         <MapNavigation />
       </Box>
