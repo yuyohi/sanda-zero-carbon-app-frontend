@@ -37,7 +37,7 @@ const MainMenu: FC = () => (
     </Grid>
     <Container
       sx={{
-        height: { xs: '30vh', sm: '40vh', md: '30vh' },
+        height: { xs: '45vh', sm: '40vh', md: '30vh' },
         alignItems: 'center',
         display: 'flex',
         width: { xs: '100%', sm: '80%', md: '70%' },

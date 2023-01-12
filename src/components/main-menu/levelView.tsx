@@ -25,6 +25,9 @@ const LevelView: FC<Status> = ({ level, expProgress, userId }) => (
     <Typography
       variant="h5"
       component="h5"
+      height="1em"
+      width="140px"
+      fontSize="20px"
       sx={{
         textAlign: 'center',
         margin: '10px',
