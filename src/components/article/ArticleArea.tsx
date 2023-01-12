@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, Grid, Typography } from '@mui/material';
+import { Card, CardContent, CardHeader, Typography } from '@mui/material';
 import ky from 'ky';
 import { useQuery } from 'react-query';
 import Response from '../../utils/response';
@@ -36,19 +36,9 @@ const ArticleArea = () => {
         sx={{ backgroundColor: '#FFFF64' }}
       />
       <CardContent>
-        <Grid
-          container
-          spacing={1}
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          {articleList.map((article) => (
-            <ArticleListView article={article} />
-          ))}
-        </Grid>
+        {articleList.map((article) => (
+          <ArticleListView article={article} />
+        ))}
       </CardContent>
     </Card>
   );
