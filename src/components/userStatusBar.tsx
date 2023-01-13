@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { styled } from '@mui/system';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, useMediaQuery } from '@mui/material';
 import ky from 'ky';
 import { useQuery } from 'react-query';
 import { useRecoilValue } from 'recoil';
@@ -10,13 +10,11 @@ import { UserDto, UserLevelStatus } from '../utils/TypeDefinition';
 import Response from '../utils/response';
 
 import userState from '../atoms/userAtom';
+import theme from '../theme/theme';
 
 const StatusBarBox = styled(Box)({
   backgroundColor: 'transparent',
-  width: '150px',
-  position: 'absolute',
-  top: '-40px',
-  right: '-40px',
+  position: 'fixed',
   zIndex: 10,
 });
 
@@ -39,6 +37,7 @@ const useLevelStatus = (uid: string) =>
 
 const UserStatusBar = () => {
   const uid: string = useRecoilValue(userState);
+  const matches: boolean = useMediaQuery(() => theme.breakpoints.up('md'));
 
   const { data, isLoading } = useLevelStatus(uid);
 
@@ -48,12 +47,21 @@ const UserStatusBar = () => {
 
   const { level, levelRate, nextLevelPercentage } = data as UserLevelStatus;
 
+  const circlewidth = matches ? 200 : 150;
+  const fontSize = matches ? 26 : 20;
+
   return (
-    <StatusBarBox>
+    <StatusBarBox
+      sx={{
+        top: { xs: '-30px' },
+        right: { xs: '-30px' },
+        width: circlewidth,
+      }}
+    >
       <Box
         sx={{
-          width: 150,
-          height: 150,
+          width: circlewidth,
+          height: circlewidth,
           borderRadius: 50,
           backgroundColor: '#ffffff',
           position: 'absolute',
@@ -63,17 +71,16 @@ const UserStatusBar = () => {
           justifyContent: 'center',
         }}
       >
-        <Box sx={{ width: '150px', display: 'block', textAlign: 'center' }}>
-          <Typography sx={{ fontSize: 20 }}>Lv.{level}</Typography>
-          <Typography sx={{ fontSize: 20 }}>{uid}</Typography>
-          <Typography sx={{ fontSize: 20 }}>{40}%</Typography>
+        <Box sx={{ display: 'block', textAlign: 'center' }}>
+          <Typography sx={{ fontSize: { fontSize } }}>Lv.{level}</Typography>
+          <Typography sx={{ fontSize: { fontSize } }}>{uid}</Typography>
+          <Typography sx={{ fontSize: { fontSize } }}>{40}%</Typography>
         </Box>
       </Box>
       <LiquidFillGauge
-        width={150}
-        height={150}
+        width={circlewidth}
+        height={circlewidth}
         value={40}
-        textOffsetY={40}
         textSize={0}
         waveAnimation
         circleStyle={{ fill: '#FF8F50' }}
