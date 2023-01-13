@@ -7,7 +7,8 @@ import quiz from '../assets/quiz_icon.png';
 import lookback from '../assets/lookback_icon.png';
 import article from '../assets/article_icon.png';
 import { AppBarSetting } from '../utils/TypeDefinition';
-import AccordionMenu from './accordionMenu';
+
+import UserStatusBar from './userStatusBar';
 
 const customAppBar = () => {
   const ButtonWidth = 100;
@@ -48,25 +49,24 @@ const customAppBar = () => {
   return (
     <AppBar position="static" color="transparent" sx={{ boxShadow: 'initial' }}>
       <Toolbar>
+        <UserStatusBar />
         <Box
           sx={{
             my: 2,
-            justifyContent: 'space-between',
-            display: 'flex',
             width: '100%',
           }}
         >
           <Box
-            sx={{ width: '30%', aspectRatio: '389 / 219', maxWidth: '350px' }}
+            sx={{ width: '50%', aspectRatio: '389 / 219', maxWidth: '350px' }}
           >
             <img src={Logo} alt="site logo" width="100%" />
           </Box>
 
           <Box
             sx={{
-              width: '65%',
-              display: { sm: 'flex', xs: 'none' },
-              justifyContent: 'end',
+              width: '100%',
+              display: 'flex',
+              justifyContent: 'center',
             }}
           >
             {appBarSettings.map((setting) => (
@@ -77,18 +77,9 @@ const customAppBar = () => {
                 sx={{ backgroundColor: 'transparent', maxWidth: '180px' }}
                 key={setting.alt}
               >
-                <img src={setting.src} alt={setting.alt} width="100%" />
+                <img src={setting.src} alt={setting.alt} width="130%" />
               </Button>
             ))}
-          </Box>
-          <Box
-            sx={{
-              width: '65%',
-              display: { sm: 'none', xs: 'flex' },
-              justifyContent: 'end',
-            }}
-          >
-            <AccordionMenu />
           </Box>
         </Box>
       </Toolbar>
