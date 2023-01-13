@@ -38,7 +38,13 @@ const LevelStatus: FC = () => {
     void fetchUserStatus();
   }, [userId]);
 
-  return <LevelView level={status?.level} expProgress={status?.expProgress} />;
+  return (
+    <LevelView
+      level={status?.level}
+      expProgress={status?.expProgress}
+      userId={userId}
+    />
+  );
 };
 
 export default LevelStatus;

@@ -55,7 +55,7 @@ type Quiz = {
   point: number;
   tagId: number;
   keyword: string;
-  correctAns: string;
+  correctAnsNum: number;
 };
 
 type QuizCategory = 'unanswer' | 'incorrect' | 'correct';
@@ -80,12 +80,24 @@ type QuizAnswer = {
   point: number;
   tagId: number;
   keyword: string;
-  correctAns: string;
+  correctAnsNum: number;
   answeredAt: string;
   answeredQuizId: number;
   isCorrect: boolean;
-  userAns: string;
+  userAnsNum: number;
   userId: string;
+};
+
+type Article = {
+  // Articleのtype定義
+  articleId: number;
+  title: string;
+  tagId: number;
+  description: string;
+  postedAt: Date;
+  thumbnailSource: string;
+  isImportant: boolean;
+  url: string;
 };
 
 export type {
@@ -99,4 +111,5 @@ export type {
   CategorizeQuiz,
   QuizCategory,
   QuizAnswer,
+  Article,
 };

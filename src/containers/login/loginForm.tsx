@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -9,6 +9,7 @@ import userState from '../../atoms/userAtom';
 import drawBottomNavigationState from '../../atoms/bottomNavigationAtom';
 import LoginFormView, {
   LoginFormInput,
+  LoginState,
 } from '../../components/login/loginForm';
 import type Response from '../../utils/response';
 
@@ -29,6 +30,7 @@ const LoginForm: FC = () => {
   const setUserId = useSetRecoilState(userState);
   const setDrawBottomNavigation = useSetRecoilState(drawBottomNavigationState);
   const navigate = useNavigate();
+  const [loginState, setLoginState] = useState<LoginState>();
 
   const onSubmit: SubmitHandler<LoginFormInput> = ({ id, password }) => {
     const login = async () => {
@@ -47,8 +49,16 @@ const LoginForm: FC = () => {
         setUserId(id);
         setDrawBottomNavigation(true);
         navigate('../menu');
+      } else if (response.code === 'E11') {
+        setLoginState({
+          success: false,
+          message: 'ユーザーIDもしくはパスワードが間違っています。',
+        });
       } else {
-        // TODO: ログインに失敗したときの処理
+        setLoginState({
+          success: false,
+          message: '何らかのエラーが発生しました。',
+        });
       }
     };
 
@@ -61,6 +71,7 @@ const LoginForm: FC = () => {
       onSubmit={onSubmit}
       register={register}
       errors={errors}
+      loginState={loginState}
     />
   );
 };

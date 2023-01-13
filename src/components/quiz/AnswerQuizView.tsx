@@ -12,7 +12,7 @@ import incorrect from '../../assets/quiz_incorrect.png';
 
 type AnswerQuizPayload = {
   uid: string;
-  ans: string;
+  ansNum: number;
   qid: number;
 };
 
@@ -41,7 +41,7 @@ const useAnswerQuizMutation = (
         .post(`${import.meta.env.VITE_APP_API_URL}/quiz/answer`, {
           json: {
             quizId: payload.qid,
-            userAns: payload.ans,
+            userAnsNum: payload.ansNum,
             userId: payload.uid,
           },
         })
@@ -73,14 +73,14 @@ const AnswerQuizView = (props: {
   const { mutate } = useAnswerQuizMutation(setQuizAns);
 
   // eslint-disable-next-line no-shadow
-  const onClick = (uid: string, ans: string, qid: number) => {
-    mutate({ uid, ans, qid });
+  const onClick = (uid: string, ansNum: number, qid: number) => {
+    mutate({ uid, ansNum, qid });
   };
 
   if (quizAns) {
     return (
       <Box sx={{ p: '1%' }}>
-        {quizAns.correctAns === quizAns.userAns ? (
+        {quizAns.correctAnsNum === quizAns.userAnsNum ? (
           <img src={correct} alt="quiz_correct" width="50%" />
         ) : (
           <img src={incorrect} alt="quiz_incorrect" width="50%" />
@@ -105,7 +105,7 @@ const AnswerQuizView = (props: {
             p: '1%',
           }}
         >
-          あなたの答え: <em>{quizAns.userAns}</em>
+          あなたの答え: <em>{quiz.answerList[quizAns.userAnsNum]}</em>
         </Typography>
         <Typography
           sx={{
@@ -115,7 +115,7 @@ const AnswerQuizView = (props: {
             p: '1%',
           }}
         >
-          正しい答え: <strong>{quizAns.correctAns}</strong>
+          正しい答え: <strong>{quiz.answerList[quizAns.correctAnsNum]}</strong>
         </Typography>
         <Typography
           sx={{
@@ -163,7 +163,7 @@ const AnswerQuizView = (props: {
         {quiz.answerList.map((ans, index) => (
           <Grid item xs={6}>
             <Button
-              onClick={() => onClick(uid, ans, quiz.quizId)}
+              onClick={() => onClick(uid, index, quiz.quizId)}
               sx={{ width: '100%' }}
             >
               <AnswerButtonBox
