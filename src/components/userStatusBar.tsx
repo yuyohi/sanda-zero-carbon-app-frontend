@@ -1,56 +1,23 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { styled } from '@mui/system';
-import { Box, LinearProgress, Stack, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import ky from 'ky';
 import { useQuery } from 'react-query';
 import { useRecoilValue } from 'recoil';
+import LiquidFillGauge from 'react-liquid-gauge';
 import { UserDto, UserLevelStatus } from '../utils/TypeDefinition';
 
 import Response from '../utils/response';
-import circleImg from '../assets/background_circle.png';
-import circleImg2 from '../assets/background_circle2.png';
-import {
-  bodySmallTypographyStyle,
-  bodyTypographyStyle,
-} from '../utils/customStyles';
+
 import userState from '../atoms/userAtom';
-import DailyLimitPoint from './mission/DailyLimitPoint';
 
 const StatusBarBox = styled(Box)({
-  aspectRatio: '6 / 1',
-  display: 'flex',
-  padding: '2%',
-  backgroundColor: '#F4FFD3',
-  outline: 'double 0.3em green',
-  outlineOffset: '-0.4em',
-  boxShadow: '0px 0px 0px 0.01em',
-  borderRadius: '0.5em',
-  width: '100%',
-});
-
-const LevelBox = styled(Box)({
-  backgroundImage: `url(${circleImg})`,
-  backgroundSize: '100% 100%',
-  aspectRatio: '1 / 1',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  width: '13.5%',
-});
-
-const UserNameBox = styled(Box)({
-  backgroundImage: `url(${circleImg2})`,
-  backgroundSize: '100% 100%',
-  aspectRatio: '1 / 1',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  width: '13.5%',
-});
-
-const LevelBarBox = styled(Box)({
-  width: '50%',
-  height: '80%',
-  marginLeft: '5%',
+  backgroundColor: 'transparent',
+  width: '150px',
+  position: 'absolute',
+  top: '-40px',
+  right: '-40px',
+  zIndex: 10,
 });
 
 // ユーザレベルステータス取得用カスタムフック
@@ -83,38 +50,36 @@ const UserStatusBar = () => {
 
   return (
     <StatusBarBox>
-      <LevelBox>
-        <Typography sx={{ ...bodyTypographyStyle }}>
-          {' '}
-          Level : {level}
-        </Typography>
-      </LevelBox>
-      <UserNameBox>
-        <Stack sx={{ textAlign: 'center' }}>
-          <Typography sx={{ ...bodyTypographyStyle }}>ユーザ名</Typography>
-          <Typography sx={{ ...bodyTypographyStyle }}>{uid}</Typography>
-        </Stack>
-      </UserNameBox>
-      <LevelBarBox>
-        <Stack
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-          }}
-        >
-          <Typography sx={{ ...bodyTypographyStyle }}>
-            次のレベルまで
-          </Typography>
-          <LinearProgress
-            variant="determinate"
-            value={nextLevelPercentage * 100}
-          />
-          <Typography sx={{ ...bodySmallTypographyStyle }}>
-            {levelRate - levelRate * nextLevelPercentage} ポイント
-          </Typography>
-          <DailyLimitPoint />
-        </Stack>
-      </LevelBarBox>
+      <Box
+        sx={{
+          width: 150,
+          height: 150,
+          borderRadius: 50,
+          backgroundColor: '#ffffff',
+          position: 'absolute',
+          zIndex: -1,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Box sx={{ width: '150px', display: 'block', textAlign: 'center' }}>
+          <Typography sx={{ fontSize: 20 }}>Lv.{level}</Typography>
+          <Typography sx={{ fontSize: 20 }}>{uid}</Typography>
+          <Typography sx={{ fontSize: 20 }}>{40}%</Typography>
+        </Box>
+      </Box>
+      <LiquidFillGauge
+        width={150}
+        height={150}
+        value={40}
+        textOffsetY={40}
+        textSize={0}
+        waveAnimation
+        circleStyle={{ fill: '#FF8F50' }}
+        waveStyle={{ fill: 'rgba(80, 255, 255, 0.4)' }}
+        waveTextStyle={{ fill: 'black' }}
+      />
     </StatusBarBox>
   );
 };

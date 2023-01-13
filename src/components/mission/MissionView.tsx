@@ -6,12 +6,11 @@ import DailyMissionList from './DailyMissionList';
 import MissionList from './MissonList';
 
 import CustomAppBar from '../customAppBar';
-import UserStatusBar from '../userStatusBar';
 
 const BodyBox = styled(Box)({
   padding: '2%',
   width: '100vw',
-  maxWidth: '2560px',
+  maxWidth: '1024px',
   minWidth: '375px',
 });
 
@@ -25,9 +24,7 @@ const MissionView = () => (
       <ContentsBox>
         <CustomAppBar />
       </ContentsBox>
-      <ContentsBox>
-        <UserStatusBar />
-      </ContentsBox>
+
       <ContentsBox>
         <DailyMissionList />
       </ContentsBox>

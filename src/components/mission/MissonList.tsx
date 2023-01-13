@@ -72,6 +72,8 @@ const useMission = (uid: string) =>
       `${import.meta.env.VITE_APP_API_URL}/mission`,
     ).json();
 
+    console.log(response);
+
     return response.result;
   });
 

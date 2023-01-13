@@ -8,10 +8,7 @@ import { useQuery } from 'react-query';
 import { UserDailyStatus } from '../../utils/TypeDefinition';
 import Response from '../../utils/response';
 import userState from '../../atoms/userAtom';
-import {
-  bodySmallTypographyStyle,
-  bodyTypographyStyle,
-} from '../../utils/customStyles';
+import { bodyTypographyStyle } from '../../utils/customStyles';
 
 const useDailyStatus = (uid: string) =>
   useQuery(['user', uid, 'dailyPoint'], async () => {
@@ -38,13 +35,10 @@ const DailyLimitPoint = () => {
 
   return (
     <>
-      <Typography sx={{ ...bodyTypographyStyle }}>
-        本日の獲得ポイント
+      <Typography sx={{ ...bodyTypographyStyle, marginBottom: '3%' }}>
+        本日の獲得ポイント {dailyMissionPoint} / {dailyMaxMissionPoint}Pt
       </Typography>
       <LinearProgress variant="determinate" value={dailyMissionPersentage} />
-      <Typography sx={{ ...bodySmallTypographyStyle }}>
-        {dailyMissionPoint} / {dailyMaxMissionPoint}
-      </Typography>
     </>
   );
 };

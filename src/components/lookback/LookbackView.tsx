@@ -109,9 +109,6 @@ const LookbackView = () => {
         <CustomAppBar />
       </ContentsBox>
       <ContentsBox>
-        <UserStatusBar />
-      </ContentsBox>
-      <ContentsBox>
         <Grid container spacing={1}>
           <Grid item xs={12}>
             {achievementMap && (

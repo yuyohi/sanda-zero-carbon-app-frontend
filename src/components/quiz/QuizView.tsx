@@ -2,13 +2,12 @@ import { Box, Stack } from '@mui/material';
 import { styled } from '@mui/system';
 
 import CustomAppBar from '../customAppBar';
-import UserStatusBar from '../userStatusBar';
 import QuizArea from './QuizArea';
 
 const BodyBox = styled(Box)({
   padding: '2%',
   width: '100vw',
-  maxWidth: '2560px',
+  maxWidth: '1440px',
   minWidth: '375px',
 });
 
@@ -21,9 +20,6 @@ const QuizView = () => (
     <Stack>
       <ContentsBox>
         <CustomAppBar />
-      </ContentsBox>
-      <ContentsBox>
-        <UserStatusBar />
       </ContentsBox>
       <ContentsBox>
         <QuizArea />
