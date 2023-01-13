@@ -19,21 +19,35 @@ import {
 } from '../../utils/customStyles';
 import { Article } from '../../utils/TypeDefinition';
 
+const ArticleReadButton = styled(Button)({
+  backgroundColor: '#F79428',
+  outlineOffset: '-0.3em',
+  borderRadius: '0.5em',
+  margin: '1%',
+  padding: '0.1%',
+  aspectRatio: '3 / 1',
+  width: '100%',
+});
+
 const ArticleCard = styled(Box)({
   outline: 'dashed 0.1em orange',
   outlineOffset: '-0.3em',
   borderRadius: '0.5em',
   backgroundColor: '#fffcd2',
   padding: '2%',
-  height: '100%',
+  aspectRatio: '3 / 1',
+  width: '100%',
 });
 
-const ArticleReadButton = styled('button')({
-  backgroundColor: '#F79428',
-  padding: '0%',
-  margin: '1%',
-  aspectRatio: '3 / 1',
-  justifyContent: 'center',
+const ArticleText = styled(Typography)({
+  overflow: 'hidden',
+  color: 'black',
+  textAlign: 'left',
+  height: '3.2em',
+  lineHeight: 1.6,
+  display: '-webkit-box',
+  WebkitBoxOrient: 'vertical',
+  WebkitLineClamp: 2,
 });
 
 const ArticleListView = (props: { article: Article }) => {
@@ -52,44 +66,40 @@ const ArticleListView = (props: { article: Article }) => {
   };
 
   return (
-    <Grid item xs={12} key={article.title}>
+    <>
       <ArticleReadButton onClick={() => handleClickAchieve()}>
-        <ArticleCard
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            justify: 'center',
-          }}
-        >
+        <ArticleCard>
           <Grid
+            container
+            spacing={2}
+            xs={12}
+            key={article.title}
             sx={{
+              height: '100%',
               display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              justify: 'center',
+              alignItems: 'center', // 上下中央寄せ
+              justifyContent: 'space-between', // 左右中央寄せ
             }}
           >
-            <Grid item xs={3.5}>
+            <Grid item xs={4.5}>
               <img
                 src={article.thumbnailSource}
-                max-width="100%"
-                width="100%"
-                // object-fit="cover"
-                max-height="100%"
+                style={{
+                  maxHeight: '100%',
+                  maxWidth: '100%',
+                }}
                 alt={article.title}
               />
             </Grid>
 
             <Grid item xs={7.5}>
-              <Typography
+              <ArticleText
                 sx={{
                   ...titleTypographyStyle,
-                  color: 'black',
                 }}
               >
                 {article.title}
-              </Typography>
+              </ArticleText>
               <Divider />
               <Typography
                 sx={{
@@ -99,14 +109,9 @@ const ArticleListView = (props: { article: Article }) => {
               >
                 {article.postedAt.toString().split('T')[0]}
               </Typography>
-              <Typography
-                sx={{
-                  ...bodyArticleBigTypographyStyle,
-                  color: 'black',
-                }}
-              >
+              <ArticleText sx={{ ...bodyArticleBigTypographyStyle }}>
                 {article.description}
-              </Typography>
+              </ArticleText>
             </Grid>
           </Grid>
         </ArticleCard>
@@ -146,7 +151,7 @@ const ArticleListView = (props: { article: Article }) => {
           </DialogActions>
         </Dialog>
       </Typography>
-    </Grid>
+    </>
   );
 };
 
